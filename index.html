@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SportEat Selangor</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;font-family:'Plus Jakarta Sans',sans-serif;overflow:hidden;background:#0a3d1f}
+#hdr{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0a3d1f;height:48px;display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.logo{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo-title{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.2px}
+.logo-sub{font-size:10px;color:#86efac;font-weight:500;letter-spacing:.3px;white-space:nowrap}
+#searchbar{flex:1;max-width:420px;display:flex;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:0 14px;gap:8px}
+#searchbar input{background:none;border:none;outline:none;color:#fff;font-size:13px;font-family:inherit;width:100%;padding:7px 0}
+#searchbar input::placeholder{color:rgba(255,255,255,.5)}
+#vcnt{margin-left:auto;font-size:12px;color:#86efac;font-weight:600;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.dot-green{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0}
+#fbar{position:fixed;top:48px;left:0;right:0;z-index:999;background:#0f4f28;padding:7px 16px;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.1)}
+#fbar::-webkit-scrollbar{display:none}
+.fb{padding:4px 13px;border-radius:999px;font-size:12px;font-weight:600;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.75);cursor:pointer;white-space:nowrap;transition:all .18s}
+.fb:hover{border-color:#22c55e;color:#22c55e}
+.fb.on{background:#22c55e;border-color:#22c55e;color:#0a3d1f}
+#map{position:fixed;top:82px;left:0;right:0;bottom:0;z-index:1}
+#leg{position:fixed;bottom:18px;left:18px;z-index:900;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-radius:10px;padding:10px 14px;font-size:11px;font-weight:600;min-width:150px;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.leg-t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6b7280;margin-bottom:7px}
+.leg-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;color:#374151}
+.leg-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+#rpanel{position:fixed;top:82px;right:-400px;bottom:0;width:360px;background:#fff;z-index:500;display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.15);transition:right .32s cubic-bezier(.4,0,.2,1);border-radius:16px 0 0 0}
+#rpanel.open{right:0}
+.rp-hdr{padding:14px 16px 0;background:#fff;flex-shrink:0;border-bottom:1px solid #f3f4f6}
+.rp-badge{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:4px;background:#0a3d1f;color:#fff;margin-bottom:6px}
+.rp-title{font-size:15px;font-weight:800;color:#111827;line-height:1.25;margin-bottom:3px}
+.rp-addr{font-size:11px;color:#6b7280;margin-bottom:8px}
+.rp-showing{font-size:11px;color:#16a34a;font-weight:600;display:flex;align-items:center;gap:5px;margin-bottom:10px}
+.rp-showing::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.rp-tabs{display:flex;border-bottom:2px solid #f3f4f6}
+.rp-tab{flex:1;padding:9px 8px;text-align:center;font-size:12px;font-weight:700;color:#9ca3af;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .18s}
+.rp-tab.on{color:#16a34a;border-bottom-color:#16a34a}
+#rlist{flex:1;overflow-y:auto;padding:10px;scrollbar-width:thin;scrollbar-color:#e5e7eb transparent}
+#rlist::-webkit-scrollbar{width:4px}
+#rlist::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:2px}
+#rclose{position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:#f3f4f6;border:none;cursor:pointer;font-size:13px;color:#6b7280;display:flex;align-items:center;justify-content:center;transition:background .18s}
+#rclose:hover{background:#e5e7eb}
+.rc{border-radius:12px;overflow:hidden;background:#fff;border:1px solid #f0f0f0;margin-bottom:10px;cursor:pointer;transition:box-shadow .2s,transform .15s}
+.rc:hover{box-shadow:0 8px 24px rgba(0,0,0,.1);transform:translateY(-1px)}
+.rc-img-wrap{position:relative;height:155px;overflow:hidden;background:#f3f4f6}
+.rc-img{width:100%;height:100%;object-fit:cover;display:block}
+.rc-htag{position:absolute;top:8px;left:8px;font-size:10px;font-weight:800;padding:3px 7px;border-radius:4px;color:#fff;letter-spacing:.2px}
+.rc-htag.h{background:#16a34a}
+.rc-htag.nh{background:#dc2626}
+.rc-rtag{position:absolute;top:8px;right:8px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;background:rgba(0,0,0,.55);color:#fff;backdrop-filter:blur(4px)}
+.rc-rec{position:absolute;bottom:8px;left:8px;font-size:10px;font-weight:800;padding:3px 8px;border-radius:4px;background:#eab308;color:#fff}
+.rc-body{padding:9px 11px 11px}
+.rc-name{font-size:13px;font-weight:800;color:#111827;line-height:1.3;margin-bottom:5px}
+.rc-row{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:3px}
+.rc-stars{color:#f59e0b;letter-spacing:-1px}
+.rc-rating{font-weight:700;color:#374151}
+.rc-price{color:#6b7280}
+.rc-dist{margin-left:auto;color:#16a34a;font-weight:700}
+.rc-cuisine{font-size:10px;color:#9ca3af;margin-top:2px}
+.rc-hours-row{font-size:10px;color:#9ca3af;margin-top:3px;display:flex;align-items:center;gap:4px}
+.cc{background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:9px;overflow:hidden}
+.cc-img-wrap{position:relative;height:120px;overflow:hidden;background:#e5e7eb}
+.cc-img{width:100%;height:100%;object-fit:cover;display:block}
+.cc-body{padding:12px}
+.cc-name{font-size:13px;font-weight:800;color:#111827;margin-bottom:5px}
+.cc-tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-bottom:6px;font-weight:700}
+.cc-tag.h{background:#dcfce7;color:#15803d}
+.cc-meta{font-size:11px;color:#6b7280;line-height:1.8}
+.cc-meta b{color:#374151}
+.cc-maps{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;margin-top:9px;padding:8px;background:#0a3d1f;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .18s}
+.cc-maps:hover{background:#166534}
+#doverlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:flex-end;padding:82px 0 0 0}
+#doverlay.show{display:flex}
+#dcard{background:#fff;width:100%;max-width:400px;height:100%;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,.2);animation:slideIn .28s cubic-bezier(.4,0,.2,1)}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.dc-img-wrap{position:relative;height:210px;flex-shrink:0;overflow:hidden}
+.dc-img{width:100%;height:100%;object-fit:cover;display:block}
+.dc-tags{position:absolute;top:12px;left:12px;display:flex;gap:6px}
+.dc-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);color:#fff;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.dc-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:72px;opacity:.35}
+.dc-body{padding:16px}
+.dc-name{font-size:18px;font-weight:800;color:#111827;margin-bottom:8px;line-height:1.2}
+.dc-row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.dc-stars{color:#f59e0b;font-size:15px}
+.dc-rating{font-weight:800;font-size:14px;color:#111827}
+.dc-price{color:#6b7280;font-size:13px}
+.dc-dist{margin-left:auto;background:#dcfce7;color:#15803d;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px}
+.dc-rec-banner{background:#fef9c3;border:1px solid #fde047;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700;color:#854d0e;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.dc-section{border-top:1px solid #f3f4f6;padding-top:12px;margin-top:4px}
+.dc-detail{display:flex;gap:10px;margin-bottom:10px;font-size:13px;align-items:flex-start}
+.dc-icon{flex-shrink:0;width:20px;text-align:center;color:#9ca3af;margin-top:1px}
+.dc-label{font-size:10px;color:#9ca3af;margin-bottom:2px}
+.dc-val{font-weight:600;color:#111827;line-height:1.4}
+.dc-maps-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:13px;background:#0a3d1f;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;text-decoration:none;margin-top:14px;transition:background .18s}
+.dc-maps-btn:hover{background:#166534}
+.fb-section{margin-top:14px;border-top:1px solid #f3f4f6;padding-top:12px}
+.fb-title{font-size:13px;font-weight:700;color:#374151;margin-bottom:8px}
+.star-wrap{display:flex;gap:5px;margin-bottom:10px}
+.star-wrap span{font-size:24px;cursor:pointer;transition:transform .1s;line-height:1;opacity:.4}
+.star-wrap span.lit{opacity:1}
+.star-wrap span:hover{transform:scale(1.2)}
+.fb-input{width:100%;padding:8px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:12px;font-family:inherit;resize:none;height:62px;outline:none;transition:border-color .18s}
+.fb-input:focus{border-color:#16a34a}
+.fb-actions{display:flex;gap:7px;margin-top:7px;align-items:center}
+.hlp-btn{padding:6px 11px;border-radius:6px;font-size:11px;font-weight:700;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;transition:all .18s}
+.hlp-btn:hover{border-color:#16a34a;color:#16a34a}
+.fb-submit{margin-left:auto;padding:7px 15px;border-radius:6px;background:#0a3d1f;color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:background .18s}
+.fb-submit:hover{background:#166534}
+.vp-popup{min-width:220px}
+.vp-sport{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#16a34a;margin-bottom:4px}
+.vp-name{font-size:14px;font-weight:800;color:#111827;margin-bottom:3px}
+.vp-addr{font-size:11px;color:#6b7280;margin-bottom:10px}
+.vp-btn{display:block;width:100%;padding:8px;background:#0a3d1f;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;text-align:center;transition:background .18s}
+.vp-btn:hover{background:#166534}
+.empty{text-align:center;padding:40px 16px;color:#9ca3af}
+.empty-icon{font-size:32px;margin-bottom:10px}
+.empty-txt{font-size:13px;font-weight:600}
+@media(max-width:600px){#rpanel{width:100%;border-radius:0}#dcard{max-width:100%;width:100%}}
+</style>
+</head>
+<body>
+<div id="hdr">
+  <div class="logo">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#22c55e"/><text x="14" y="19" text-anchor="middle" font-size="14" fill="#fff">🏅</text></svg>
+    <div>
+      <div class="logo-title">SportEat Selangor</div>
+      <div class="logo-sub">Sukan Malaysia · Food &amp; Caterer Finder</div>
+    </div>
+  </div>
+  <div id="searchbar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="srch" placeholder="Search sport or venue... e.g. Catur, Bangi, Golf" oninput="onSrch(this.value)"/>
+  </div>
+  <div id="vcnt"><div class="dot-green"></div><span id="vcnt-txt">25 Phase One Venues</span></div>
+</div>
+<div id="fbar">
+  <button class="fb on" data-filter="all" onclick="setFilter('all',this)">All</button>
+  <button class="fb" data-filter="shah alam" onclick="setFilter('shah alam',this)">Shah Alam</button>
+  <button class="fb" data-filter="bangi" onclick="setFilter('bangi',this)">Bangi / UKM</button>
+  <button class="fb" data-filter="klang" onclick="setFilter('klang',this)">Klang</button>
+  <button class="fb" data-filter="sunway" onclick="setFilter('sunway',this)">Sunway / PJ</button>
+  <button class="fb" data-filter="sepang" onclick="setFilter('sepang',this)">Sepang</button>
+  <button class="fb" data-filter="sungai besar" onclick="setFilter('sungai besar',this)">Sg. Besar</button>
+  <button class="fb" data-filter="kuala selangor" onclick="setFilter('kuala selangor',this)">Kuala Selangor</button>
+  <button class="fb" data-filter="serdang" onclick="setFilter('serdang',this)">Serdang</button>
+  <button class="fb" data-filter="sungai buloh" onclick="setFilter('sungai buloh',this)">Sg. Buloh</button>
+  <button class="fb" data-filter="petaling jaya" onclick="setFilter('petaling jaya',this)">Petaling Jaya</button>
+  <button class="fb" data-filter="nilai" onclick="setFilter('nilai',this)">Nilai</button>
+</div>
+<div id="map"></div>
+<div id="leg">
+  <div class="leg-t">Legend</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#16a34a"></div>Sports Venue</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#22c55e;border:2px solid #166534"></div>Selected Venue</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#f59e0b"></div>Halal Restaurant</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#ef4444"></div>Non–Halal</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#a855f7"></div>Caterer</div>
+</div>
+<div id="rpanel">
+  <button id="rclose" onclick="closePanel()">✕</button>
+  <div class="rp-hdr">
+    <div class="rp-badge" id="rp-badge">Sport</div>
+    <div class="rp-title" id="rp-title">Venue Name</div>
+    <div class="rp-addr" id="rp-addr">Address</div>
+    <div class="rp-showing" id="rp-showing">Showing options on map</div>
+    <div class="rp-tabs">
+      <div class="rp-tab on" id="tab-r" onclick="switchTab('r')">🍽️ Nearby Restaurants</div>
+      <div class="rp-tab" id="tab-c" onclick="switchTab('c')">📦 Caterers</div>
+    </div>
+  </div>
+  <div id="rlist"></div>
+</div>
+<div id="doverlay" onclick="closeDet(event)">
+  <div id="dcard">
+    <div class="dc-img-wrap" id="dc-img-wrap">
+      <div class="dc-fallback" id="dc-fallback">🍽️</div>
+      <img id="dc-main-img" class="dc-img" src="" alt="" style="display:none" onerror="this.style.display='none';document.getElementById('dc-fallback').style.display='flex'">
+      <div class="dc-tags">
+        <span id="dc-htag" class="rc-htag h">Halal</span>
+        <span id="dc-rtag" class="rc-rtag">Restaurant</span>
+      </div>
+      <button class="dc-close" onclick="closeDet2()">✕</button>
+    </div>
+    <div class="dc-body">
+      <div id="dc-rec" class="dc-rec-banner" style="display:none">⭐ Recommended for Athletes!</div>
+      <div class="dc-name" id="dc-name"></div>
+      <div class="dc-row1">
+        <span class="dc-stars" id="dc-stars"></span>
+        <span class="dc-rating" id="dc-rating"></span>
+        <span class="dc-price" id="dc-price"></span>
+        <span class="dc-dist" id="dc-dist"></span>
+      </div>
+      <div class="dc-section">
+        <div class="dc-detail"><span class="dc-icon">🍽️</span><div><div class="dc-label">Cuisine Type</div><div class="dc-val" id="dc-cuisine"></div></div></div>
+        <div class="dc-detail"><span class="dc-icon">🕒</span><div><div class="dc-label">Opening Hours</div><div class="dc-val" id="dc-hours"></div></div></div>
+        <div class="dc-detail"><span class="dc-icon">📞</span><div><div class="dc-label">Contact</div><div class="dc-val" id="dc-contact"></div></div></div>
+        <div class="dc-detail"><span class="dc-icon">📍</span><div><div class="dc-label">Address</div><div class="dc-val" id="dc-address"></div></div></div>
+        <div class="dc-detail"><span class="dc-icon">✅</span><div><div class="dc-label">Availability</div><div class="dc-val" id="dc-avail"></div></div></div>
+        <div class="dc-detail"><span class="dc-icon">🥗</span><div><div class="dc-label">Vegetarian</div><div class="dc-val" id="dc-veg"></div></div></div>
+      </div>
+      <a id="dc-maps" class="dc-maps-btn" href="#" target="_blank">🗺️ View on Google Maps</a>
+      <div class="fb-section">
+        <div class="fb-title">⭐ Rate this restaurant</div>
+        <div class="star-wrap" id="stars">
+          <span onclick="setStar(1)">★</span><span onclick="setStar(2)">★</span>
+          <span onclick="setStar(3)">★</span><span onclick="setStar(4)">★</span><span onclick="setStar(5)">★</span>
+        </div>
+        <textarea class="fb-input" id="fb-txt" placeholder="Leave a review..."></textarea>
+        <div class="fb-actions">
+          <button class="hlp-btn" onclick="markH(true)">👍 Helpful</button>
+          <button class="hlp-btn" onclick="markH(false)">👎 Not helpful</button>
+          <button class="fb-submit" onclick="submitFB()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// ===== IMAGE LOOKUP by restaurant/caterer name =====
+const IMG = {
+  'Chan Seng Kopitiam 大港昌盛面档': 'images/Chan%20Seng%20Kopitiam%20%23U5927%23U6e2f%23U660c%23U76db%23U9762%23U6863.png',
+  'The Chicken Rice Shop Sungai Besar': null,
+  'Nam Tai Restaurant': 'images/Nam%20Tai%20Restaurant.png',
+  'Some Place For Family & Eat Local Food': null,
+  'Restoran Loke Ann': 'images/Restoran%20Loke%20Ann.png',
+  'Qun Chuan Seafood Restaurant': 'images/Qun%20Chuan%20Seafood%20Restaurant.png',
+  'Mama Mee Yah Sungai Besar': 'images/Mama%20Mee%20Yah%20Sungai%20Besar.png',
+  'Hot Meal Bah': 'images/Hot%20Meal%20Bah.png',
+  'Mohd Chan Restaurant @ Bandar Baru Bangi': 'images/Mohd%20Chan%20Restaurant%20%40%20Bandar%20Baru%20Bangi.jpg',
+  'Warung Kita@Bangi': null,
+  'Mixed Rice (Wong & Teh)': 'images/Mixed%20Rice%20%28Wong%20%26%20Teh%29.png',
+  'Restoran Mak Kimbong – Sotong & Ikan Bakar': null,
+  'Restoran D\' Limau Nipis (Bangi)': 'images/Restoran%20D%23U2019%20Limau%20Nipis%20%28Bangi%29.png',
+  'Restoran Lao Ma Zi 老妈子饭店': 'images/Restoran%20Lao%20Ma%20Zi%20%23U2022%20%23U8001%23U5988%23U5b50%23U996d%23U5e97.webp',
+  'BACC Seafood': 'images/BACC%20Seafood.png',
+  'Mohd Chan Restaurant @ Putrajaya': 'images/Mohd%20Chan%20Restaurant%20%40%20Putrajaya.png',
+  'Restoran D\' Limau Nipis': 'images/Restoran%20D%23U2019%20Limau%20Nipis%20%28Bangi%29.png',
+  'Mr. Khan Traditional Arabic & Pakistani Cuisine': 'images/Mr.%20Khan%20Traditional%20Arabic%20%26%20Pakistani%20Cuisine.png',
+  'Wonderful Moment Restaurant 美好时刻餐厅': null,
+  'Restaurant Kaarraikudi Chettis': 'images/Restaurant%20Kaarraikudi%20Chettis.png',
+  'Warung D\'Masjid': null,
+  'Padi House, Giant Shah Alam': 'images/Padi%20House%2C%20Giant%20Shah%20Alam.jpg',
+  'Homst Shah Alam (Chinese Muslim Restaurant)': 'images/Homst%20Shah%20Alam%20%28Chinese%20Muslim%20Restaurant%29.png',
+  'Mohd Chan Restaurant @ Shah Alam Seksyen 15': 'images/Mohd%20Chan%20Restaurant%20%40%20Shah%20Alam%20Seksyen%2015.png',
+  'BananaBro • AEON Shah Alam': 'images/BananaBro%20%23U2022%20%23U00c6ON%20Shah%20Alam.png',
+  'Djakarta Raya Restoran Ayam Bakar': 'images/Djakarta%20Raya%20Restoran%20Ayam%20Bakar%20Seksyen%2013%20Shah%20Alam.png',
+  'You Fan Chi': null,
+  'Restaurant Ho Chai Delight': 'images/Restaurant%20Ho%20Chai%20Delight.png',
+  'Restoran Nan Hong': 'images/Restoran%20Nan%20Hong.png',
+  'Mohd Chan Restaurant – Melawati': 'images/Mohd%20Chan%20Restaurant%20%28esports%29.png',
+  'Mak O Mak Cafe': 'images/Mak%20O%20Mak%20Cafe.png',
+  'Restoran Cikgu Lee': 'images/Restoran%20Cikgu%20Lee.png',
+  'Mee Hiris China Muslim @ Melawati Mall': 'images/Mee%20Hiris%20China%20Muslim%20%40%20Melawati%20Mall.png',
+  'Senda Loka Restaurant & Cafe': 'images/Senda%20Loka%20Restaurant%20%26%20Cafe.png',
+  'NZ Curry House @ Wangsa Maju': 'images/NZ%20Curry%20House%20%40%20Wangsa%20Maju.png',
+  'Restoran Pondok Salero Minang': 'images/Restoran%20Pondok%20Salero%20Minang.png',
+  'Restoran Lawar Seafood': 'images/Restoran%20Lawar%20Seafood.png',
+  'Suhaila Nasi Kerabu Berlauk': null,
+  'Noor Huda Tomyam': 'images/Noor%20Huda%20Tomyam.png',
+  'Homst Setia Alam': 'images/Homst%20Setia%20Alam.png',
+  'LèTen Chinese Muslim Restaurant @ Mitsui Outlet Park': 'images/L%23U00e8Ten%20Chinese%20Muslim%20Restaurant%20%40%20Mitsui%20Outlet%20Park.png',
+  'Brahims Food Services Sdn Bhd': 'images/Brahims%20Food%20Services%20Sdn%20Bhd.png',
+  'My Wok Station': 'images/My%20Wok%20Station.png',
+  'Mohammad Chow Chinese Muslim Kitchen': 'images/Mohammad%20Chow%20Chinese%20Muslim%20Kitchen.png',
+  'Sun Thai Food (Chinese Muslim) @ Sunway Mentari': null,
+  'Speed Char Kuey Teow • Waq Pizza': null,
+  'Nasi Lemak Ayam Goreng Berempah (Ela & Awe)': 'images/Nasi%20Lemak%20Ayam%20Goreng%20Berempah%20%28%20Ela%20%26%20Awe%20%29.png',
+  'Restoran Nur Balqis': 'images/Restoran%20Nur%20Balqis.png',
+  'Al Jamal Restaurant': 'images/Al%20Jamal%20Restaurant.jpg',
+  'Salam Noodles • Nilai': 'images/Salam%20Noodles%20%23U2022%20Nilai.png',
+  'NASI AYAM AQILSHA (NILAI)': 'images/NASI%20AYAM%20AQILSHA%20%28NILAI%29.png',
+  'Yuen Heong Restaurant': null,
+  'Restoran New Tin Mui Young': 'images/Restoran%20New%20Tin%20Mui%20Young%20%23U65b0%23U7f8e%23U9999%23U8336%23U9910%23U5ba4%28%23U516d%23U5341%23U5e74%23U4ee3%29%20New%20Tin%20Mui%20Young%20Restaurant%20%28Since%201960s%29.png',
+  // Caterers
+  'Ahaz_Food_Court_&_Katering': 'img/Ahaz_Food_Court_&_Katering.png',
+  'Uyin Catering': null,
+  'MZ Catering': 'images/MZ%20Catering.jpg',
+  'Arbe Catering': 'images/Arbe%20Catering.jpg',
+  'Restoran Farhanah Catering Kajang': 'images/Restoran%20Farhanah%20Catering%20Taman%20Universiti%20Kajang.png',
+  '7th Sense Caterer': 'images/7th%20Sense%20Caterer.png',
+  'Seri Indah Catering': null,
+  'Venturas Catering': null,
+  'RunningMen Catering': 'images/RunningMen%20Catering.png',
+  'H&H Catering': 'images/H%26H%20Catering.jpg',
+  'iDO Catering': 'images/iDO%20Catering.png',
+  'Mama Cooks Kitchen': 'images/Mama%20Cooks%20Kitchen.png',
+  'Hometaste': 'images/Hometaste.png',
+  'GoClean Healthy Meal Delivery': 'images/GoClean%20Healthy%20Meal%20Delivery.png',
+  'Sayang Express Catering': 'images/Sayang%20Express%20Catering.png',
+  'NS Restaurant & Catering': 'images/NS%20Restaurant%20%26%20Catering.png',
+  'Juriah Food & Catering': 'images/Juriah%20Food%20%26%20Catering.png',
+  'Mama Cafe & Catering': null,
+  'Teaffani Catering': null,
+  'Sajian d-Hidang Catering': 'images/Sajian%20d-Hidang%20Catering.png',
+  'KPR Food Caterers': null,
+  'Orange Catering': null,
+  'Sree Eswara Food Caterers': null,
+  'Ecah Nik Catering': null,
+};
+
+const FOOD_EMOJI={kopitiam:'☕',chicken_rice:'🍗',noodles:'🍜',fried_rice:'🍳',seafood:'🦞',chinese:'🥢',malay:'🫙',mixed_rice:'🍚',tomyam:'🍲',curry:'🍛',grill:'🔥',padang:'🫕',pasta:'🍝',fusion:'🥗',rice_bowl:'🍙',thai:'🌶️',dimsum:'🥟',bento:'🍱',arabic:'🥙',default:'🍽️'};
+const FOOD_BG={kopitiam:'#451a03,#78350f',chicken_rice:'#854d0e,#78350f',noodles:'#7c3aed,#6d28d9',fried_rice:'#78350f,#92400e',seafood:'#0c4a6e,#075985',chinese:'#0c4a6e,#075985',malay:'#166534,#15803d',mixed_rice:'#166534,#15803d',tomyam:'#7f1d1d,#991b1b',curry:'#713f12,#78350f',grill:'#1c1917,#292524',padang:'#14532d,#166534',pasta:'#1e3a5f,#1e40af',fusion:'#064e3b,#065f46',rice_bowl:'#3b0764,#4c1d95',thai:'#7f1d1d,#991b1b',dimsum:'#be123c,#9f1239',bento:'#064e3b,#065f46',arabic:'#7f1d1d,#991b1b',default:'#1f2937,#374151'};
+
+const VENUES=[
+{id:"chess",sport:"Catur / Chess",icon:"♟️",venue:"Dewan Seri Bernam",addr:"Sungai Besar, Selangor",area:"sungai besar",lat:3.6614,lng:101.0198,
+ restaurants:[
+  {name:"Chan Seng Kopitiam 大港昌盛面档",rec:true,halal:false,type:"Kopitiam",rating:4.3,price:"RM7–RM9",dist:"1.5 km",hours:"6:30 AM – 12:30 PM (Daily)",contact:"019-206 7434",address:"Sungai Besar, Selangor",cuisine:"Chinese / Kopitiam",avail:"Dine-in, packed food (advance order needed) · Up to 20–30 pax",veg:"Can customise (no meat/egg)",img:"kopitiam",maps:"https://maps.app.goo.gl/HzCmYuwsnXfFsKTVA"},
+  {name:"The Chicken Rice Shop Sungai Besar",rec:true,halal:true,type:"Restaurant",rating:3.8,price:"RM20–RM40",dist:"1.2 km",hours:"8:00 AM – 10:00 PM (Daily)",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Malay / Chicken Rice",avail:"Dine-in, takeaway",veg:"Limited",img:"chicken_rice",maps:"https://maps.app.goo.gl/RYh4WYG3Waffqk8d8"},
+  {name:"Mama Mee Yah Sungai Besar",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM5–RM12",dist:"1.0 km",hours:"7:00 AM – 3:00 PM (Daily)",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Malay / Noodles",avail:"Dine-in, takeaway",veg:"Limited",img:"noodles",maps:"https://maps.app.goo.gl/wooRTCgEZF16jEXv8"},
+  {name:"Nam Tai Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"900 m",hours:"6:30 AM – 4:30 PM (except Sunday)",contact:"012-350 2215",address:"Sungai Besar, Selangor",cuisine:"Chinese",avail:"Dine-in",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/8VxZEoxxf5xzCSK7A"},
+  {name:"Some Place For Family & Eat Local Food",rec:false,halal:true,type:"Restaurant",rating:3.7,price:"RM5–RM15",dist:"1–2 km",hours:"10:00 AM – 9:00 PM",contact:"Not listed",address:"Jalan Dataran Tongga, Sungai Besar",cuisine:"Malay / Local",avail:"Dine-in, packed food",veg:"Limited (veg fried rice)",img:"malay",maps:"https://maps.app.goo.gl/dqhobxxsVMGbak6D8"},
+  {name:"Restoran Loke Ann",rec:true,halal:false,type:"Restaurant",rating:5.0,price:"RM10–RM20",dist:"1.7 km",hours:"Not mentioned",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Chinese",avail:"Dine-in, takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/e1NEbrUNuc2T9aTm6"},
+  {name:"Qun Chuan Seafood Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.3,price:"RM20–RM40",dist:"1.7 km",hours:"8:00 AM – 2:00 PM (except Monday)",contact:"016-262 1372",address:"Sungai Besar, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in, takeaway",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/UmNV3aY1nNGfziSz9"},
+ ],
+ caterers:[
+  {name:"Ahaz Food Court & Katering",halal:true,food:"Malay",contact:"N/A", img: "Ahaz_Food_Court_&_Katering", maps:"https://maps.app.goo.gl/wooRTCgEZF16jEXv8",note:"Local catering · Sungai Besar cluster · Min order: verify · Facebook: ahazfoodcatering"},
+  {name:"Uyin Catering",halal:true,food:"Malay",contact:"018-327 4997",maps:"https://maps.app.goo.gl/uGyCDX5J8v1op9uQ6",note:"Event Catering · Sungai Besar cluster · WhatsApp preferred · Facebook: UYINCATERING"},
+ ]},
+
+{id:"gymnastics",sport:"Gimnastik / Gymnastics",icon:"🤸",venue:"Dewan Canselor Tun Abdul Razak (DECTAR)",addr:"UKM Bangi, Selangor",area:"bangi",lat:2.9240,lng:101.7801,
+ restaurants:[
+  {name:"Hot Meal Bah",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM18–RM20+",dist:"700 m",hours:"9:00 AM – 8:00 PM (Daily)",contact:"019-388 8702",address:"Near UKM, Bangi",cuisine:"Malay / Local",avail:"Dine-in, packed food, takeaway · Grab/Foodpanda/Shopee",veg:"Can customise",img:"rice_bowl",maps:"https://maps.app.goo.gl/GfPdBsNY71qUJbnG9"},
+  {name:"Mixed Rice (Wong & Teh)",rec:true,halal:false,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"1.8 km",hours:"10:00 AM – 3:00 PM (Mon–Fri only)",contact:"Not stated",address:"Near UKM, Bangi",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway · No delivery",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/4zJ6CqDLvPfrLhWZ7"},
+  {name:"Mohd Chan Restaurant @ Bandar Baru Bangi",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"5–6 km",hours:"11:30 AM – 11:00 PM",contact:"+60 16-658 2369",address:"Jalan Medan Pusat 2C, Seksyen 9, Bangi",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (vegetable dishes)",img:"fried_rice",maps:"https://maps.app.goo.gl/Y98bF2cJikYNL1oF7"},
+  {name:"Warung Kita@Bangi",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM5–RM12",dist:"2–3 km",hours:"8:00 AM – 8:00 PM (Daily)",contact:"+60 11-1190 4486",address:"Jalan Industri Sungai Tangkas 1, Kampung Sungai Tangkas, Bangi",cuisine:"Malay / Local",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/ecSFjmQCMyYydLsVA"},
+  {name:"Restoran Mak Kimbong – Sotong & Ikan Bakar",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM8–RM15",dist:"4–5 km",hours:"~7:00 AM – 5:00 PM",contact:"Not listed",address:"13, Jalan 4/1A, Seksyen 4 Tambahan Bandar Baru Bangi",cuisine:"Malay Seafood / Kampung",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (ulam, sayur kampung)",img:"seafood",maps:"https://maps.app.goo.gl/otPqs5CCQ2uNkFXN6"},
+  {name:"Restoran D\' Limau Nipis (Bangi)",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"6–7 km",hours:"~7:00 AM – 4:30 PM (Daily)",contact:"+60 12-373 2160",address:"No. 201 & 205, Jalan 8/1, Seksyen 8, Bandar Baru Bangi",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (limited)",img:"malay",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
+  {name:"Restoran Lao Ma Zi 老妈子饭店",rec:false,halal:false,type:"Restaurant",rating:4.4,price:"RM20–RM40",dist:"7.5 km",hours:"11:30 AM–3 PM, 5:30–10 PM (Daily)",contact:"03-8912 8272",address:"Bangi area",cuisine:"Chinese",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/UNZTpPxmtWip659d9"},
+  {name:"BACC Seafood",rec:false,halal:false,type:"Restaurant",rating:4.2,price:"RM20–RM40",dist:"7.4 km",hours:"11 AM–3 PM, 5–10 PM (Daily)",contact:"011-2885 8588",address:"Bangi area",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway",veg:"Yes",img:"seafood",maps:"https://maps.app.goo.gl/GjiRALRjiuZzv13a9"},
+ ],
+ caterers:[
+  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-318 0070",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event Catering · Kajang/Bangi cluster · Facebook: mzcateringbangi"},
+  {name:"Arbe Catering",halal:true,food:"Malay",contact:"019-280 1654",maps:"https://maps.app.goo.gl/BBjZc6X9PQukEmhf7",note:"Rating 4.0 · Min 100 pax · RM17/pax (rice + 1 lauk + 1 veg + drink) · Full payment <500 pax · 50% deposit ≥500 pax · Cancel: 1 week notice · RM150 cancel fee · Bento/buffet options"},
+  {name:"Restoran Farhanah Catering Kajang",halal:true,food:"Malay",contact:"016-402 3001",maps:"https://maps.app.goo.gl/chkQFFDXjwBf2Ng99",note:"Weekday min 30 pax @RM500 · Weekend min 50 pax @RM700 · Delivery RM5/km · Facebook: HQFarhanahCatering"},
+ ]},
+
+{id:"athletics",sport:"Olahraga / Athletics",icon:"🏃",venue:"Stadium UPM",addr:"Serdang, Selangor",area:"serdang",lat:2.9934,lng:101.7265,
+ restaurants:[
+  {name:"Restoran D\' Limau Nipis (Bangi)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"6–7 km",hours:"~7:00 AM – 4:30 PM (Daily)",contact:"+60 12-373 2160",address:"No. 201 & 205, Jalan 8/1, Seksyen 8, Bandar Baru Bangi",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (limited)",img:"malay",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
+  {name:"Mohd Chan Restaurant @ Putrajaya",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"7.2 km",hours:"11:30 AM – 11:00 PM",contact:"012-414 8001",address:"Putrajaya",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway · Delivery",veg:"Yes",img:"fried_rice",maps:"https://maps.app.goo.gl/tUWAceJkeX4g6rD86"},
+  {name:"Mr. Khan Traditional Arabic & Pakistani Cuisine",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM1–RM20",dist:"5–10 min drive",hours:"10:00 AM – 12:00 AM (Daily)",contact:"+60 11-2838 1148",address:"C-G, Seksyen 5, 02, Jalan SP 5/4, Taman Serdang Perdana, Seri Kembangan",cuisine:"Arabic / Pakistani / Halal",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (mainly meat-based)",img:"arabic",maps:"https://maps.app.goo.gl/hM2GZXjFy6XzQBS67"},
+  {name:"Wonderful Moment Restaurant 美好时刻餐厅",rec:false,halal:false,type:"Restaurant",rating:4.6,price:"RM1–RM20",dist:"4.8 km",hours:"10:00 AM – 5:00 PM (except Sat & Sun)",contact:"012-368 0110",address:"Serdang area",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/GLKZ2A4QAewGpkoJ9"},
+  {name:"Restaurant Kaarraikudi Chettis",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM1–RM20",dist:"5.7 km",hours:"7:00 AM – 12:00 AM (Daily)",contact:"018-904 2323",address:"Serdang area",cuisine:"Indian / Mamak",avail:"Dine-in, takeaway",veg:"Yes",img:"curry",maps:"https://maps.app.goo.gl/SUVmicgGyvDYxkpR6"},
+  {name:"Warung D\'Masjid",rec:false,halal:true,type:"Warung",rating:4.5,price:"RM1–RM20",dist:"4.3 km",hours:"6:30 AM – 3:30 PM (except Sat & Sun)",contact:"017-332 3163",address:"Serdang area",cuisine:"Malay / Mamak",avail:"Dine-in, takeaway",veg:"Yes",img:"malay",maps:"https://maps.app.goo.gl/sPDnTxwLfasRXxtR6"},
+ ],
+ caterers:[
+  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-318 0070",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event Catering · Sepang/Bangi cluster · Facebook: mzcateringbangi"},
+ ]},
+
+{id:"swimming",sport:"Renang / Swimming",icon:"🏊",venue:"Pusat Akuatik Darul Ehsan",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0738,lng:101.5183,
+ restaurants:[
+  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"0.5–1 km",hours:"10:00 AM – 10:00 PM (Daily)",contact:"+60 17-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Persiaran Sukan, Seksyen 13, Shah Alam",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (pasta, salads)",img:"pasta",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
+  {name:"Restaurant Ho Chai Delight",rec:true,halal:false,type:"Restaurant",rating:3.5,price:"RM1–RM20",dist:"~5 km",hours:"11:00 AM – 4:00 PM (except Sunday)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/p25eodnuUFSySjNC6"},
+  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (except Sunday 10:30 AM–3:30 PM, 5–8 PM)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
+  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"~11:00 AM – 10:30 PM",contact:"012-570 0261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, Shah Alam",cuisine:"Halal Chinese / Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"dimsum",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-958 0630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, Shah Alam",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway",veg:"Yes",img:"fried_rice",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+  {name:"BananaBro • AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-232 4030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, Shah Alam",cuisine:"Indian / Banana Leaf",avail:"Dine-in & takeaway",veg:"Yes (banana leaf veg sets)",img:"curry",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
+  {name:"Djakarta Raya Restoran Ayam Bakar",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"1–2 km",hours:"~10:30 AM – 10:30 PM (Daily)",contact:"+60 11-6222 6474",address:"Jalan Badminton 13/29, Seksyen 13, Shah Alam",cuisine:"Indonesian / Ayam Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"grill",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"},
+  {name:"You Fan Chi",rec:false,halal:false,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"~6.6 km",hours:"Not mentioned",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/CpL6tJUwqTGXGSM39"},
+ ],
+ caterers:[
+  {name:"7th Sense Caterer",halal:true,food:"Malay, Western",contact:"012-843 1033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Min 30 pax · Bento: custom price · Delivery RM150 (negotiable for 3+ days) · Deposit 70% · Non-refundable · Facebook: sifucaterer"},
+ ]},
+
+{id:"esports",sport:"Esports",icon:"🎮",venue:"Dewan Konvensyen MPAJ",addr:"Taman Melawati, Ampang, Selangor",area:"kuala lumpur",lat:3.2119,lng:101.7650,
+ restaurants:[
+  {name:"Mohd Chan Restaurant – Melawati",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM35",dist:"0.5–1 km",hours:"11:30 AM – 10:00/11:00 PM (Daily)",contact:"+60 11-2330 5584 / 03-4105 6125",address:"59-60, Jalan Negara, Taman Melawati, 53100 Kuala Lumpur",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in, Takeaway, Catering (group orders) · Packed food: Yes",veg:"Available (tofu, veg, mock dishes)",img:"fried_rice",maps:"https://maps.app.goo.gl/w3kqKRssGuKSUpbq7"},
+  {name:"Mak O Mak Cafe",rec:true,halal:true,type:"Café",rating:4.4,price:"RM15–RM30",dist:"0.5–1 km",hours:"8:00 AM – 5:00 PM",contact:"+60 10-426 9382",address:"Melawati Square, Jalan Bandar Melawati",cuisine:"Malay / Nasi Campur / Café",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Available (café options)",img:"pasta",maps:"https://maps.app.goo.gl/yqXcRWHrx5CPaxfc9"},
+  {name:"Restoran Cikgu Lee",rec:true,halal:false,type:"Restaurant",rating:4.4,price:"RM10–RM25",dist:"0.5–1 km",hours:"8:00 AM – 9:30 PM",contact:"+60 3-4820 9698",address:"328, Jalan Bandar Melawati",cuisine:"Chinese Kopitiam / Mixed Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (simple veg dishes)",img:"mixed_rice",maps:"https://maps.app.goo.gl/njNDpWAAYKQP8wVW9"},
+  {name:"Mee Hiris China Muslim @ Melawati Mall",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM15–RM30",dist:"~0.5 km",hours:"10:00 AM – 10:00 PM",contact:"+60 12-265 6424",address:"Melawati Mall, Jalan Bandar Melawati",cuisine:"Chinese Muslim / Hand-pulled Noodles",avail:"Dine-in · Packed food: Yes",veg:"Available (noodle + veg)",img:"noodles",maps:"https://maps.app.goo.gl/12vCEDz2t4cSkBL89"},
+  {name:"Senda Loka Restaurant & Cafe",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM10–RM25",dist:"1–2 km",hours:"7:00 AM – 3:00 AM (Daily)",contact:"+60 19-380 7389",address:"Jalan Wangsa Setia 4, Wangsa Melawati",cuisine:"Local / Western Fusion",avail:"Dine-in, takeaway, late night · Packed food: Yes",veg:"Limited",img:"grill",maps:"https://maps.app.goo.gl/W7DnCCTgz8gcYGAv6"},
+  {name:"NZ Curry House @ Wangsa Maju",rec:true,halal:true,type:"Restaurant",rating:3.9,price:"RM5–RM15",dist:"3–4 km",hours:"6:00 AM – 3:00 AM (Daily)",contact:"+60 17-210 1010",address:"Seksyen 5, Wangsa Maju",cuisine:"Indian Muslim / Mamak",avail:"Dine-in, takeaway, delivery · Packed food: Yes",veg:"Yes (roti, dhal, veg curry)",img:"curry",maps:"https://maps.app.goo.gl/gEMze11vkeDSuC3T6"},
+ ],
+ caterers:[]},
+
+{id:"mtb",sport:"Berbasikal MTB",icon:"🚵",venue:"Lembah Peladang Agro Park",addr:"Saujana Utama, Sungai Buloh, Selangor",area:"sungai buloh",lat:3.1792,lng:101.5527,
+ restaurants:[
+  {name:"Restoran Pondok Salero Minang",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM8–RM15",dist:"1–2 km",hours:"~9:00 AM – 9:00 PM",contact:"010-534 0708",address:"Jalan Melur 1, Bandar Saujana Utama, 47000 Sungai Buloh",cuisine:"Malay / Padang / Minang",avail:"Dine-in & takeaway · Packed food: Yes (group meals)",veg:"Limited (vegetable lauk)",img:"padang",maps:"https://maps.app.goo.gl/XM1xs7wGzkc1ejB67"},
+  {name:"Restoran Lawar Seafood",rec:false,halal:true,type:"Restaurant",rating:4.3,price:"RM15–RM35",dist:"2–3 km",hours:"~4:00 PM – 11:00 PM",contact:"018-918 6196",address:"39, Jalan Jati 3, Saujana Utama 2",cuisine:"Malay Seafood / Ikan Bakar",avail:"Dine-in (group-friendly) · Packed food: Yes",veg:"Very limited",img:"seafood",maps:"https://maps.app.goo.gl/DjZsNw5zkPChNN4y8"},
+  {name:"Suhaila Nasi Kerabu Berlauk",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM6–RM12",dist:"8–12 km",hours:"~7:00 AM – 3:00 PM",contact:"013-257 7532",address:"No. 23, Jalan TIAJ 1/3, Puncak Alam",cuisine:"Malay / Nasi Kerabu",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (kerabu veg options)",img:"rice_bowl",maps:"https://maps.app.goo.gl/Zc5dbqWSQdbwj3uM7"},
+  {name:"Noor Huda Tomyam",rec:true,halal:true,type:"Restaurant",rating:4.1,price:"RM8–RM20",dist:"3–6 km",hours:"~5:00 PM – 12:00 AM (Daily)",contact:"Not clearly listed",address:"Sungai Buloh area",cuisine:"Thai / Tomyam / Seafood",avail:"Dine-in · Packed food: Yes",veg:"Limited",img:"tomyam",maps:"https://maps.app.goo.gl/ob2oD2prBuJZQH7P8"},
+  {name:"Homst Setia Alam",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM35",dist:"12–15 km",hours:"~11:00 AM – 10:00 PM",contact:"012-570 0615",address:"1, Jln Setia Dagang AJ U13/AJ, Setia Alam, 40170 Shah Alam",cuisine:"Halal Chinese / Dumplings",avail:"Dine-in, Takeaway, Catering · Packed food: Yes",veg:"Available",img:"dimsum",maps:"https://maps.app.goo.gl/9hg4tgRBmMRZds386"},
+ ],
+ caterers:[
+  {name:"Seri Indah Catering",halal:true,food:"Malay Indian",contact:"018-321 7815",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Min 10–20 pax · RM15/pax (nasi tomato + ayam + sayur) · Bento: Yes · Delivery RM50 (negotiable by pax) · Deposit 2 weeks before"},
+  {name:"Venturas Catering",halal:true,food:"Indian, Western, Malay",contact:"+6019-716 7992",maps:"https://maps.app.goo.gl/P99Z5PoKS8X9wQYN8",note:"Rating 5.0 · Full event catering · Min order: verify · Website: venturascatering.my"},
+  {name:"RunningMen Catering",halal:true,food:"Malay & Western",contact:"018-966 4913",maps:"https://maps.google.com/?q=RunningMen+Catering",note:"Rating 4.8 · Halal Certified · Veg: Yes · Bento RM15–23/pax · Min 1 pax weekday, 10 pax weekend · No deposit · Payment before delivery · Website: runningmen.my"},
+  {name:"H&H Catering",halal:true,food:"Chinese (Halal Certified)",contact:"036-141 8911",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Min 20 sets · Full payment before delivery · Bento RM14–19/pax · Delivery RM50"},
+ ]},
+
+{id:"cycling",sport:"Berbasikal Lebuhraya",icon:"🚴",venue:"Lebuhraya SIC & SIC",addr:"Sepang, Selangor",area:"sepang",lat:2.7606,lng:101.7209,
+ restaurants:[
+  {name:"LèTen Chinese Muslim Restaurant @ Mitsui Outlet Park",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"15–20 min drive",hours:"11:00 AM – 10:00 PM (Daily)",contact:"+603-8660 2388",address:"F-60A, Mitsui Outlet Park, KLIA, 64000 Sepang",cuisine:"Chinese Muslim / Halal Dim Sum",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"dimsum",maps:"https://maps.app.goo.gl/ckmLcTeuEERtKtB27"},
+  {name:"Brahims Food Services Sdn Bhd",rec:false,halal:true,type:"Caterer / Bulk",rating:4.3,price:"Custom (bulk)",dist:"10–15 min",hours:"24/7 operations",contact:"+60 3-8777 1101",address:"KLIA / Sepang area",cuisine:"Halal / Large-scale meal prep",avail:"Mass meal prep · Ready-to-eat · Boxed meals",veg:"Verify",img:"bento",maps:"https://maps.app.goo.gl/GYmnsT3yQudKzY6X6"},
+ ],
+ caterers:[
+  {name:"Sayang Express Catering",halal:true,food:"Malay",contact:"018-276 0331",maps:"https://maps.app.goo.gl/xzHocCmN3QguY2xK7",note:"Rating 5.0 · Min 10–20 pax · RM25–30/pax (nasi + lauk + sayur) · Free delivery · Deposit 50% (2 weeks before) · Customizable menu · Linktree: SECateringSepang"},
+  {name:"NS Restaurant & Catering",rec:true,halal:true,food:"Malay",contact:"017-398 6424",maps:"https://maps.app.goo.gl/chhuAiyfyKP1Ngx1A",note:"Rating 4.1 · Local Catering · Sepang cluster · See Facebook for contact: NS-Restaurant-Catering"},
+ ]},
+
+{id:"bmx",sport:"Berbasikal BMX",icon:"🚲",venue:"Extreme Park MBPJ",addr:"Petaling Jaya, Selangor",area:"petaling jaya",lat:3.1067,lng:101.6359,
+ restaurants:[
+  {name:"My Wok Station",rec:false,halal:true,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"5–8 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+60 12-690 6450",address:"12A-1, Jalan PJS 8/6, Bandar Sunway, Petaling Jaya",cuisine:"Asian / Halal Chinese",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"fusion",maps:"https://maps.app.goo.gl/vAbYDLys6v4ej4Lo7"},
+  {name:"Mohammad Chow Chinese Muslim Kitchen",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM20–RM40",dist:"10–12 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+603-7731 6383",address:"Perdana Business Centre, 3-1, Jalan PJU 8/5h, Damansara Perdana, Petaling Jaya",cuisine:"Halal Chinese Muslim",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/QBmjfKQsuiYRKJPo8"},
+  {name:"Sun Thai Food (Chinese Muslim) @ Sunway Mentari",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM20–RM40",dist:"6–9 min drive",hours:"11:00 AM – 12:00 AM (Daily)",contact:"+60 10-861 7878",address:"46C, Mentari Business Park, Jalan 8/2, Bandar Sunway, Petaling Jaya",cuisine:"Thai / Halal Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"thai",maps:"https://maps.app.goo.gl/pvADFiLxLufpwYuY7"},
+  {name:"Speed Char Kuey Teow • Waq Pizza",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM1–RM20",dist:"1.5 km",hours:"6:00 PM – 12:00 AM (Daily)",contact:"018-286 9156",address:"Petaling Jaya area",cuisine:"Malay / Hawker",avail:"Dine-in & takeaway",veg:"Limited",img:"noodles",maps:"https://maps.app.goo.gl/KnhGS5ZYFroTJjTt5"},
+  {name:"Nasi Lemak Ayam Goreng Berempah (Ela & Awe)",rec:false,halal:true,type:"Restaurant",rating:5.0,price:"RM1–RM20",dist:"1.3 km",hours:"5:00 PM – 10:30 PM (Daily)",contact:"013-299 5378",address:"Petaling Jaya area",cuisine:"Malay / Nasi Lemak",avail:"Dine-in & takeaway",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/A8yboKmYGzFeDswLA"},
+  {name:"Restoran Nur Balqis",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM1–RM20",dist:"1.5 km",hours:"7:00 AM – 12:00 AM (Daily)",contact:"037-773 1226",address:"Petaling Jaya area",cuisine:"Malay",avail:"Dine-in, takeaway, delivery",veg:"Limited",img:"rice_bowl",maps:"https://maps.app.goo.gl/E4nUaHMhdng8RfsR9"},
+ ],
+ caterers:[
+  {name:"H&H Catering",halal:true,food:"Chinese (Halal Certified)",contact:"012-239 2139",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Min 20 sets · Full payment before delivery · Bento RM14–19/pax · Delivery RM50"},
+  {name:"iDO Catering",halal:true,food:"Western Asian Fusion",contact:"+603-8605 3560",maps:"https://maps.app.goo.gl/7EebDvQzTNBxVGfDA",note:"Rating 4.9 · Commercial Catering · Website: idocatering.com"},
+  {name:"Mama Cooks Kitchen",halal:true,food:"Singaporean/Malaysian, Korean, Japanese, Western",contact:"019-669 8762",maps:"https://maps.app.goo.gl/YyNpzi5dwZX9CzhF8",note:"Rating 4.9 · Commercial Catering (Meal boxes) · Min order varies · Website: eats365pos"},
+  {name:"Hometaste",halal:false,food:"Chinese (Non-Halal), Vegetarian",contact:"038-605 3508",maps:"https://maps.app.goo.gl/vaZMuLoBv7M3Nu3e6",note:"Non-Halal · Veg: Yes · Bento box: 1 carb + 1 meat + 1 veg + 1 side · Min 10 pax · RM11.90–RM14.50/pax (scale pricing) · Delivery RM8/trip · Website: hometaste.my"},
+  {name:"GoClean Healthy Meal Delivery",halal:true,food:"Healthy / Meal Prep",contact:"+6016-754 3621",maps:"https://maps.app.goo.gl/tpkrPQ2kKsqzw7ML8",note:"Rating 4.8 · Halal · Min 1 pax weekday, 10 pax weekend · No deposit · Payment before delivery · Bento available · Website: goclean.oddle.me/en_MY"},
+ ]},
+
+{id:"velodrome",sport:"Berbasikal Trek / Velodrome",icon:"🏅",venue:"Velodrom Nasional",addr:"Nilai, Negeri Sembilan",area:"nilai",lat:2.7894,lng:101.7998,
+ restaurants:[
+  {name:"Al Jamal Restaurant",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM20–RM40",dist:"5–8 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+6012-717 2842",address:"Avenue 9, Giant Nilai, Shop A27 & A28, Jalan BBN 1/3, Bandar Baru Nilai, Negeri Sembilan",cuisine:"Arab / Middle Eastern / Halal",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"arabic",maps:"https://maps.app.goo.gl/pZDkpnkLFACsqFcz9"},
+  {name:"Salam Noodles • Nilai",rec:true,halal:true,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"5–8 min drive",hours:"11:30 AM – 10:00 PM (Daily)",contact:"+606-657 0209",address:"7249, Jalan BBN 1/2a, Bandar Baru Nilai, Negeri Sembilan",cuisine:"Malay / Noodles",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"noodles",maps:"https://maps.app.goo.gl/F5qxwCf46xPt2JDQA"},
+  {name:"NASI AYAM AQILSHA (NILAI)",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"5–9 min drive",hours:"11:00 AM – 6:00 PM (Daily)",contact:"+6011-1566 7267",address:"PT 7403, Jalan BBN 1/2J, Putra Nilai, Negeri Sembilan",cuisine:"Malay / Chicken Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"chicken_rice",maps:"https://maps.app.goo.gl/wb8xrm6xLkePuDRKA"},
+ ],
+ caterers:[
+  {name:"Juriah Food & Catering",rec:true,halal:true,food:"Malay",contact:"019-677 1413",maps:"https://maps.app.goo.gl/zKreN1n67JxLkxvh7",note:"Rating 4.3 · Min 10–20 pax (flexible) · Price by budget (customizable) · Packed food: Yes · Deposit 2 days before · Delivery: free if 3+ days or large order (negotiable) · Facebook: Juriah-Food-and-Catering"},
+  {name:"Mama Cafe & Catering",rec:true,halal:true,food:"Malay",contact:"013-699 7800",maps:"https://maps.app.goo.gl/2NjxuWGwycXoXmwv6",note:"Rating 4.3 · Min 10–20 pax · Price by budget · Full payment 1 week before · Delivery RM5/trip · TikTok: mama.cafe.catering"},
+  {name:"Sayang Express Catering",halal:true,food:"Malay",contact:"018-276 0331",maps:"https://maps.app.goo.gl/xzHocCmN3QguY2xK7",note:"Rating 5.0 · Min 10–20 pax · RM25–30/pax (nasi + lauk + sayur) · Free delivery · Deposit 50% (2 weeks before) · Customizable menu"},
+  {name:"NS Restaurant & Catering",rec:true,halal:true,food:"Malay",contact:"017-398 6424",maps:"https://maps.app.goo.gl/chhuAiyfyKP1Ngx1A",note:"Rating 4.1 · Local Catering · Sepang/Nilai cluster · See Facebook for contact"},
+ ]},
+
+{id:"judo",sport:"Judo",icon:"🥋",venue:"IDEAL Convention Centre",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0855,lng:101.5190,
+ restaurants:[
+  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (except Sunday 10:30 AM–3:30 PM, 5–8 PM)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
+  {name:"Restoran New Tin Mui Young",rec:true,halal:false,type:"Restaurant",rating:3.7,price:"RM1–RM20",dist:"~3 km",hours:"9:00 AM – 3:00 PM, 5:30 – 8:00 PM (except Sunday)",contact:"035-519 2848",address:"Shah Alam area",cuisine:"Chinese / Kopitiam",avail:"Dine-in & takeaway",veg:"Limited",img:"kopitiam",maps:"https://maps.app.goo.gl/yt1YG66BLnKvAegFA"},
+  {name:"Yuen Heong Restaurant",rec:true,halal:false,type:"Restaurant",rating:3.9,price:"RM1–RM20",dist:"~2.9 km",hours:"6:30 AM – 2:45 PM, 6 – 8:00 PM (except Sunday)",contact:"035-519 1153",address:"Shah Alam area",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/5ZLFw5kug9SRo2HL8"},
+  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"~11:00 AM – 10:30 PM",contact:"012-570 0261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, Shah Alam",cuisine:"Halal Chinese / Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"dimsum",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-958 0630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, Shah Alam",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway",veg:"Yes",img:"fried_rice",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+  {name:"BananaBro • AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-232 4030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, Shah Alam",cuisine:"Indian / Banana Leaf",avail:"Dine-in & takeaway",veg:"Yes (banana leaf veg sets)",img:"curry",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
+ ],
+ caterers:[
+  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 pax (bento) / 50 pax (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Up to 6000 pax · Deposit RM2000 (non-refundable) · Facebook: teaffanicatering"},
+  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"019-989 7273",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event Catering · Website: munjungraya.com.my"},
+  {name:"7th Sense Caterer",rec:true,halal:true,food:"Malay, Western",contact:"012-843 1033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Min 30 pax · Bento: custom price · Delivery RM150 (negotiable for 3+ days) · Deposit 70% · Facebook: sifucaterer"},
+ ]},
+
+{id:"muaythai",sport:"Muaythai",icon:"🥊",venue:"KSL Esplanade Mall",addr:"Klang, Selangor",area:"klang",lat:3.0449,lng:101.4455,
+ restaurants:[
+  {name:"Restaurant Dhiyaz Curry House",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"15–20 km",hours:"~10:30 AM – 9:00 PM",contact:"Not clearly listed",address:"Persiaran Rimba, Bandar Rimbayu, Kuala Langat",cuisine:"Indian Muslim / Banana Leaf",avail:"Dine-in, takeaway · Packed food: Yes",veg:"Yes (many vegetable curries)",img:"curry",maps:"https://maps.app.goo.gl/XTp2JSSzANcHtbij6"},
+  {name:"Subway @ KSL Esplanade Mall",rec:true,halal:true,type:"Restaurant",rating:4.0,price:"RM10–RM20",dist:"0 km (in mall)",hours:"~10:00 AM – 9:30 PM",contact:"03-5166 0150",address:"KSL Esplanade Mall, Klang",cuisine:"Western / Sandwiches",avail:"Dine-in, takeaway, delivery · Packed food: Yes",veg:"Yes (Veggie Delight, salads)",img:"fusion",maps:"https://maps.app.goo.gl/LK8FgjZvSp3AzadBA"},
+  {name:"Bozku Kitchen",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"1 km",hours:"~4:00 PM – 11:30 PM",contact:"013-512 1207",address:"Klang area",cuisine:"Malay",avail:"Dine-in, takeaway, delivery",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/AzNUH55Njy1uHixs5"},
+  {name:"SAMBAL LALAPAN GRAVIT 8 – Chinese Muslim Kopitiam",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM1–RM20",dist:"4.3 km",hours:"8:30 AM – 7:00 PM (Daily)",contact:"033-319 5992",address:"Klang area",cuisine:"Halal Chinese / Kopitiam",avail:"Dine-in, takeaway",veg:"Limited",img:"kopitiam",maps:"https://maps.app.goo.gl/bk1kJZc4qYJeEeWZA"},
+ ],
+ caterers:[
+  {name:"KPR Food Caterers",halal:true,food:"Indian Muslim",contact:"012-667 1758",maps:"https://maps.app.goo.gl/QtuBGhGpfZAVQJme6",note:"Rating 4.5 · Commercial Catering · Vegetarian: Yes"},
+  {name:"Orange Catering",halal:true,food:"Western & Fusion",contact:"+6013-288 8278",maps:"https://maps.google.com/?q=Orange+Catering+Malaysia",note:"Rating 4.2 · Halal Certified · Delivery: Klang RM20, Shah Alam RM30 · Deposit 70% · Can postpone"},
+  {name:"Sree Eswara Food Caterers",halal:true,food:"Indian",contact:"016-708 5076",maps:"https://maps.app.goo.gl/XFYMcdaa6TrSgjoq9",note:"Rating 4.8 · Commercial Catering · Vegetarian: Yes"},
+ ]},
+
+{id:"pingpong",sport:"Ping Pong",icon:"🏓",venue:"Dewan MBDK Bukit Raja",addr:"Klang, Selangor",area:"klang",lat:3.0600,lng:101.4750,
+ restaurants:[
+  {name:"Choon Guan Hainan Coffee 1956",rec:true,halal:true,type:"Kopitiam",rating:4.7,price:"RM1–RM20",dist:"1.4 km",hours:"6:00 AM – 4:00 PM (except Tuesday)",contact:"03-3358 2833",address:"Near Setia Alam, Klang",cuisine:"Hainan / Halal Coffee Shop",avail:"Dine-in & takeaway · No contact delivery",veg:"Limited",img:"kopitiam",maps:"https://maps.app.goo.gl/S4HdSpqZGcRtAAQd7"},
+  {name:"Restoran BR2 Mixed Rice",rec:false,halal:false,type:"Restaurant",rating:3.8,price:"RM1–RM20",dist:"800 m",hours:"10:00 AM – 9:15 PM (Daily)",contact:"Not stated",address:"Bandar Bukit Raja, Klang",cuisine:"Chinese Mixed Rice",avail:"Dine-in, takeaway, delivery",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/7tpXhBngufxyH6eZ6"},
+  {name:"Lucky HH Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.0,price:"RM1–RM20",dist:"1.3 km",hours:"Not stated",contact:"Not stated",address:"Bukit Raja, Klang",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/smvTatJmSaCJHFHM9"},
+ ],
+ caterers:[]},
+
+{id:"petanque",sport:"Petanque",icon:"🎯",venue:"Gelanggang Petanque Kuala Selangor",addr:"Kuala Selangor, Selangor",area:"kuala selangor",lat:3.3391,lng:101.2598,
+ restaurants:[
+  {name:"Restoran Nasi Korek-Korek",rec:true,halal:true,type:"Restaurant",rating:4.0,price:"RM6–RM12",dist:"1–2 km",hours:"~10:00 AM – 6:00 PM",contact:"010-833 2961",address:"Lorong Teratai 2/12, Bandar Baru, Kuala Selangor",cuisine:"Malay / Nasi Campur",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"rice_bowl",maps:"https://maps.app.goo.gl/GBV6t7VkKsXhtjke9"},
+  {name:"Restoran Muara HNP",rec:true,halal:true,type:"Restaurant",rating:4.1,price:"RM15–RM35",dist:"2–3 km",hours:"~4:00 PM – 11:00 PM",contact:"033-289 1866",address:"1, Jalan 2, Taman Telaga Tujuh, Kuala Selangor",cuisine:"Malay Seafood / Tomyam",avail:"Dine-in · Packed food: Yes",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/LYeU7ETeXFH4zjLk7"},
+  {name:"Restoran Selera Cik Yati",rec:true,halal:true,type:"Restaurant",rating:4.0,price:"RM5–RM12",dist:"2–4 km",hours:"~7:00 AM – 3:00 PM",contact:"Not listed",address:"14, Jalan Bendahara 2/1, Taman Bendahara, 45000 Kuala Selangor",cuisine:"Malay / Nasi Campur",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/eanx5kSXMUAHCJKeA"},
+  {name:"Kedai Makan Botak (SC Ceria Enterprise)",rec:true,halal:true,type:"Warung",rating:4.0,price:"RM5–RM10",dist:"1–2 km",hours:"~7:00 AM – 2:00 PM",contact:"018-238 1691",address:"3, Jln Semarak 1/3, Bandar Melawati, 45000 Kuala Selangor",cuisine:"Malay / Local Breakfast",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"rice_bowl",maps:"https://maps.app.goo.gl/FPEeyNK2oqcivVUP8"},
+  {name:"Selera Hali Asyraf",rec:true,halal:true,type:"Restaurant",rating:4.0,price:"RM6–RM15",dist:"1–2 km",hours:"~6:00 PM – late night",contact:"016-291 3659",address:"19, Jalan Raja Lumu, 45000 Kuala Selangor",cuisine:"Malay / Mee Goreng / Tomyam",avail:"Dine-in · Packed food: Yes",veg:"Limited",img:"noodles",maps:"https://maps.app.goo.gl/CpA1J5i7S8tviENe8"},
+ ],
+ caterers:[
+  {name:"Ecah Nik Catering",halal:true,food:"Malay",contact:"011-5656 1962",maps:"https://maps.app.goo.gl/hzugshcJ5j8VH6QF6",note:"Rating 4.8 · Min 100 pax · RM12–15/pax · Deposit 50% · Free delivery"},
+  {name:"Seri Indah Catering",halal:true,food:"Malay Indian",contact:"018-321 7815",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Min 10–20 pax · RM15/pax · Bento: Yes · Delivery RM50"},
+ ]},
+
+{id:"badminton",sport:"Badminton",icon:"🏸",venue:"Setia City Convention Centre (Hall 2)",addr:"Setia Alam, Shah Alam, Selangor",area:"shah alam",lat:3.1340,lng:101.5129,
+ restaurants:[
+  {name:"Homst Setia Alam",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM35",dist:"~5 min drive",hours:"~11:00 AM – 10:00 PM",contact:"012-570 0615",address:"1, Jln Setia Dagang AJ U13/AJ, Setia Alam, 40170 Shah Alam",cuisine:"Halal Chinese / Dumplings",avail:"Dine-in, Takeaway, Catering · Packed food: Yes",veg:"Available",img:"dimsum",maps:"https://maps.app.goo.gl/9hg4tgRBmMRZds386"},
+  {name:"Mee Hiris China Muslim @ Melawati Mall",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"~5 min drive",hours:"10:00 AM – 10:00 PM (Daily)",contact:"+60 12-216 5618",address:"Persiaran Setia Alam, Setia Alam, 40170 Shah Alam",cuisine:"Chinese Muslim / Halal Noodles",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"noodles",maps:"https://maps.app.goo.gl/XtDuSwTGentWYT648"},
+  {name:"Uncle Sam Kopi • Setia Taipan",rec:false,halal:false,type:"Restaurant",rating:4.7,price:"RM1–RM20",dist:"1.9 km",hours:"8:30 AM – 8:30 PM (Daily · Sat/Sun until 10 PM)",contact:"010-217 4355",address:"Setia Taipan, Shah Alam",cuisine:"Chinese / Kopitiam",avail:"Dine-in, takeaway, delivery",veg:"Limited",img:"kopitiam",maps:"https://maps.app.goo.gl/CSwRg8uMuNAAn911A"},
+  {name:"金厨房 Golden Cuisine",rec:false,halal:false,type:"Restaurant",rating:4.5,price:"RM20–RM40",dist:"3.7 km",hours:"11:15 AM–3 PM, 5:15–10 PM (Daily)",contact:"011-1606 2338",address:"Setia Taipan, Shah Alam",cuisine:"Chinese Seafood",avail:"Dine-in, takeaway, delivery",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/zPq1npturzSWZfJE7"},
+ ],
+ caterers:[
+  {name:"Mama Cooks Kitchen",halal:true,food:"Singaporean/Malaysian, Korean, Japanese, Western",contact:"019-669 8762",maps:"https://maps.app.goo.gl/YyNpzi5dwZX9CzhF8",note:"Rating 4.9 · Deposit 50% · Refundable if raw materials not purchased · Customizable"},
+  {name:"Seri Indah Catering",halal:true,food:"Malay Indian",contact:"018-321 7815",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Min 10–20 pax · RM15/pax · Delivery RM50"},
+ ]},
+
+{id:"bowling",sport:"Tenpin Bowling",icon:"🎳",venue:"Sunway Megalanes",addr:"Sunway Pyramid, Petaling Jaya",area:"sunway",lat:3.0726,lng:101.6063,
+ restaurants:[
+  {name:"Madam Kwan's Sunway Pyramid",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM30",dist:"~0 km (in mall)",hours:"~10:00 AM – 10:30 PM",contact:"+603-5622 2397",address:"LG1.47, Sunway Pyramid Mall, Bandar Sunway",cuisine:"Malaysian / Nasi Lemak / Satay",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"malay",maps:"https://maps.app.goo.gl/hfTQfvC2NZuyauxW6"},
+  {name:"BananaBro Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~0 km (in mall)",hours:"~10:00 AM – 10:00 PM",contact:"Varies by outlet",address:"Sunway Pyramid Mall, Bandar Sunway",cuisine:"Indian / Banana Leaf Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (banana leaf veg set)",img:"curry",maps:"https://maps.app.goo.gl/99vLF8E1yUxdJ9WP8"},
+  {name:"MZ Restoran Nasi Campur & Tomyam",rec:false,halal:true,type:"Restaurant",rating:4.1,price:"RM5–RM15",dist:"300–500 m",hours:"7:30 AM – 1:00 AM (closed Saturday)",contact:"+60 17-336 8301",address:"22-1, Jalan PJS 8/6, Bandar Sunway, Petaling Jaya",cuisine:"Malay / Nasi Campur / Tomyam",avail:"Dine-in, takeaway, delivery (Grab/Foodpanda) · Packed food: Yes",veg:"Limited",img:"tomyam",maps:"https://maps.app.goo.gl/Z2XYzNTJnDpyxGtB8"},
+  {name:"Restoran Maliki Nasi Kukus",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM7–RM15",dist:"500–700 m",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+60 11-3986 2354",address:"8, Jalan PJS 8/18, Bandar Sunway, Petaling Jaya",cuisine:"Malay / Nasi Kukus",avail:"Dine-in, takeaway, delivery · Packed food: Yes",veg:"Very limited",img:"rice_bowl",maps:"https://maps.app.goo.gl/PxpgL9iRyt85WbhS6"},
+  {name:"Khao Man Gai Pee Nong Restaurant",rec:false,halal:true,type:"Restaurant",rating:3.9,price:"RM6–RM12",dist:"1–2 km",hours:"~10:00 AM – 10:00 PM",contact:"+60 12-760 1664",address:"3, Jalan PJS 8/10, Bandar Sunway, Petaling Jaya",cuisine:"Thai / Halal Chicken Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"thai",maps:"https://maps.app.goo.gl/5NV6NhtvsFouHyjK6"},
+  {name:"Penyet Express - Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~0 km (in mall)",hours:"10:30 AM – 9:30 PM (Daily)",contact:"035-612 5624",address:"Sunway Pyramid Mall, Bandar Sunway",cuisine:"Indonesian / Malay",avail:"Dine-in & takeaway",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/Thvji6joUUDgHbM89"},
+  {name:"MANJOE Taiwanese Dumplings",rec:false,halal:false,type:"Restaurant",rating:4.9,price:"RM20–RM40",dist:"~0 km (in mall)",hours:"10:00 AM – 10:00 PM (Daily)",contact:"035-611 3173",address:"Sunway Pyramid Mall, Bandar Sunway",cuisine:"Taiwanese / Dumplings",avail:"Dine-in, takeaway",veg:"Limited",img:"dimsum",maps:"https://maps.app.goo.gl/YH1zqrVGUfveGJF56"},
+ ],
+ caterers:[
+  {name:"H&H Catering",halal:true,food:"Chinese (Halal Certified)",contact:"036-141 8911",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Local mini catering · Min order varies"},
+  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000"},
+ ]},
+
+ {id:"wushu",sport:"Wushu",icon:"🥋",venue:"IDEAL Convention Centre Shah Alam",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0733,lng:101.5185,
+ restaurants:[
+  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (Sun: 10:30 AM – 3:30 PM, 5:00 PM – 8:00 PM)",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Chinese / Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
+  {name:"Restoran New Tin Mui Young 新美香茶餐室",rec:true,halal:false,type:"Restaurant",rating:3.7,price:"RM1–RM20",dist:"~3 km",hours:"9:00 AM – 3:00 PM, 5:30 PM – 8:00 PM (closed Sunday)",contact:"0355192848",address:"Shah Alam, Selangor",cuisine:"Chinese / Kopitiam",avail:"Dine-in & takeaway",veg:"Limited",img:"dimsum",maps:"https://maps.app.goo.gl/yt1YG66BLnKvAegFA"},
+  {name:"Yuen Heong Restaurant",rec:true,halal:false,type:"Restaurant",rating:3.9,price:"RM1–RM20",dist:"~2.9 km",hours:"6:30 AM – 2:45 PM, 6:00 PM – 8:00 PM (closed Sunday)",contact:"0355191153",address:"Shah Alam, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/5ZLFw5kug9SRo2HL8"},
+  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, 40200 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+  {name:"Restaurant Pin Wei Seafood",rec:false,halal:false,type:"Restaurant",rating:4.0,price:"RM20–RM40",dist:"~6.5 km",hours:"11:00 AM – 2:30 PM, 5:00 PM – 10:00 PM",contact:"012-2847299",address:"Shah Alam, Selangor",cuisine:"Chinese / Seafood",avail:"Dine-in & takeaway",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/2HRQfatoY9TWCgzq5"},
+  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"+6017-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Seksyen 13, Shah Alam",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"western",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
+  {name:"Restoran Bei Ping",rec:false,halal:false,type:"Restaurant",rating:4.1,price:"RM20–RM40",dist:"~2.2 km",hours:"11:30 AM – 3:00 PM, 6:00 PM – 10:00 PM",contact:"0355199291",address:"Shah Alam, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/aSQp78y2AD4S9sxo6"},
+ ],
+ caterers:[
+  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000"},
+  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
+  {name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min order 30 pax · Custom menu pricing · Delivery ~RM150 (negotiable) · 70% deposit"},
+ ]},
+];
+
+
+// ===== MAP INIT =====
+let map,markers=[],activeV=null,curFilter='all',curTab='r',userRating=0;
+
+function initMap(){
+  map=L.map('map',{zoomControl:true,attributionControl:false}).setView([3.139,101.687],10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+  L.control.attribution({position:'bottomright',prefix:'© OpenStreetMap'}).addTo(map);
+  renderMarkers(VENUES);
+  updateCount(VENUES);
+}
+ 
+function makeIcon(v,selected=false){
+  const bg=selected?'#22c55e':'#16a34a';
+  const shadow=selected?'0 4px 16px rgba(22,197,94,.5)':'0 3px 10px rgba(0,0,0,.35)';
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:42px;height:42px;background:${bg};border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:${shadow};cursor:pointer">
+      <span style="transform:rotate(45deg);font-size:18px;line-height:1">${v.icon}</span></div>`,
+    iconSize:[42,42],iconAnchor:[21,42],popupAnchor:[0,-44]
+  });
+}
+ 
+function renderMarkers(venues){
+  markers.forEach(m=>map.removeLayer(m.marker));
+  markers=[];
+  venues.forEach(v=>{
+    const m=L.marker([v.lat,v.lng],{icon:makeIcon(v)}).addTo(map);
+    m.bindPopup(`<div class="vp-popup">
+      <div class="vp-sport">${v.sport}</div>
+      <div class="vp-name">${v.venue}</div>
+      <div class="vp-addr">${v.addr}</div>
+      <button class="vp-btn" onclick="openPanel('${v.id}')">🍽️ View Food Options</button>
+    </div>`,{maxWidth:260,className:'custom-popup'});
+    m.on('click',()=>{
+      if(activeV&&activeV.id===v.id){closePanel();return;}
+      m.openPopup();
+    });
+    markers.push({marker:m,venue:v});
+  });
+}
+ 
+function updateCount(venues){
+  document.getElementById('vcnt-txt').textContent=`${venues.length} Phase One Venues`;
+}
+ 
+// ===== FILTER / SEARCH (FIXED) =====
+function setFilter(f,btn){
+  curFilter=f;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  applyFilters();
+}
+ 
+function onSrch(q){
+  applyFilters();
+}
+ 
+function applyFilters(){
+  const query=document.getElementById('srch').value.toLowerCase().trim();
+  const filtered=VENUES.filter(v=>{
+    // Area filter: exact match on area field
+    const aMatch=curFilter==='all'||v.area===curFilter||v.area.includes(curFilter)||v.addr.toLowerCase().includes(curFilter);
+    if(!query) return aMatch;
+    const qMatch=v.sport.toLowerCase().includes(query)||
+      v.venue.toLowerCase().includes(query)||
+      v.addr.toLowerCase().includes(query)||
+      v.area.toLowerCase().includes(query)||
+      v.id.toLowerCase().includes(query)||
+      v.restaurants.some(r=>r.name.toLowerCase().includes(query)||r.cuisine.toLowerCase().includes(query));
+    return aMatch&&qMatch;
+  });
+  renderMarkers(filtered);
+  updateCount(filtered);
+}
+ 
+// ===== PANEL =====
+function openPanel(id){
+  const v=VENUES.find(x=>x.id===id);
+  if(!v) return;
+  activeV=v;
+  curTab='r';
+  document.getElementById('rp-badge').textContent=v.sport;
+  document.getElementById('rp-title').textContent=v.venue;
+  document.getElementById('rp-addr').textContent=v.addr;
+  document.getElementById('rp-showing').textContent=`Showing ${v.restaurants.length} restaurant${v.restaurants.length!==1?'s':''} on list`;
+  document.getElementById('tab-r').textContent=`🍽️ Restaurants (${v.restaurants.length})`;
+  document.getElementById('tab-c').textContent=`📦 Caterers (${v.caterers.length})`;
+  document.getElementById('tab-r').classList.add('on');
+  document.getElementById('tab-c').classList.remove('on');
+  renderRestList(v.restaurants);
+  document.getElementById('rpanel').classList.add('open');
+  map.panTo([v.lat,v.lng],{animate:true});
+  markers.forEach(m=>m.marker.setIcon(makeIcon(m.venue,m.venue.id===id)));
+}
+ 
+function closePanel(){
+  document.getElementById('rpanel').classList.remove('open');
+  activeV=null;
+  markers.forEach(m=>m.marker.setIcon(makeIcon(m.venue,false)));
+}
+ 
+function switchTab(t){
+  curTab=t;
+  if(!activeV) return;
+  document.getElementById('tab-r').classList.toggle('on',t==='r');
+  document.getElementById('tab-c').classList.toggle('on',t==='c');
+  if(t==='r') renderRestList(activeV.restaurants);
+  else renderCatList(activeV.caterers);
+}
+ 
+function stars(r){return '★'.repeat(Math.floor(r))+'☆'.repeat(5-Math.floor(r));}
+ 
+function getImgSrc(name){
+  return IMG[name]||null;
+}
+ 
+function renderRestList(rests){
+  const el=document.getElementById('rlist');
+  if(!rests.length){el.innerHTML='<div class="empty"><div class="empty-icon">🍽️</div><div class="empty-txt">No restaurants found</div></div>';return;}
+  el.innerHTML=rests.map((r,i)=>{
+    const imgSrc=getImgSrc(r.img);
+    const imgHtml=imgSrc
+      ? `<img class="rc-img" src="${imgSrc}" alt="${r.name.replace(/"/g,'&quot;')}" loading="lazy" onerror="this.style.display='none'">`
+      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;opacity:.3">${FOOD_EMOJI[r.img]||'🍽️'}</div>`;
+    return `<div class="rc" onclick="showDet(${i})">
+      <div class="rc-img-wrap">
+        ${imgHtml}
+        <span class="rc-htag ${r.halal?'h':'nh'}">${r.halal?'Halal':'Non-Halal'}</span>
+        <span class="rc-rtag">${r.type}</span>
+        ${r.rec?'<span class="rc-rec">✅ Recommended!</span>':''}
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">${r.name}</div>
+        <div class="rc-row">
+          <span class="rc-stars">${stars(r.rating)}</span>
+          <span class="rc-rating">${r.rating}</span>
+          <span class="rc-price">${r.price}</span>
+          <span class="rc-dist">📍 ${r.dist}</span>
+        </div>
+        <div class="rc-cuisine">🍜 ${r.cuisine}</div>
+        <div class="rc-hours-row">🕒 ${r.hours}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+ 
+function renderCatList(cats){
+  const el=document.getElementById('rlist');
+  if(!cats.length){el.innerHTML='<div class="empty"><div class="empty-icon">📦</div><div class="empty-txt">No caterers listed for this venue</div></div>';return;}
+  el.innerHTML=cats.map(c=>{
+    const imgSrc=getImgSrc(c.img);
+    const imgHtml=imgSrc
+      ? `<div class="cc-img-wrap"><img class="cc-img" src="${imgSrc}" alt="${c.name.replace(/"/g,'&quot;')}" loading="lazy" onerror="this.style.display='none'"></div>`
+      : '';
+    const recTag=c.rec?'<span style="display:inline-block;font-size:10px;font-weight:800;background:#fef9c3;color:#854d0e;padding:2px 7px;border-radius:4px;margin-left:6px">⭐ Recommended</span>':'';
+    return `<div class="cc">
+      ${imgHtml}
+      <div class="cc-body">
+        <div class="cc-name">${c.name}${recTag}</div>
+        <span class="cc-tag h">${c.halal?'✅ Halal':'Non-Halal'}</span>
+        <div class="cc-meta">
+          <b>Food Type:</b> ${c.food}<br>
+          ${c.contact&&c.contact!='N/A'?`<b>Contact:</b> ${c.contact}<br>`:''}
+          ${c.note?`<b>Details:</b> ${c.note}`:''}
+        </div>
+        <a class="cc-maps" href="${c.maps}" target="_blank">🗺️ View on Google Maps</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+ 
+// ===== DETAIL VIEW =====
+function showDet(i){
+  const r=activeV.restaurants[i];
+  const imgSrc=getImgSrc(r.img);
+  const imgEl=document.getElementById('dc-main-img');
+  const fallbackEl=document.getElementById('dc-fallback');
+  if(imgSrc){
+    imgEl.src=imgSrc;
+    imgEl.style.display='block';
+    fallbackEl.style.display='none';
+    imgEl.onerror=()=>{imgEl.style.display='none';fallbackEl.style.display='flex';};
+  } else {
+    imgEl.style.display='none';
+    fallbackEl.style.display='flex';
+    fallbackEl.textContent=FOOD_EMOJI[r.img]||'🍽️';
+  }
+  document.getElementById('dc-img-wrap').style.background=`linear-gradient(135deg,${(FOOD_BG[r.img]||FOOD_BG.default)})`;
+  document.getElementById('dc-htag').textContent=r.halal?'Halal':'Non-Halal';
+  document.getElementById('dc-htag').className=`rc-htag ${r.halal?'h':'nh'}`;
+  document.getElementById('dc-rtag').textContent=r.type;
+  document.getElementById('dc-rec').style.display=r.rec?'flex':'none';
+  document.getElementById('dc-name').textContent=r.name;
+  document.getElementById('dc-stars').textContent=stars(r.rating);
+  document.getElementById('dc-rating').textContent=r.rating;
+  document.getElementById('dc-price').textContent=r.price;
+  document.getElementById('dc-dist').textContent='📍 '+r.dist;
+  document.getElementById('dc-cuisine').textContent=r.cuisine;
+  document.getElementById('dc-hours').textContent=r.hours;
+  document.getElementById('dc-contact').textContent=r.contact;
+  document.getElementById('dc-address').textContent=r.address;
+  document.getElementById('dc-avail').textContent=r.avail||'Not stated';
+  document.getElementById('dc-veg').textContent=r.veg||'Not stated';
+  document.getElementById('dc-maps').href=r.maps;
+  document.getElementById('fb-txt').value='';
+  resetStars();
+  document.getElementById('doverlay').classList.add('show');
+}
+ 
+function closeDet(e){if(e.target===document.getElementById('doverlay'))closeDet2();}
+function closeDet2(){document.getElementById('doverlay').classList.remove('show');}
+ 
+// ===== FEEDBACK =====
+function setStar(n){
+  userRating=n;
+  document.querySelectorAll('#stars span').forEach((s,i)=>s.classList.toggle('lit',i<n));
+}
+function resetStars(){userRating=0;document.querySelectorAll('#stars span').forEach(s=>s.classList.remove('lit'));}
+function markH(v){
+  const btns=document.querySelectorAll('.hlp-btn');
+  btns.forEach(b=>b.style.background='');
+  btns[v?0:1].style.background=v?'#dcfce7':'#fee2e2';
+}
+function submitFB(){
+  if(!userRating){alert('Please select a star rating!');return;}
+  const txt=document.getElementById('fb-txt').value.trim();
+  alert(`Thank you! Rating: ${userRating}★${txt?'\nReview: '+txt:''}`);
+  document.getElementById('fb-txt').value='';
+  resetStars();
+}
+ 
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDet2();closePanel();}});
+initMap();
+</script>
+</body>
+</html>
