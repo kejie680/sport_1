@@ -223,84 +223,132 @@ html,body{width:100%;height:100%;font-family:'Plus Jakarta Sans',sans-serif;over
 <script>
 // ===== IMAGE LOOKUP by restaurant/caterer name =====
 const IMG = {
-  'Chan Seng Kopitiam 大港昌盛面档': 'images/Chan%20Seng%20Kopitiam%20%23U5927%23U6e2f%23U660c%23U76db%23U9762%23U6863.png',
-  'The Chicken Rice Shop Sungai Besar': null,
-  'Nam Tai Restaurant': 'images/Nam%20Tai%20Restaurant.png',
-  'Some Place For Family & Eat Local Food': null,
-  'Restoran Loke Ann': 'images/Restoran%20Loke%20Ann.png',
-  'Qun Chuan Seafood Restaurant': 'images/Qun%20Chuan%20Seafood%20Restaurant.png',
-  'Mama Mee Yah Sungai Besar': 'images/Mama%20Mee%20Yah%20Sungai%20Besar.png',
-  'Hot Meal Bah': 'images/Hot%20Meal%20Bah.png',
-  'Mohd Chan Restaurant @ Bandar Baru Bangi': 'images/Mohd%20Chan%20Restaurant%20%40%20Bandar%20Baru%20Bangi.jpg',
-  'Warung Kita@Bangi': null,
-  'Mixed Rice (Wong & Teh)': 'images/Mixed%20Rice%20%28Wong%20%26%20Teh%29.png',
-  'Restoran Mak Kimbong – Sotong & Ikan Bakar': null,
-  'Restoran D\' Limau Nipis (Bangi)': 'images/Restoran%20D%23U2019%20Limau%20Nipis%20%28Bangi%29.png',
-  'Restoran Lao Ma Zi 老妈子饭店': 'images/Restoran%20Lao%20Ma%20Zi%20%23U2022%20%23U8001%23U5988%23U5b50%23U996d%23U5e97.webp',
-  'BACC Seafood': 'images/BACC%20Seafood.png',
-  'Mohd Chan Restaurant @ Putrajaya': 'images/Mohd%20Chan%20Restaurant%20%40%20Putrajaya.png',
-  'Restoran D\' Limau Nipis': 'images/Restoran%20D%23U2019%20Limau%20Nipis%20%28Bangi%29.png',
-  'Mr. Khan Traditional Arabic & Pakistani Cuisine': 'images/Mr.%20Khan%20Traditional%20Arabic%20%26%20Pakistani%20Cuisine.png',
-  'Wonderful Moment Restaurant 美好时刻餐厅': null,
-  'Restaurant Kaarraikudi Chettis': 'images/Restaurant%20Kaarraikudi%20Chettis.png',
-  'Warung D\'Masjid': null,
-  'Padi House, Giant Shah Alam': 'images/Padi%20House%2C%20Giant%20Shah%20Alam.jpg',
-  'Homst Shah Alam (Chinese Muslim Restaurant)': 'images/Homst%20Shah%20Alam%20%28Chinese%20Muslim%20Restaurant%29.png',
-  'Mohd Chan Restaurant @ Shah Alam Seksyen 15': 'images/Mohd%20Chan%20Restaurant%20%40%20Shah%20Alam%20Seksyen%2015.png',
-  'BananaBro • AEON Shah Alam': 'images/BananaBro%20%23U2022%20%23U00c6ON%20Shah%20Alam.png',
-  'Djakarta Raya Restoran Ayam Bakar': 'images/Djakarta%20Raya%20Restoran%20Ayam%20Bakar%20Seksyen%2013%20Shah%20Alam.png',
-  'You Fan Chi': null,
-  'Restaurant Ho Chai Delight': 'images/Restaurant%20Ho%20Chai%20Delight.png',
-  'Restoran Nan Hong': 'images/Restoran%20Nan%20Hong.png',
-  'Mohd Chan Restaurant – Melawati': 'images/Mohd%20Chan%20Restaurant%20%28esports%29.png',
-  'Mak O Mak Cafe': 'images/Mak%20O%20Mak%20Cafe.png',
-  'Restoran Cikgu Lee': 'images/Restoran%20Cikgu%20Lee.png',
-  'Mee Hiris China Muslim @ Melawati Mall': 'images/Mee%20Hiris%20China%20Muslim%20%40%20Melawati%20Mall.png',
-  'Senda Loka Restaurant & Cafe': 'images/Senda%20Loka%20Restaurant%20%26%20Cafe.png',
-  'NZ Curry House @ Wangsa Maju': 'images/NZ%20Curry%20House%20%40%20Wangsa%20Maju.png',
-  'Restoran Pondok Salero Minang': 'images/Restoran%20Pondok%20Salero%20Minang.png',
-  'Restoran Lawar Seafood': 'images/Restoran%20Lawar%20Seafood.png',
-  'Suhaila Nasi Kerabu Berlauk': null,
-  'Noor Huda Tomyam': 'images/Noor%20Huda%20Tomyam.png',
-  'Homst Setia Alam': 'images/Homst%20Setia%20Alam.png',
-  'LèTen Chinese Muslim Restaurant @ Mitsui Outlet Park': 'images/L%23U00e8Ten%20Chinese%20Muslim%20Restaurant%20%40%20Mitsui%20Outlet%20Park.png',
-  'Brahims Food Services Sdn Bhd': 'images/Brahims%20Food%20Services%20Sdn%20Bhd.png',
-  'My Wok Station': 'images/My%20Wok%20Station.png',
-  'Mohammad Chow Chinese Muslim Kitchen': 'images/Mohammad%20Chow%20Chinese%20Muslim%20Kitchen.png',
-  'Sun Thai Food (Chinese Muslim) @ Sunway Mentari': null,
-  'Speed Char Kuey Teow • Waq Pizza': null,
-  'Nasi Lemak Ayam Goreng Berempah (Ela & Awe)': 'images/Nasi%20Lemak%20Ayam%20Goreng%20Berempah%20%28%20Ela%20%26%20Awe%20%29.png',
-  'Restoran Nur Balqis': 'images/Restoran%20Nur%20Balqis.png',
-  'Al Jamal Restaurant': 'images/Al%20Jamal%20Restaurant.jpg',
-  'Salam Noodles • Nilai': 'images/Salam%20Noodles%20%23U2022%20Nilai.png',
-  'NASI AYAM AQILSHA (NILAI)': 'images/NASI%20AYAM%20AQILSHA%20%28NILAI%29.png',
-  'Yuen Heong Restaurant': null,
-  'Restoran New Tin Mui Young': 'images/Restoran%20New%20Tin%20Mui%20Young%20%23U65b0%23U7f8e%23U9999%23U8336%23U9910%23U5ba4%28%23U516d%23U5341%23U5e74%23U4ee3%29%20New%20Tin%20Mui%20Young%20Restaurant%20%28Since%201960s%29.png',
+  'Al_Jamal_Restaurant': 'img/Al_Jamal_Restaurant.jpg',
+  'BACC_Seafood': 'img/BACC_Seafood.png',
+  'BananaBro': 'img/BananaBro.png',
+  'Brahims_Food_Services_Sdn_Bhd': 'img/Brahims_Food_Services_Sdn_Bhd.png',
+  'Chan_Seng_Kopitiam': 'img/Chan_Seng_Kopitiam.png',
+  'Djakarta_Raya_Restoran_Ayam_Bakar': 'img/Djakarta_Raya_Restoran_Ayam_Bakar.png',
+  'DLimau': 'img/DLimau.png',
+  'Homst_Setia_Alam': 'img/Homst_Setia_Alam.png',
+  'LeTen': 'img/LeTen.png',
+  'Mak_O_Mak_Cafe': 'img/Mak_O_Mak_Cafe.png',
+  'Mama_Mee_YahSungaiBesar': 'img/Mama_Mee_YahSungaiBesar.png',
+  'MeeHiris': 'img/MeeHiris.png',
+  'MohdChan': 'img/MohdChan.png',
+  'Mr_Khan_Traditional_Arabic': 'img/Mr_Khan_Traditional_Arabic.png',
+  'My_Wok_Station': 'img/My_Wok_Station.png',
+  'Nam_Tai_Restaurant': 'img/Nam_Tai_Restaurant.png',
+  'NASI_AYAM_AQILSHA_(NILAI)': 'img/NASI_AYAM_AQILSHA_(NILAI).png',
+  'Nasi_Lemak_Ayam_Goreng_Berempah': 'img/Nasi_Lemak_Ayam_Goreng_Berempah.png',
+  'Noor_HudaTomyam': 'img/Noor_HudaTomyam.png',
+  'NZCurryHouse': 'img/NZCurryHouse.png',
+  'Padi_House': 'img/Padi_House.jpg',
+  'QunChuanSeafoodRestaurant': 'img/QunChuanSeafoodRestaurant.png',
+  'RestaurantKaarraikudiChettis': 'img/RestaurantKaarraikudiChettis.png',
+  'Restoran_New_TinMuiYoung': 'img/Restoran_New_TinMuiYoung.png',
+  'RestoranCikguLee': 'img/RestoranCikguLee.png',
+  'RestoranLaoMaZi': 'img/RestoranLaoMaZi.webp',
+  'RestoranLawarSeafood': 'img/RestoranLawarSeafood.png',
+  'RestoranLokeAnn': 'img/RestoranLokeAnn.png',
+  'RestoranNurBalqis': 'img/RestoranNurBalqis.png',
+  'RestoranPondokSaleroMinang': 'img/RestoranPondokSaleroMinang.png',
+  'SalamNoodlesNilai': 'img/SalamNoodlesNilai.png',
+  'SendaLokaRestaurant&Cafe': 'img/SendaLokaRestaurant&Cafe.png',
+  'SomePlaceForFamily&EatLocalFood': 'img/SomePlaceForFamily&EatLocalFood.jpg',
+  'SpeedCharKueyTeow': 'img/SpeedCharKueyTeow.png',
+  'SuhailaNasiKerabuBerlauk': 'img/SuhailaNasiKerabuBerlauk.png',
+  'SunThaiFood': 'img/SunThaiFood.png',
+  'TheChickenRiceShop': 'img/TheChickenRiceShop.png',
+  'WarungMasjid': 'img/WarungMasjid.png',
+  'WonderfulMomentRestaurant': 'img/WonderfulMomentRestaurant.png',
+  'YuenHeongRestaurant': 'img/YuenHeongRestaurant.png',
+  'HotMealBah': 'img/HotMealBah.png',
+  'MixedRiceWong&Teh': 'img/MixedRiceWong&Teh.png',
+  'WarungKita': 'img/WarungKita.jpg',
+  'YouFanChi': 'img/YouFanChi.jpg',
+  'RestaurantHoChaiDelight': 'img/RestaurantHoChaiDelight.png',
+  'RestoranNanHong': 'img/RestoranNanHong.png',
+  'RockCafeBandarSunway': 'img/RockCafeBandarSunway.png',
+  'MadamKwan': 'img/MadamKwan.png',
+  'KhaoManGaiPeeNongRestaurant': 'img/KhaoManGaiPeeNongRestaurant.jpg',
+  'NHF_Organects': 'img/NHF_Organects.jpg',
+  'MZRestoran': 'img/MZRestoran.png',
+  'RestoranMalikiNasiKukus': 'img/RestoranMalikiNasiKukus.jpg',
+  'KopitiamYangYang': 'img/KopitiamYangYang.png',
+  'Subway': 'img/Subway.png',
+  'TeaGarden': 'img/TeaGarden.jpg',
+  'PenyetExpress': 'img/PenyetExpress.jpg',
+  'RestaurantPinWeiSeafood': 'img/RestaurantPinWeiSeafood.jpg',
+  'RestoranBeiPing': 'img/RestoranBeiPing.png',
+  'RestoranBR2': 'img/RestoranBR2.png',
+  'S_One_OneRestaurant': 'img/S_One_OneRestaurant.png',
+  'Choon_GuanHainanCoffee': 'img/Choon_GuanHainanCoffee.png',
+  'LuckyHHRestaurant': 'img/LuckyHHRestaurant.jpg',
+  'LeeonKitchen': 'img/LeeonKitchen.png',
+  'GoodFortuneRestaurant': 'img/GoodFortuneRestaurant.jpg',
+  'ChinCafe': 'img/ChinCafe.png',
+  'JujubeVegetarianHouse': 'img/JujubeVegetarianHouse.png',
+  'NarmyKitchen': 'img/NarmyKitchen.png',
+  'LagiSantaiCafe': 'img/LagiSantaiCafe.png',
+  'RestoranFairosMaju': 'img/RestoranFairosMaju.png',
+  'NASIKANDAR_SHABISTRO': 'img/NASIKANDAR_SHABISTRO.png',
+  'PKSMajuRestaurant': 'img/PKSMajuRestaurant.png',
+  'RestoranMakKimbong': 'img/RestoranMakKimbong.png',
+  'RestaurantDhiyazCurry': 'img/RestaurantDhiyazCurry.png',
+  'Bozkukitchen': 'img/Bozkukitchen.png',
+  'SAMBAL_LALAPAN': 'img/SAMBAL_LALAPAN.png',
+  'Bakso_Warisan': 'img/Bakso_Warisan.png',
+  'Ruyi_Perfect_Restaurant': 'img/Ruyi_Perfect_Restaurant.png',
+  'HockSeafoodRestaurant': 'img/HockSeafoodRestaurant.png',
+  'I_Suka_Restaurant': 'img/I_Suka_Restaurant.png',
+  'Uncle_Sam_Kopi': 'img/Uncle_Sam_Kopi.png',
+  'GoldenCuisine': 'img/GoldenCuisine.png',
+  'CathayHailamKopitiam': 'img/CathayHailamKopitiam.png',
+  'RestoranchiXiangHeLa': 'img/RestoranchiXiangHeLa.png',
+  'Korek': 'img/Korek.png',
+  'Muara_HNP': 'img/Muara_HNP.png',
+  'Restoran_HongLee': 'img/Restoran_HongLee.png',
+  'RestoranSeleraCikYati': 'img/RestoranSeleraCikYati.png',
+  'RumahMakanRestuIbu': 'img/RumahMakanRestuIbu.png',
+  'KedaiMakanBotak': 'img/KedaiMakanBotak.png',
+  'SeleraHaliAsyraf': 'img/SeleraHaliAsyraf.png',
+  'MANJOE': 'img/MANJOE.png',
+  'Arabesq_Restaurant': 'img/Arabesq_Restaurant.png',
+  'Dapor_Berasap': 'img/Dapor_Berasap.png',
+  'Kedai_Nasi_Papa': 'img/Kedai_Nasi_Papa.png',
+  'Khao_Man_Gai_Pee_Nong': 'img/Khao_Man_Gai_Pee_Nong.jpg',
+  'LeFood': 'img/LeFood.jpg',
+  'NasiKandarKelasikSignature': 'img/NasiKandarKelasikSignature.png',
+  'OneBistroNasiKandar': 'img/OneBistroNasiKandar.jpg',
+  'Organic_Vegetarian': 'img/Organic_Vegetarian.png',
+  'Pak_Li_Kopitiam': 'img/Pak_Li_Kopitiam.png', 
   // Caterers
   'Ahaz_Food_Court_&_Katering': 'img/Ahaz_Food_Court_&_Katering.png',
-  'Uyin Catering': null,
-  'MZ Catering': 'images/MZ%20Catering.jpg',
-  'Arbe Catering': 'images/Arbe%20Catering.jpg',
-  'Restoran Farhanah Catering Kajang': 'images/Restoran%20Farhanah%20Catering%20Taman%20Universiti%20Kajang.png',
-  '7th Sense Caterer': 'images/7th%20Sense%20Caterer.png',
-  'Seri Indah Catering': null,
-  'Venturas Catering': null,
-  'RunningMen Catering': 'images/RunningMen%20Catering.png',
-  'H&H Catering': 'images/H%26H%20Catering.jpg',
-  'iDO Catering': 'images/iDO%20Catering.png',
-  'Mama Cooks Kitchen': 'images/Mama%20Cooks%20Kitchen.png',
-  'Hometaste': 'images/Hometaste.png',
-  'GoClean Healthy Meal Delivery': 'images/GoClean%20Healthy%20Meal%20Delivery.png',
-  'Sayang Express Catering': 'images/Sayang%20Express%20Catering.png',
-  'NS Restaurant & Catering': 'images/NS%20Restaurant%20%26%20Catering.png',
-  'Juriah Food & Catering': 'images/Juriah%20Food%20%26%20Catering.png',
-  'Mama Cafe & Catering': null,
-  'Teaffani Catering': null,
-  'Sajian d-Hidang Catering': 'images/Sajian%20d-Hidang%20Catering.png',
-  'KPR Food Caterers': null,
-  'Orange Catering': null,
-  'Sree Eswara Food Caterers': null,
-  'Ecah Nik Catering': null,
+  '7th_Sense_Caterer': 'img/7th_Sense_Caterer.png',
+  'GoCleanHealthy_MealDelivery': 'img/GoCleanHealthy_MealDelivery.png',
+  'Arbe_Catering': 'img/Arbe_Catering.jpg',
+  'Ecah_Nik_Catering': 'img/Ecah_Nik_Catering.png',
+  'H&H_Catering': 'img/H&H_Catering.jpg',
+  'iDO_Catering': 'img/iDO_Catering.png',
+  'JuriahFood&Catering': 'img/JuriahFood&Catering.png',
+  'MZ_Catering': 'img/MZ_Catering.jpg',
+  'NS_Restaurant&Catering': 'img/NS_Restaurant&Catering.png',
+  'Orange_Catering': 'img/Orange_Catering.jpg',
+  'Restoran_Farhanah_Catering_Taman_Univers': 'img/Restoran_Farhanah_Catering_Taman_Universiti_Kajang.png',
+  'RunningMen_Catering': 'img/RunningMen_Catering.png',
+  'Sajian_d-Hidang_Catering': 'img/Sajian_d-Hidang_Catering.png',
+  'Sayang_Express_Catering': 'img/Sayang_Express_Catering.png',
+  'Seri_Indah_Catering': 'img/Seri_Indah_Catering.jpg',
+  'Teaffani_Catering': 'img/Teaffani_Catering.jpg',
+  'Uyin_Catering': 'img/Uyin_Catering.png',
+  'Venturas_Catering': 'img/Venturas_Catering.png',
+  'Lepika_Caterers': 'img/Lepika_Caterers.jpg',
+  'MH_Catering': 'img/MH_Catering.jpg',
+  'MAMA_COOKS': 'img/MAMA_COOKS.jpg',
+  'Hometaste': 'img/Hometaste.png',
+  'KPR_Food_Caterers': 'img/KPR_Food_Caterers.jpg', 
+  'Sree_Eswra_Food_Caterers': 'img/Sree_Eswara_Food_Caterers.png',
 };
 
 const FOOD_EMOJI={kopitiam:'☕',chicken_rice:'🍗',noodles:'🍜',fried_rice:'🍳',seafood:'🦞',chinese:'🥢',malay:'🫙',mixed_rice:'🍚',tomyam:'🍲',curry:'🍛',grill:'🔥',padang:'🫕',pasta:'🍝',fusion:'🥗',rice_bowl:'🍙',thai:'🌶️',dimsum:'🥟',bento:'🍱',arabic:'🥙',default:'🍽️'};
@@ -309,223 +357,208 @@ const FOOD_BG={kopitiam:'#451a03,#78350f',chicken_rice:'#854d0e,#78350f',noodles
 const VENUES=[
 {id:"chess",sport:"Catur / Chess",icon:"♟️",venue:"Dewan Seri Bernam",addr:"Sungai Besar, Selangor",area:"sungai besar",lat:3.6614,lng:101.0198,
  restaurants:[
-  {name:"Chan Seng Kopitiam 大港昌盛面档",rec:true,halal:false,type:"Kopitiam",rating:4.3,price:"RM7–RM9",dist:"1.5 km",hours:"6:30 AM – 12:30 PM (Daily)",contact:"019-206 7434",address:"Sungai Besar, Selangor",cuisine:"Chinese / Kopitiam",avail:"Dine-in, packed food (advance order needed) · Up to 20–30 pax",veg:"Can customise (no meat/egg)",img:"kopitiam",maps:"https://maps.app.goo.gl/HzCmYuwsnXfFsKTVA"},
-  {name:"The Chicken Rice Shop Sungai Besar",rec:true,halal:true,type:"Restaurant",rating:3.8,price:"RM20–RM40",dist:"1.2 km",hours:"8:00 AM – 10:00 PM (Daily)",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Malay / Chicken Rice",avail:"Dine-in, takeaway",veg:"Limited",img:"chicken_rice",maps:"https://maps.app.goo.gl/RYh4WYG3Waffqk8d8"},
-  {name:"Mama Mee Yah Sungai Besar",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM5–RM12",dist:"1.0 km",hours:"7:00 AM – 3:00 PM (Daily)",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Malay / Noodles",avail:"Dine-in, takeaway",veg:"Limited",img:"noodles",maps:"https://maps.app.goo.gl/wooRTCgEZF16jEXv8"},
-  {name:"Nam Tai Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"900 m",hours:"6:30 AM – 4:30 PM (except Sunday)",contact:"012-350 2215",address:"Sungai Besar, Selangor",cuisine:"Chinese",avail:"Dine-in",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/8VxZEoxxf5xzCSK7A"},
-  {name:"Some Place For Family & Eat Local Food",rec:false,halal:true,type:"Restaurant",rating:3.7,price:"RM5–RM15",dist:"1–2 km",hours:"10:00 AM – 9:00 PM",contact:"Not listed",address:"Jalan Dataran Tongga, Sungai Besar",cuisine:"Malay / Local",avail:"Dine-in, packed food",veg:"Limited (veg fried rice)",img:"malay",maps:"https://maps.app.goo.gl/dqhobxxsVMGbak6D8"},
-  {name:"Restoran Loke Ann",rec:true,halal:false,type:"Restaurant",rating:5.0,price:"RM10–RM20",dist:"1.7 km",hours:"Not mentioned",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Chinese",avail:"Dine-in, takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/e1NEbrUNuc2T9aTm6"},
-  {name:"Qun Chuan Seafood Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.3,price:"RM20–RM40",dist:"1.7 km",hours:"8:00 AM – 2:00 PM (except Monday)",contact:"016-262 1372",address:"Sungai Besar, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in, takeaway",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/UmNV3aY1nNGfziSz9"},
+  {name:"Chan Seng Kopitiam 大港昌盛面档",rec:true,halal:false,type:"Kopitiam",rating:4.3,price:"RM7–RM9",dist:"1.5 km",hours:"6:30 AM – 12:30 PM (Daily)",contact:"019-206 7434",address:"Sungai Besar, Selangor",cuisine:"Chinese / Kopitiam",avail:"Dine-in, packed food (advance order needed) · Up to 20–30 pax",veg:"Can customise (no meat/egg)",img: "Chan_Seng_Kopitiam",maps:"https://maps.app.goo.gl/HzCmYuwsnXfFsKTVA"},
+  {name:"The Chicken Rice Shop Sungai Besar",rec:true,halal:true,type:"Restaurant",rating:3.8,price:"RM20–RM40",dist:"1.2 km",hours:"8:00 AM – 10:00 PM (Daily)",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Malay / Chicken Rice",avail:"Dine-in, takeaway",veg:"Limited",img: "TheChickenRiceShop",maps:"https://maps.app.goo.gl/RYh4WYG3Waffqk8d8"},
+  {name:"Mama Mee Yah Sungai Besar",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM5–RM12",dist:"1.0 km",hours:"7:00 AM – 3:00 PM (Daily)",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Malay / Noodles",avail:"Dine-in, takeaway",veg:"Limited",img: "Mama_Mee_YahSungaiBesar",maps:"https://maps.app.goo.gl/wooRTCgEZF16jEXv8"},
+  {name:"Nam Tai Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"900 m",hours:"6:30 AM – 4:30 PM (except Sunday)",contact:"012-350 2215",address:"Sungai Besar, Selangor",cuisine:"Chinese",avail:"Dine-in",veg:"Limited",img: "Nam_Tai_Restaurant",maps:"https://maps.app.goo.gl/8VxZEoxxf5xzCSK7A"},
+  {name:"Some Place For Family & Eat Local Food",rec:false,halal:true,type:"Restaurant",rating:3.7,price:"RM5–RM15",dist:"1–2 km",hours:"10:00 AM – 9:00 PM",contact:"Not listed",address:"Jalan Dataran Tongga, Sungai Besar",cuisine:"Malay / Local",avail:"Dine-in, packed food",veg:"Limited (veg fried rice)",img: "SomePlaceForFamily&EatLocalFood",maps:"https://maps.app.goo.gl/dqhobxxsVMGbak6D8"},
+  {name:"Restoran Loke Ann",rec:true,halal:false,type:"Restaurant",rating:5.0,price:"RM10–RM20",dist:"1.7 km",hours:"Not mentioned",contact:"Not stated",address:"Sungai Besar, Selangor",cuisine:"Chinese",avail:"Dine-in, takeaway",veg:"Limited",img: "RestoranLokeAnn",maps:"https://maps.app.goo.gl/e1NEbrUNuc2T9aTm6"},
+  {name:"Qun Chuan Seafood Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.3,price:"RM20–RM40",dist:"1.7 km",hours:"8:00 AM – 2:00 PM (except Monday)",contact:"016-262 1372",address:"Sungai Besar, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in, takeaway",veg:"Limited",img: "QunChuanSeafoodRestaurant",maps:"https://maps.app.goo.gl/UmNV3aY1nNGfziSz9"},
  ],
  caterers:[
   {name:"Ahaz Food Court & Katering",halal:true,food:"Malay",contact:"N/A", img: "Ahaz_Food_Court_&_Katering", maps:"https://maps.app.goo.gl/wooRTCgEZF16jEXv8",note:"Local catering · Sungai Besar cluster · Min order: verify · Facebook: ahazfoodcatering"},
-  {name:"Uyin Catering",halal:true,food:"Malay",contact:"018-327 4997",maps:"https://maps.app.goo.gl/uGyCDX5J8v1op9uQ6",note:"Event Catering · Sungai Besar cluster · WhatsApp preferred · Facebook: UYINCATERING"},
+  {name:"Uyin Catering",halal:true,food:"Malay",contact:"018-327 4997",img: "Uyin_Catering",maps:"https://maps.app.goo.gl/uGyCDX5J8v1op9uQ6",note:"Event Catering · Sungai Besar cluster · WhatsApp preferred · Facebook: UYINCATERING"},
  ]},
 
 {id:"gymnastics",sport:"Gimnastik / Gymnastics",icon:"🤸",venue:"Dewan Canselor Tun Abdul Razak (DECTAR)",addr:"UKM Bangi, Selangor",area:"bangi",lat:2.9240,lng:101.7801,
  restaurants:[
-  {name:"Hot Meal Bah",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM18–RM20+",dist:"700 m",hours:"9:00 AM – 8:00 PM (Daily)",contact:"019-388 8702",address:"Near UKM, Bangi",cuisine:"Malay / Local",avail:"Dine-in, packed food, takeaway · Grab/Foodpanda/Shopee",veg:"Can customise",img:"rice_bowl",maps:"https://maps.app.goo.gl/GfPdBsNY71qUJbnG9"},
-  {name:"Mixed Rice (Wong & Teh)",rec:true,halal:false,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"1.8 km",hours:"10:00 AM – 3:00 PM (Mon–Fri only)",contact:"Not stated",address:"Near UKM, Bangi",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway · No delivery",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/4zJ6CqDLvPfrLhWZ7"},
-  {name:"Mohd Chan Restaurant @ Bandar Baru Bangi",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"5–6 km",hours:"11:30 AM – 11:00 PM",contact:"+60 16-658 2369",address:"Jalan Medan Pusat 2C, Seksyen 9, Bangi",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (vegetable dishes)",img:"fried_rice",maps:"https://maps.app.goo.gl/Y98bF2cJikYNL1oF7"},
-  {name:"Warung Kita@Bangi",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM5–RM12",dist:"2–3 km",hours:"8:00 AM – 8:00 PM (Daily)",contact:"+60 11-1190 4486",address:"Jalan Industri Sungai Tangkas 1, Kampung Sungai Tangkas, Bangi",cuisine:"Malay / Local",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/ecSFjmQCMyYydLsVA"},
-  {name:"Restoran Mak Kimbong – Sotong & Ikan Bakar",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM8–RM15",dist:"4–5 km",hours:"~7:00 AM – 5:00 PM",contact:"Not listed",address:"13, Jalan 4/1A, Seksyen 4 Tambahan Bandar Baru Bangi",cuisine:"Malay Seafood / Kampung",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (ulam, sayur kampung)",img:"seafood",maps:"https://maps.app.goo.gl/otPqs5CCQ2uNkFXN6"},
-  {name:"Restoran D\' Limau Nipis (Bangi)",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"6–7 km",hours:"~7:00 AM – 4:30 PM (Daily)",contact:"+60 12-373 2160",address:"No. 201 & 205, Jalan 8/1, Seksyen 8, Bandar Baru Bangi",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (limited)",img:"malay",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
-  {name:"Restoran Lao Ma Zi 老妈子饭店",rec:false,halal:false,type:"Restaurant",rating:4.4,price:"RM20–RM40",dist:"7.5 km",hours:"11:30 AM–3 PM, 5:30–10 PM (Daily)",contact:"03-8912 8272",address:"Bangi area",cuisine:"Chinese",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/UNZTpPxmtWip659d9"},
-  {name:"BACC Seafood",rec:false,halal:false,type:"Restaurant",rating:4.2,price:"RM20–RM40",dist:"7.4 km",hours:"11 AM–3 PM, 5–10 PM (Daily)",contact:"011-2885 8588",address:"Bangi area",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway",veg:"Yes",img:"seafood",maps:"https://maps.app.goo.gl/GjiRALRjiuZzv13a9"},
+  {name:"Hot Meal Bah",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM18–RM20+",dist:"700 m",hours:"9:00 AM – 8:00 PM (Daily)",contact:"019-388 8702",address:"Near UKM, Bangi",cuisine:"Malay / Local",avail:"Dine-in, packed food, takeaway · Grab/Foodpanda/Shopee",veg:"Can customise",img: "HotMealBah",maps:"https://maps.app.goo.gl/GfPdBsNY71qUJbnG9"},
+  {name:"Mixed Rice (Wong & Teh)",rec:true,halal:false,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"1.8 km",hours:"10:00 AM – 3:00 PM (Mon–Fri only)",contact:"Not stated",address:"Near UKM, Bangi",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway · No delivery",veg:"Limited",img: "MixedRiceWong&Teh",maps:"https://maps.app.goo.gl/4zJ6CqDLvPfrLhWZ7"},
+  {name:"Mohd Chan Restaurant @ Bandar Baru Bangi",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"5–6 km",hours:"11:30 AM – 11:00 PM",contact:"+60 16-658 2369",address:"Jalan Medan Pusat 2C, Seksyen 9, Bangi",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (vegetable dishes)",img: "MohdChan",maps:"https://maps.app.goo.gl/Y98bF2cJikYNL1oF7"},
+  {name:"Warung Kita@Bangi",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM5–RM12",dist:"2–3 km",hours:"8:00 AM – 8:00 PM (Daily)",contact:"+60 11-1190 4486",address:"Jalan Industri Sungai Tangkas 1, Kampung Sungai Tangkas, Bangi",cuisine:"Malay / Local",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "WarungKita",maps:"https://maps.app.goo.gl/ecSFjmQCMyYydLsVA"},
+  {name:"Restoran Mak Kimbong – Sotong & Ikan Bakar",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM8–RM15",dist:"4–5 km",hours:"~7:00 AM – 5:00 PM",contact:"Not listed",address:"13, Jalan 4/1A, Seksyen 4 Tambahan Bandar Baru Bangi",cuisine:"Malay Seafood / Kampung",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (ulam, sayur kampung)",img: "RestoranMakKimbong",maps:"https://maps.app.goo.gl/otPqs5CCQ2uNkFXN6"},
+  {name:"Restoran D\' Limau Nipis (Bangi)",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"6–7 km",hours:"~7:00 AM – 4:30 PM (Daily)",contact:"+60 12-373 2160",address:"No. 201 & 205, Jalan 8/1, Seksyen 8, Bandar Baru Bangi",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (limited)",img: "DLimau",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
+  {name:"Restoran Lao Ma Zi 老妈子饭店",rec:false,halal:false,type:"Restaurant",rating:4.4,price:"RM20–RM40",dist:"7.5 km",hours:"11:30 AM–3 PM, 5:30–10 PM (Daily)",contact:"03-8912 8272",address:"Bangi area",cuisine:"Chinese",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "RestoranLaoMaZi",maps:"https://maps.app.goo.gl/UNZTpPxmtWip659d9"},
+  {name:"BACC Seafood",rec:false,halal:false,type:"Restaurant",rating:4.2,price:"RM20–RM40",dist:"7.4 km",hours:"11 AM–3 PM, 5–10 PM (Daily)",contact:"011-2885 8588",address:"Bangi area",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway",veg:"Yes",img: "BACC_Seafood",maps:"https://maps.app.goo.gl/GjiRALRjiuZzv13a9"},
  ],
  caterers:[
-  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-318 0070",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event Catering · Kajang/Bangi cluster · Facebook: mzcateringbangi"},
-  {name:"Arbe Catering",halal:true,food:"Malay",contact:"019-280 1654",maps:"https://maps.app.goo.gl/BBjZc6X9PQukEmhf7",note:"Rating 4.0 · Min 100 pax · RM17/pax (rice + 1 lauk + 1 veg + drink) · Full payment <500 pax · 50% deposit ≥500 pax · Cancel: 1 week notice · RM150 cancel fee · Bento/buffet options"},
-  {name:"Restoran Farhanah Catering Kajang",halal:true,food:"Malay",contact:"016-402 3001",maps:"https://maps.app.goo.gl/chkQFFDXjwBf2Ng99",note:"Weekday min 30 pax @RM500 · Weekend min 50 pax @RM700 · Delivery RM5/km · Facebook: HQFarhanahCatering"},
+  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-318 0070", img: "MZ_Catering",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event Catering · Kajang/Bangi cluster · Facebook: mzcateringbangi"},
+  {name:"Arbe Catering",halal:true,food:"Malay",contact:"019-280 1654",img: "Arbe_Catering", maps:"https://maps.app.goo.gl/BBjZc6X9PQukEmhf7",note:"Rating 4.0 · Min 100 pax · RM17/pax (rice + 1 lauk + 1 veg + drink) · Full payment <500 pax · 50% deposit ≥500 pax · Cancel: 1 week notice · RM150 cancel fee · Bento/buffet options"},
+  {name:"Restoran Farhanah Catering Kajang",halal:true,food:"Malay",contact:"016-402 3001",img: "Restoran_Farhanah_Catering_Taman_Univers",maps:"https://maps.app.goo.gl/chkQFFDXjwBf2Ng99",note:"Weekday min 30 pax @RM500 · Weekend min 50 pax @RM700 · Delivery RM5/km · Facebook: HQFarhanahCatering"},
  ]},
 
 {id:"athletics",sport:"Olahraga / Athletics",icon:"🏃",venue:"Stadium UPM",addr:"Serdang, Selangor",area:"serdang",lat:2.9934,lng:101.7265,
  restaurants:[
-  {name:"Restoran D\' Limau Nipis (Bangi)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"6–7 km",hours:"~7:00 AM – 4:30 PM (Daily)",contact:"+60 12-373 2160",address:"No. 201 & 205, Jalan 8/1, Seksyen 8, Bandar Baru Bangi",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (limited)",img:"malay",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
-  {name:"Mohd Chan Restaurant @ Putrajaya",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"7.2 km",hours:"11:30 AM – 11:00 PM",contact:"012-414 8001",address:"Putrajaya",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway · Delivery",veg:"Yes",img:"fried_rice",maps:"https://maps.app.goo.gl/tUWAceJkeX4g6rD86"},
-  {name:"Mr. Khan Traditional Arabic & Pakistani Cuisine",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM1–RM20",dist:"5–10 min drive",hours:"10:00 AM – 12:00 AM (Daily)",contact:"+60 11-2838 1148",address:"C-G, Seksyen 5, 02, Jalan SP 5/4, Taman Serdang Perdana, Seri Kembangan",cuisine:"Arabic / Pakistani / Halal",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (mainly meat-based)",img:"arabic",maps:"https://maps.app.goo.gl/hM2GZXjFy6XzQBS67"},
-  {name:"Wonderful Moment Restaurant 美好时刻餐厅",rec:false,halal:false,type:"Restaurant",rating:4.6,price:"RM1–RM20",dist:"4.8 km",hours:"10:00 AM – 5:00 PM (except Sat & Sun)",contact:"012-368 0110",address:"Serdang area",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/GLKZ2A4QAewGpkoJ9"},
-  {name:"Restaurant Kaarraikudi Chettis",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM1–RM20",dist:"5.7 km",hours:"7:00 AM – 12:00 AM (Daily)",contact:"018-904 2323",address:"Serdang area",cuisine:"Indian / Mamak",avail:"Dine-in, takeaway",veg:"Yes",img:"curry",maps:"https://maps.app.goo.gl/SUVmicgGyvDYxkpR6"},
-  {name:"Warung D\'Masjid",rec:false,halal:true,type:"Warung",rating:4.5,price:"RM1–RM20",dist:"4.3 km",hours:"6:30 AM – 3:30 PM (except Sat & Sun)",contact:"017-332 3163",address:"Serdang area",cuisine:"Malay / Mamak",avail:"Dine-in, takeaway",veg:"Yes",img:"malay",maps:"https://maps.app.goo.gl/sPDnTxwLfasRXxtR6"},
+  {name:"Restoran D\' Limau Nipis (Bangi)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"6–7 km",hours:"~7:00 AM – 4:30 PM (Daily)",contact:"+60 12-373 2160",address:"No. 201 & 205, Jalan 8/1, Seksyen 8, Bandar Baru Bangi",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (limited)",img: "DLimau",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
+  {name:"Mohd Chan Restaurant @ Putrajaya",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"7.2 km",hours:"11:30 AM – 11:00 PM",contact:"012-414 8001",address:"Putrajaya",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway · Delivery",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/tUWAceJkeX4g6rD86"},
+  {name:"Mr. Khan Traditional Arabic & Pakistani Cuisine",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM1–RM20",dist:"5–10 min drive",hours:"10:00 AM – 12:00 AM (Daily)",contact:"+60 11-2838 1148",address:"C-G, Seksyen 5, 02, Jalan SP 5/4, Taman Serdang Perdana, Seri Kembangan",cuisine:"Arabic / Pakistani / Halal",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (mainly meat-based)",img: "Mr_Khan_Traditional_Arabic",maps:"https://maps.app.goo.gl/hM2GZXjFy6XzQBS67"},
+  {name:"Wonderful Moment Restaurant 美好时刻餐厅",rec:false,halal:false,type:"Restaurant",rating:4.6,price:"RM1–RM20",dist:"4.8 km",hours:"10:00 AM – 5:00 PM (except Sat & Sun)",contact:"012-368 0110",address:"Serdang area",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "WonderfulMomentRestaurant",maps:"https://maps.app.goo.gl/GLKZ2A4QAewGpkoJ9"},
+  {name:"Restaurant Kaarraikudi Chettis",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM1–RM20",dist:"5.7 km",hours:"7:00 AM – 12:00 AM (Daily)",contact:"018-904 2323",address:"Serdang area",cuisine:"Indian / Mamak",avail:"Dine-in, takeaway",veg:"Yes",img: "RestaurantKaarraikudiChettis",maps:"https://maps.app.goo.gl/SUVmicgGyvDYxkpR6"},
+  {name:"Warung D\'Masjid",rec:false,halal:true,type:"Warung",rating:4.5,price:"RM1–RM20",dist:"4.3 km",hours:"6:30 AM – 3:30 PM (except Sat & Sun)",contact:"017-332 3163",address:"Serdang area",cuisine:"Malay / Mamak",avail:"Dine-in, takeaway",veg:"Yes",img: "WarungMasjid",maps:"https://maps.app.goo.gl/sPDnTxwLfasRXxtR6"},
  ],
  caterers:[
-  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-318 0070",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event Catering · Sepang/Bangi cluster · Facebook: mzcateringbangi"},
+  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-318 0070",img: "MZ_Catering",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event Catering · Sepang/Bangi cluster · Facebook: mzcateringbangi"},
  ]},
 
 {id:"swimming",sport:"Renang / Swimming",icon:"🏊",venue:"Pusat Akuatik Darul Ehsan",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0738,lng:101.5183,
  restaurants:[
-  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"0.5–1 km",hours:"10:00 AM – 10:00 PM (Daily)",contact:"+60 17-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Persiaran Sukan, Seksyen 13, Shah Alam",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (pasta, salads)",img:"pasta",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
-  {name:"Restaurant Ho Chai Delight",rec:true,halal:false,type:"Restaurant",rating:3.5,price:"RM1–RM20",dist:"~5 km",hours:"11:00 AM – 4:00 PM (except Sunday)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/p25eodnuUFSySjNC6"},
-  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (except Sunday 10:30 AM–3:30 PM, 5–8 PM)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
-  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"~11:00 AM – 10:30 PM",contact:"012-570 0261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, Shah Alam",cuisine:"Halal Chinese / Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"dimsum",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
-  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-958 0630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, Shah Alam",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway",veg:"Yes",img:"fried_rice",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
-  {name:"BananaBro • AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-232 4030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, Shah Alam",cuisine:"Indian / Banana Leaf",avail:"Dine-in & takeaway",veg:"Yes (banana leaf veg sets)",img:"curry",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
-  {name:"Djakarta Raya Restoran Ayam Bakar",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"1–2 km",hours:"~10:30 AM – 10:30 PM (Daily)",contact:"+60 11-6222 6474",address:"Jalan Badminton 13/29, Seksyen 13, Shah Alam",cuisine:"Indonesian / Ayam Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"grill",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"},
-  {name:"You Fan Chi",rec:false,halal:false,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"~6.6 km",hours:"Not mentioned",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/CpL6tJUwqTGXGSM39"},
+  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"0.5–1 km",hours:"10:00 AM – 10:00 PM (Daily)",contact:"+60 17-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Persiaran Sukan, Seksyen 13, Shah Alam",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (pasta, salads)",img: "Padi_House",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
+  {name:"Restaurant Ho Chai Delight",rec:true,halal:false,type:"Restaurant",rating:3.5,price:"RM1–RM20",dist:"~5 km",hours:"11:00 AM – 4:00 PM (except Sunday)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "RestaurantHoChaiDelight",maps:"https://maps.app.goo.gl/p25eodnuUFSySjNC6"},
+  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (except Sunday 10:30 AM–3:30 PM, 5–8 PM)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "RestoranNanHong",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
+  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"~11:00 AM – 10:30 PM",contact:"012-570 0261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, Shah Alam",cuisine:"Halal Chinese / Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-958 0630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, Shah Alam",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+  {name:"BananaBro • AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-232 4030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, Shah Alam",cuisine:"Indian / Banana Leaf",avail:"Dine-in & takeaway",veg:"Yes (banana leaf veg sets)",img: "BananaBro",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
+  {name:"Djakarta Raya Restoran Ayam Bakar",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"1–2 km",hours:"~10:30 AM – 10:30 PM (Daily)",contact:"+60 11-6222 6474",address:"Jalan Badminton 13/29, Seksyen 13, Shah Alam",cuisine:"Indonesian / Ayam Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "Djakarta_Raya_Restoran_Ayam_Bakar",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"},
+  {name:"You Fan Chi",rec:false,halal:false,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"~6.6 km",hours:"Not mentioned",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "YouFanChi",maps:"https://maps.app.goo.gl/CpL6tJUwqTGXGSM39"},
  ],
  caterers:[
-  {name:"7th Sense Caterer",halal:true,food:"Malay, Western",contact:"012-843 1033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Min 30 pax · Bento: custom price · Delivery RM150 (negotiable for 3+ days) · Deposit 70% · Non-refundable · Facebook: sifucaterer"},
+  {name:"7th Sense Caterer",halal:true,food:"Malay, Western",contact:"012-843 1033", img:"7th_Sense_Caterer", maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Min 30 pax · Bento: custom price · Delivery RM150 (negotiable for 3+ days) · Deposit 70% · Non-refundable · Facebook: sifucaterer"},
  ]},
 
 {id:"esports",sport:"Esports",icon:"🎮",venue:"Dewan Konvensyen MPAJ",addr:"Taman Melawati, Ampang, Selangor",area:"kuala lumpur",lat:3.2119,lng:101.7650,
  restaurants:[
-  {name:"Mohd Chan Restaurant – Melawati",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM35",dist:"0.5–1 km",hours:"11:30 AM – 10:00/11:00 PM (Daily)",contact:"+60 11-2330 5584 / 03-4105 6125",address:"59-60, Jalan Negara, Taman Melawati, 53100 Kuala Lumpur",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in, Takeaway, Catering (group orders) · Packed food: Yes",veg:"Available (tofu, veg, mock dishes)",img:"fried_rice",maps:"https://maps.app.goo.gl/w3kqKRssGuKSUpbq7"},
-  {name:"Mak O Mak Cafe",rec:true,halal:true,type:"Café",rating:4.4,price:"RM15–RM30",dist:"0.5–1 km",hours:"8:00 AM – 5:00 PM",contact:"+60 10-426 9382",address:"Melawati Square, Jalan Bandar Melawati",cuisine:"Malay / Nasi Campur / Café",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Available (café options)",img:"pasta",maps:"https://maps.app.goo.gl/yqXcRWHrx5CPaxfc9"},
-  {name:"Restoran Cikgu Lee",rec:true,halal:false,type:"Restaurant",rating:4.4,price:"RM10–RM25",dist:"0.5–1 km",hours:"8:00 AM – 9:30 PM",contact:"+60 3-4820 9698",address:"328, Jalan Bandar Melawati",cuisine:"Chinese Kopitiam / Mixed Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (simple veg dishes)",img:"mixed_rice",maps:"https://maps.app.goo.gl/njNDpWAAYKQP8wVW9"},
-  {name:"Mee Hiris China Muslim @ Melawati Mall",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM15–RM30",dist:"~0.5 km",hours:"10:00 AM – 10:00 PM",contact:"+60 12-265 6424",address:"Melawati Mall, Jalan Bandar Melawati",cuisine:"Chinese Muslim / Hand-pulled Noodles",avail:"Dine-in · Packed food: Yes",veg:"Available (noodle + veg)",img:"noodles",maps:"https://maps.app.goo.gl/12vCEDz2t4cSkBL89"},
-  {name:"Senda Loka Restaurant & Cafe",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM10–RM25",dist:"1–2 km",hours:"7:00 AM – 3:00 AM (Daily)",contact:"+60 19-380 7389",address:"Jalan Wangsa Setia 4, Wangsa Melawati",cuisine:"Local / Western Fusion",avail:"Dine-in, takeaway, late night · Packed food: Yes",veg:"Limited",img:"grill",maps:"https://maps.app.goo.gl/W7DnCCTgz8gcYGAv6"},
-  {name:"NZ Curry House @ Wangsa Maju",rec:true,halal:true,type:"Restaurant",rating:3.9,price:"RM5–RM15",dist:"3–4 km",hours:"6:00 AM – 3:00 AM (Daily)",contact:"+60 17-210 1010",address:"Seksyen 5, Wangsa Maju",cuisine:"Indian Muslim / Mamak",avail:"Dine-in, takeaway, delivery · Packed food: Yes",veg:"Yes (roti, dhal, veg curry)",img:"curry",maps:"https://maps.app.goo.gl/gEMze11vkeDSuC3T6"},
+  {name:"Mohd Chan Restaurant – Melawati",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM35",dist:"0.5–1 km",hours:"11:30 AM – 10:00/11:00 PM (Daily)",contact:"+60 11-2330 5584 / 03-4105 6125",address:"59-60, Jalan Negara, Taman Melawati, 53100 Kuala Lumpur",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in, Takeaway, Catering (group orders) · Packed food: Yes",veg:"Available (tofu, veg, mock dishes)",img: "MohdChan",maps:"https://maps.app.goo.gl/w3kqKRssGuKSUpbq7"},
+  {name:"Mak O Mak Cafe",rec:true,halal:true,type:"Café",rating:4.4,price:"RM15–RM30",dist:"0.5–1 km",hours:"8:00 AM – 5:00 PM",contact:"+60 10-426 9382",address:"Melawati Square, Jalan Bandar Melawati",cuisine:"Malay / Nasi Campur / Café",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Available (café options)",img: "Mak_O_Mak_Cafe",maps:"https://maps.app.goo.gl/yqXcRWHrx5CPaxfc9"},
+  {name:"Restoran Cikgu Lee",rec:true,halal:false,type:"Restaurant",rating:4.4,price:"RM10–RM25",dist:"0.5–1 km",hours:"8:00 AM – 9:30 PM",contact:"+60 3-4820 9698",address:"328, Jalan Bandar Melawati",cuisine:"Chinese Kopitiam / Mixed Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (simple veg dishes)",img: "RestoranCikguLee",maps:"https://maps.app.goo.gl/njNDpWAAYKQP8wVW9"},
+  {name:"Mee Hiris China Muslim @ Melawati Mall",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM15–RM30",dist:"~0.5 km",hours:"10:00 AM – 10:00 PM",contact:"+60 12-265 6424",address:"Melawati Mall, Jalan Bandar Melawati",cuisine:"Chinese Muslim / Hand-pulled Noodles",avail:"Dine-in · Packed food: Yes",veg:"Available (noodle + veg)",img: "MeeHiris",maps:"https://maps.app.goo.gl/12vCEDz2t4cSkBL89"},
+  {name:"Senda Loka Restaurant & Cafe",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM10–RM25",dist:"1–2 km",hours:"7:00 AM – 3:00 AM (Daily)",contact:"+60 19-380 7389",address:"Jalan Wangsa Setia 4, Wangsa Melawati",cuisine:"Local / Western Fusion",avail:"Dine-in, takeaway, late night · Packed food: Yes",veg:"Limited",img: "SendaLokaRestaurant&Cafe", maps:"https://maps.app.goo.gl/W7DnCCTgz8gcYGAv6"},
+  {name:"NZ Curry House @ Wangsa Maju",rec:true,halal:true,type:"Restaurant",rating:3.9,price:"RM5–RM15",dist:"3–4 km",hours:"6:00 AM – 3:00 AM (Daily)",contact:"+60 17-210 1010",address:"Seksyen 5, Wangsa Maju",cuisine:"Indian Muslim / Mamak",avail:"Dine-in, takeaway, delivery · Packed food: Yes",veg:"Yes (roti, dhal, veg curry)",img: "NZCurryHouse",maps:"https://maps.app.goo.gl/gEMze11vkeDSuC3T6"},
  ],
  caterers:[]},
 
 {id:"mtb",sport:"Berbasikal MTB",icon:"🚵",venue:"Lembah Peladang Agro Park",addr:"Saujana Utama, Sungai Buloh, Selangor",area:"sungai buloh",lat:3.1792,lng:101.5527,
  restaurants:[
-  {name:"Restoran Pondok Salero Minang",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM8–RM15",dist:"1–2 km",hours:"~9:00 AM – 9:00 PM",contact:"010-534 0708",address:"Jalan Melur 1, Bandar Saujana Utama, 47000 Sungai Buloh",cuisine:"Malay / Padang / Minang",avail:"Dine-in & takeaway · Packed food: Yes (group meals)",veg:"Limited (vegetable lauk)",img:"padang",maps:"https://maps.app.goo.gl/XM1xs7wGzkc1ejB67"},
-  {name:"Restoran Lawar Seafood",rec:false,halal:true,type:"Restaurant",rating:4.3,price:"RM15–RM35",dist:"2–3 km",hours:"~4:00 PM – 11:00 PM",contact:"018-918 6196",address:"39, Jalan Jati 3, Saujana Utama 2",cuisine:"Malay Seafood / Ikan Bakar",avail:"Dine-in (group-friendly) · Packed food: Yes",veg:"Very limited",img:"seafood",maps:"https://maps.app.goo.gl/DjZsNw5zkPChNN4y8"},
-  {name:"Suhaila Nasi Kerabu Berlauk",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM6–RM12",dist:"8–12 km",hours:"~7:00 AM – 3:00 PM",contact:"013-257 7532",address:"No. 23, Jalan TIAJ 1/3, Puncak Alam",cuisine:"Malay / Nasi Kerabu",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (kerabu veg options)",img:"rice_bowl",maps:"https://maps.app.goo.gl/Zc5dbqWSQdbwj3uM7"},
-  {name:"Noor Huda Tomyam",rec:true,halal:true,type:"Restaurant",rating:4.1,price:"RM8–RM20",dist:"3–6 km",hours:"~5:00 PM – 12:00 AM (Daily)",contact:"Not clearly listed",address:"Sungai Buloh area",cuisine:"Thai / Tomyam / Seafood",avail:"Dine-in · Packed food: Yes",veg:"Limited",img:"tomyam",maps:"https://maps.app.goo.gl/ob2oD2prBuJZQH7P8"},
-  {name:"Homst Setia Alam",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM35",dist:"12–15 km",hours:"~11:00 AM – 10:00 PM",contact:"012-570 0615",address:"1, Jln Setia Dagang AJ U13/AJ, Setia Alam, 40170 Shah Alam",cuisine:"Halal Chinese / Dumplings",avail:"Dine-in, Takeaway, Catering · Packed food: Yes",veg:"Available",img:"dimsum",maps:"https://maps.app.goo.gl/9hg4tgRBmMRZds386"},
+  {name:"Restoran Pondok Salero Minang",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM8–RM15",dist:"1–2 km",hours:"~9:00 AM – 9:00 PM",contact:"010-534 0708",address:"Jalan Melur 1, Bandar Saujana Utama, 47000 Sungai Buloh",cuisine:"Malay / Padang / Minang",avail:"Dine-in & takeaway · Packed food: Yes (group meals)",veg:"Limited (vegetable lauk)",img: "RestoranPondokSaleroMinang",maps:"https://maps.app.goo.gl/XM1xs7wGzkc1ejB67"},
+  {name:"Restoran Lawar Seafood",rec:false,halal:true,type:"Restaurant",rating:4.3,price:"RM15–RM35",dist:"2–3 km",hours:"~4:00 PM – 11:00 PM",contact:"018-918 6196",address:"39, Jalan Jati 3, Saujana Utama 2",cuisine:"Malay Seafood / Ikan Bakar",avail:"Dine-in (group-friendly) · Packed food: Yes",veg:"Very limited",img: "RestoranLawarSeafood",maps:"https://maps.app.goo.gl/DjZsNw5zkPChNN4y8"},
+  {name:"Suhaila Nasi Kerabu Berlauk",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM6–RM12",dist:"8–12 km",hours:"~7:00 AM – 3:00 PM",contact:"013-257 7532",address:"No. 23, Jalan TIAJ 1/3, Puncak Alam",cuisine:"Malay / Nasi Kerabu",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited (kerabu veg options)",img: "SuhailaNasiKerabuBerlauk",maps:"https://maps.app.goo.gl/Zc5dbqWSQdbwj3uM7"},
+  {name:"Noor Huda Tomyam",rec:true,halal:true,type:"Restaurant",rating:4.1,price:"RM8–RM20",dist:"3–6 km",hours:"~5:00 PM – 12:00 AM (Daily)",contact:"Not clearly listed",address:"Sungai Buloh area",cuisine:"Thai / Tomyam / Seafood",avail:"Dine-in · Packed food: Yes",veg:"Limited",img: "Noor_HudaTomyam",maps:"https://maps.app.goo.gl/ob2oD2prBuJZQH7P8"},
+  {name:"Homst Setia Alam",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM35",dist:"12–15 km",hours:"~11:00 AM – 10:00 PM",contact:"012-570 0615",address:"1, Jln Setia Dagang AJ U13/AJ, Setia Alam, 40170 Shah Alam",cuisine:"Halal Chinese / Dumplings",avail:"Dine-in, Takeaway, Catering · Packed food: Yes",veg:"Available",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/9hg4tgRBmMRZds386"},
  ],
  caterers:[
-  {name:"Seri Indah Catering",halal:true,food:"Malay Indian",contact:"018-321 7815",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Min 10–20 pax · RM15/pax (nasi tomato + ayam + sayur) · Bento: Yes · Delivery RM50 (negotiable by pax) · Deposit 2 weeks before"},
-  {name:"Venturas Catering",halal:true,food:"Indian, Western, Malay",contact:"+6019-716 7992",maps:"https://maps.app.goo.gl/P99Z5PoKS8X9wQYN8",note:"Rating 5.0 · Full event catering · Min order: verify · Website: venturascatering.my"},
-  {name:"RunningMen Catering",halal:true,food:"Malay & Western",contact:"018-966 4913",maps:"https://maps.google.com/?q=RunningMen+Catering",note:"Rating 4.8 · Halal Certified · Veg: Yes · Bento RM15–23/pax · Min 1 pax weekday, 10 pax weekend · No deposit · Payment before delivery · Website: runningmen.my"},
-  {name:"H&H Catering",halal:true,food:"Chinese (Halal Certified)",contact:"036-141 8911",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Min 20 sets · Full payment before delivery · Bento RM14–19/pax · Delivery RM50"},
+  {name:"Seri Indah Catering",halal:true,food:"Malay Indian",contact:"018-321 7815",img: "Seri_Indah_Catering",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Min 10–20 pax · RM15/pax (nasi tomato + ayam + sayur) · Bento: Yes · Delivery RM50 (negotiable by pax) · Deposit 2 weeks before"},
+  {name:"Venturas Catering",halal:true,food:"Indian, Western, Malay",contact:"+6019-716 7992",img: "Venturas_Catering",maps:"https://maps.app.goo.gl/P99Z5PoKS8X9wQYN8",note:"Rating 5.0 · Full event catering · Min order: verify · Website: venturascatering.my"},
+  {name:"RunningMen Catering",halal:true,food:"Malay & Western",contact:"018-966 4913",img: "RunningMen_Catering",maps:"https://maps.google.com/?q=RunningMen+Catering",note:"Rating 4.8 · Halal Certified · Veg: Yes · Bento RM15–23/pax · Min 1 pax weekday, 10 pax weekend · No deposit · Payment before delivery · Website: runningmen.my"},
+  {name:"H&H Catering",halal:true,food:"Chinese (Halal Certified)",contact:"036-141 8911",img: "H&H_Catering",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Min 20 sets · Full payment before delivery · Bento RM14–19/pax · Delivery RM50"},
  ]},
 
 {id:"cycling",sport:"Berbasikal Lebuhraya",icon:"🚴",venue:"Lebuhraya SIC & SIC",addr:"Sepang, Selangor",area:"sepang",lat:2.7606,lng:101.7209,
  restaurants:[
-  {name:"LèTen Chinese Muslim Restaurant @ Mitsui Outlet Park",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"15–20 min drive",hours:"11:00 AM – 10:00 PM (Daily)",contact:"+603-8660 2388",address:"F-60A, Mitsui Outlet Park, KLIA, 64000 Sepang",cuisine:"Chinese Muslim / Halal Dim Sum",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"dimsum",maps:"https://maps.app.goo.gl/ckmLcTeuEERtKtB27"},
-  {name:"Brahims Food Services Sdn Bhd",rec:false,halal:true,type:"Caterer / Bulk",rating:4.3,price:"Custom (bulk)",dist:"10–15 min",hours:"24/7 operations",contact:"+60 3-8777 1101",address:"KLIA / Sepang area",cuisine:"Halal / Large-scale meal prep",avail:"Mass meal prep · Ready-to-eat · Boxed meals",veg:"Verify",img:"bento",maps:"https://maps.app.goo.gl/GYmnsT3yQudKzY6X6"},
+  {name:"LèTen Chinese Muslim Restaurant @ Mitsui Outlet Park",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"15–20 min drive",hours:"11:00 AM – 10:00 PM (Daily)",contact:"+603-8660 2388",address:"F-60A, Mitsui Outlet Park, KLIA, 64000 Sepang",cuisine:"Chinese Muslim / Halal Dim Sum",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "LeTen",maps:"https://maps.app.goo.gl/ckmLcTeuEERtKtB27"},
+  {name:"Brahims Food Services Sdn Bhd",rec:false,halal:true,type:"Caterer / Bulk",rating:4.3,price:"Custom (bulk)",dist:"10–15 min",hours:"24/7 operations",contact:"+60 3-8777 1101",address:"KLIA / Sepang area",cuisine:"Halal / Large-scale meal prep",avail:"Mass meal prep · Ready-to-eat · Boxed meals",veg:"Verify",img: "Brahims_Food_Services_Sdn_Bhd",maps:"https://maps.app.goo.gl/GYmnsT3yQudKzY6X6"},
  ],
  caterers:[
-  {name:"Sayang Express Catering",halal:true,food:"Malay",contact:"018-276 0331",maps:"https://maps.app.goo.gl/xzHocCmN3QguY2xK7",note:"Rating 5.0 · Min 10–20 pax · RM25–30/pax (nasi + lauk + sayur) · Free delivery · Deposit 50% (2 weeks before) · Customizable menu · Linktree: SECateringSepang"},
-  {name:"NS Restaurant & Catering",rec:true,halal:true,food:"Malay",contact:"017-398 6424",maps:"https://maps.app.goo.gl/chhuAiyfyKP1Ngx1A",note:"Rating 4.1 · Local Catering · Sepang cluster · See Facebook for contact: NS-Restaurant-Catering"},
+  {name:"Sayang Express Catering",halal:true,food:"Malay",contact:"018-276 0331",img: "Sayang_Express_Catering",maps:"https://maps.app.goo.gl/xzHocCmN3QguY2xK7",note:"Rating 5.0 · Min 10–20 pax · RM25–30/pax (nasi + lauk + sayur) · Free delivery · Deposit 50% (2 weeks before) · Customizable menu · Linktree: SECateringSepang"},
+  {name:"NS Restaurant & Catering",rec:true,halal:true,food:"Malay",contact:"017-398 6424",img: "NS_Restaurant&Catering",maps:"https://maps.app.goo.gl/chhuAiyfyKP1Ngx1A",note:"Rating 4.1 · Local Catering · Sepang cluster · See Facebook for contact: NS-Restaurant-Catering"},
  ]},
 
 {id:"bmx",sport:"Berbasikal BMX",icon:"🚲",venue:"Extreme Park MBPJ",addr:"Petaling Jaya, Selangor",area:"petaling jaya",lat:3.1067,lng:101.6359,
  restaurants:[
-  {name:"My Wok Station",rec:false,halal:true,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"5–8 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+60 12-690 6450",address:"12A-1, Jalan PJS 8/6, Bandar Sunway, Petaling Jaya",cuisine:"Asian / Halal Chinese",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"fusion",maps:"https://maps.app.goo.gl/vAbYDLys6v4ej4Lo7"},
-  {name:"Mohammad Chow Chinese Muslim Kitchen",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM20–RM40",dist:"10–12 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+603-7731 6383",address:"Perdana Business Centre, 3-1, Jalan PJU 8/5h, Damansara Perdana, Petaling Jaya",cuisine:"Halal Chinese Muslim",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/QBmjfKQsuiYRKJPo8"},
-  {name:"Sun Thai Food (Chinese Muslim) @ Sunway Mentari",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM20–RM40",dist:"6–9 min drive",hours:"11:00 AM – 12:00 AM (Daily)",contact:"+60 10-861 7878",address:"46C, Mentari Business Park, Jalan 8/2, Bandar Sunway, Petaling Jaya",cuisine:"Thai / Halal Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"thai",maps:"https://maps.app.goo.gl/pvADFiLxLufpwYuY7"},
-  {name:"Speed Char Kuey Teow • Waq Pizza",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM1–RM20",dist:"1.5 km",hours:"6:00 PM – 12:00 AM (Daily)",contact:"018-286 9156",address:"Petaling Jaya area",cuisine:"Malay / Hawker",avail:"Dine-in & takeaway",veg:"Limited",img:"noodles",maps:"https://maps.app.goo.gl/KnhGS5ZYFroTJjTt5"},
-  {name:"Nasi Lemak Ayam Goreng Berempah (Ela & Awe)",rec:false,halal:true,type:"Restaurant",rating:5.0,price:"RM1–RM20",dist:"1.3 km",hours:"5:00 PM – 10:30 PM (Daily)",contact:"013-299 5378",address:"Petaling Jaya area",cuisine:"Malay / Nasi Lemak",avail:"Dine-in & takeaway",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/A8yboKmYGzFeDswLA"},
-  {name:"Restoran Nur Balqis",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM1–RM20",dist:"1.5 km",hours:"7:00 AM – 12:00 AM (Daily)",contact:"037-773 1226",address:"Petaling Jaya area",cuisine:"Malay",avail:"Dine-in, takeaway, delivery",veg:"Limited",img:"rice_bowl",maps:"https://maps.app.goo.gl/E4nUaHMhdng8RfsR9"},
+  {name:"My Wok Station",rec:false,halal:true,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"5–8 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+60 12-690 6450",address:"12A-1, Jalan PJS 8/6, Bandar Sunway, Petaling Jaya",cuisine:"Asian / Halal Chinese",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "My_Wok_Station",maps:"https://maps.app.goo.gl/vAbYDLys6v4ej4Lo7"},
+  {name:"Mohammad Chow Chinese Muslim Kitchen",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM20–RM40",dist:"10–12 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+603-7731 6383",address:"Perdana Business Centre, 3-1, Jalan PJU 8/5h, Damansara Perdana, Petaling Jaya",cuisine:"Halal Chinese Muslim",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "MohdChan",maps:"https://maps.app.goo.gl/QBmjfKQsuiYRKJPo8"},
+  {name:"Sun Thai Food (Chinese Muslim) @ Sunway Mentari",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM20–RM40",dist:"6–9 min drive",hours:"11:00 AM – 12:00 AM (Daily)",contact:"+60 10-861 7878",address:"46C, Mentari Business Park, Jalan 8/2, Bandar Sunway, Petaling Jaya",cuisine:"Thai / Halal Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "SunThaiFood",maps:"https://maps.app.goo.gl/pvADFiLxLufpwYuY7"},
+  {name:"Speed Char Kuey Teow • Waq Pizza",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM1–RM20",dist:"1.5 km",hours:"6:00 PM – 12:00 AM (Daily)",contact:"018-286 9156",address:"Petaling Jaya area",cuisine:"Malay / Hawker",avail:"Dine-in & takeaway",veg:"Limited",img: "SpeedCharKueyTeow",maps:"https://maps.app.goo.gl/KnhGS5ZYFroTJjTt5"},
+  {name:"Nasi Lemak Ayam Goreng Berempah (Ela & Awe)",rec:false,halal:true,type:"Restaurant",rating:5.0,price:"RM1–RM20",dist:"1.3 km",hours:"5:00 PM – 10:30 PM (Daily)",contact:"013-299 5378",address:"Petaling Jaya area",cuisine:"Malay / Nasi Lemak",avail:"Dine-in & takeaway",veg:"Limited",img: "Nasi_Lemak_Ayam_Goreng_Berempah",maps:"https://maps.app.goo.gl/A8yboKmYGzFeDswLA"},
+  {name:"Restoran Nur Balqis",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM1–RM20",dist:"1.5 km",hours:"7:00 AM – 12:00 AM (Daily)",contact:"037-773 1226",address:"Petaling Jaya area",cuisine:"Malay",avail:"Dine-in, takeaway, delivery",veg:"Limited",img: "RestoranNurBalqis",maps:"https://maps.app.goo.gl/E4nUaHMhdng8RfsR9"},
  ],
  caterers:[
-  {name:"H&H Catering",halal:true,food:"Chinese (Halal Certified)",contact:"012-239 2139",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Min 20 sets · Full payment before delivery · Bento RM14–19/pax · Delivery RM50"},
-  {name:"iDO Catering",halal:true,food:"Western Asian Fusion",contact:"+603-8605 3560",maps:"https://maps.app.goo.gl/7EebDvQzTNBxVGfDA",note:"Rating 4.9 · Commercial Catering · Website: idocatering.com"},
-  {name:"Mama Cooks Kitchen",halal:true,food:"Singaporean/Malaysian, Korean, Japanese, Western",contact:"019-669 8762",maps:"https://maps.app.goo.gl/YyNpzi5dwZX9CzhF8",note:"Rating 4.9 · Commercial Catering (Meal boxes) · Min order varies · Website: eats365pos"},
-  {name:"Hometaste",halal:false,food:"Chinese (Non-Halal), Vegetarian",contact:"038-605 3508",maps:"https://maps.app.goo.gl/vaZMuLoBv7M3Nu3e6",note:"Non-Halal · Veg: Yes · Bento box: 1 carb + 1 meat + 1 veg + 1 side · Min 10 pax · RM11.90–RM14.50/pax (scale pricing) · Delivery RM8/trip · Website: hometaste.my"},
-  {name:"GoClean Healthy Meal Delivery",halal:true,food:"Healthy / Meal Prep",contact:"+6016-754 3621",maps:"https://maps.app.goo.gl/tpkrPQ2kKsqzw7ML8",note:"Rating 4.8 · Halal · Min 1 pax weekday, 10 pax weekend · No deposit · Payment before delivery · Bento available · Website: goclean.oddle.me/en_MY"},
+  {name:"H&H Catering",halal:true,food:"Chinese (Halal Certified)",contact:"012-239 2139",img: "H&H_Catering",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Min 20 sets · Full payment before delivery · Bento RM14–19/pax · Delivery RM50"},
+  {name:"iDO Catering",halal:true,food:"Western Asian Fusion",contact:"+603-8605 3560",img: "iDO_Catering", maps:"https://maps.app.goo.gl/7EebDvQzTNBxVGfDA",note:"Rating 4.9 · Commercial Catering · Website: idocatering.com"},
+  {name:"Mama Cooks Kitchen",halal:true,food:"Singaporean/Malaysian, Korean, Japanese, Western",contact:"019-669 8762",img: "MAMA_COOKS", maps:"https://maps.app.goo.gl/YyNpzi5dwZX9CzhF8",note:"Rating 4.9 · Commercial Catering (Meal boxes) · Min order varies · Website: eats365pos"},
+  {name:"Hometaste",halal:false,food:"Chinese (Non-Halal), Vegetarian",contact:"038-605 3508",img: "Hometaste", maps:"https://maps.app.goo.gl/vaZMuLoBv7M3Nu3e6",note:"Non-Halal · Veg: Yes · Bento box: 1 carb + 1 meat + 1 veg + 1 side · Min 10 pax · RM11.90–RM14.50/pax (scale pricing) · Delivery RM8/trip · Website: hometaste.my"},
+  {name:"GoClean Healthy Meal Delivery",halal:true,food:"Healthy / Meal Prep",contact:"+6016-754 3621", img: "GoCleanHealthy_MealDelivery", maps:"https://maps.app.goo.gl/tpkrPQ2kKsqzw7ML8",note:"Rating 4.8 · Halal · Min 1 pax weekday, 10 pax weekend · No deposit · Payment before delivery · Bento available · Website: goclean.oddle.me/en_MY"},
  ]},
 
 {id:"velodrome",sport:"Berbasikal Trek / Velodrome",icon:"🏅",venue:"Velodrom Nasional",addr:"Nilai, Negeri Sembilan",area:"nilai",lat:2.7894,lng:101.7998,
  restaurants:[
-  {name:"Al Jamal Restaurant",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM20–RM40",dist:"5–8 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+6012-717 2842",address:"Avenue 9, Giant Nilai, Shop A27 & A28, Jalan BBN 1/3, Bandar Baru Nilai, Negeri Sembilan",cuisine:"Arab / Middle Eastern / Halal",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"arabic",maps:"https://maps.app.goo.gl/pZDkpnkLFACsqFcz9"},
-  {name:"Salam Noodles • Nilai",rec:true,halal:true,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"5–8 min drive",hours:"11:30 AM – 10:00 PM (Daily)",contact:"+606-657 0209",address:"7249, Jalan BBN 1/2a, Bandar Baru Nilai, Negeri Sembilan",cuisine:"Malay / Noodles",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"noodles",maps:"https://maps.app.goo.gl/F5qxwCf46xPt2JDQA"},
-  {name:"NASI AYAM AQILSHA (NILAI)",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"5–9 min drive",hours:"11:00 AM – 6:00 PM (Daily)",contact:"+6011-1566 7267",address:"PT 7403, Jalan BBN 1/2J, Putra Nilai, Negeri Sembilan",cuisine:"Malay / Chicken Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"chicken_rice",maps:"https://maps.app.goo.gl/wb8xrm6xLkePuDRKA"},
+  {name:"Al Jamal Restaurant",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM20–RM40",dist:"5–8 min drive",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+6012-717 2842",address:"Avenue 9, Giant Nilai, Shop A27 & A28, Jalan BBN 1/3, Bandar Baru Nilai, Negeri Sembilan",cuisine:"Arab / Middle Eastern / Halal",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"arabic",img: "Al_Jamal_Restaurant",maps:"https://maps.app.goo.gl/pZDkpnkLFACsqFcz9"},
+  {name:"Salam Noodles • Nilai",rec:true,halal:true,type:"Restaurant",rating:4.3,price:"RM1–RM20",dist:"5–8 min drive",hours:"11:30 AM – 10:00 PM (Daily)",contact:"+606-657 0209",address:"7249, Jalan BBN 1/2a, Bandar Baru Nilai, Negeri Sembilan",cuisine:"Malay / Noodles",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "SalamNoodlesNilai",maps:"https://maps.app.goo.gl/F5qxwCf46xPt2JDQA"},
+  {name:"NASI AYAM AQILSHA (NILAI)",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"5–9 min drive",hours:"11:00 AM – 6:00 PM (Daily)",contact:"+6011-1566 7267",address:"PT 7403, Jalan BBN 1/2J, Putra Nilai, Negeri Sembilan",cuisine:"Malay / Chicken Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "NASI_AYAM_AQILSHA_(NILAI)",maps:"https://maps.app.goo.gl/wb8xrm6xLkePuDRKA"},
  ],
  caterers:[
-  {name:"Juriah Food & Catering",rec:true,halal:true,food:"Malay",contact:"019-677 1413",maps:"https://maps.app.goo.gl/zKreN1n67JxLkxvh7",note:"Rating 4.3 · Min 10–20 pax (flexible) · Price by budget (customizable) · Packed food: Yes · Deposit 2 days before · Delivery: free if 3+ days or large order (negotiable) · Facebook: Juriah-Food-and-Catering"},
+  {name:"Juriah Food & Catering",rec:true,halal:true,food:"Malay",contact:"019-677 1413",img: "JuriahFood&Catering",maps:"https://maps.app.goo.gl/zKreN1n67JxLkxvh7",note:"Rating 4.3 · Min 10–20 pax (flexible) · Price by budget (customizable) · Packed food: Yes · Deposit 2 days before · Delivery: free if 3+ days or large order (negotiable) · Facebook: Juriah-Food-and-Catering"},
   {name:"Mama Cafe & Catering",rec:true,halal:true,food:"Malay",contact:"013-699 7800",maps:"https://maps.app.goo.gl/2NjxuWGwycXoXmwv6",note:"Rating 4.3 · Min 10–20 pax · Price by budget · Full payment 1 week before · Delivery RM5/trip · TikTok: mama.cafe.catering"},
-  {name:"Sayang Express Catering",halal:true,food:"Malay",contact:"018-276 0331",maps:"https://maps.app.goo.gl/xzHocCmN3QguY2xK7",note:"Rating 5.0 · Min 10–20 pax · RM25–30/pax (nasi + lauk + sayur) · Free delivery · Deposit 50% (2 weeks before) · Customizable menu"},
-  {name:"NS Restaurant & Catering",rec:true,halal:true,food:"Malay",contact:"017-398 6424",maps:"https://maps.app.goo.gl/chhuAiyfyKP1Ngx1A",note:"Rating 4.1 · Local Catering · Sepang/Nilai cluster · See Facebook for contact"},
+  {name:"Sayang Express Catering",halal:true,food:"Malay",contact:"018-276 0331",img: "Sayang_Express_Catering",maps:"https://maps.app.goo.gl/xzHocCmN3QguY2xK7",note:"Rating 5.0 · Min 10–20 pax · RM25–30/pax (nasi + lauk + sayur) · Free delivery · Deposit 50% (2 weeks before) · Customizable menu"},
+  {name:"NS Restaurant & Catering",rec:true,halal:true,food:"Malay",contact:"017-398 6424",img: "NS_Restaurant&Catering",maps:"https://maps.app.goo.gl/chhuAiyfyKP1Ngx1A",note:"Rating 4.1 · Local Catering · Sepang/Nilai cluster · See Facebook for contact"},
  ]},
 
 {id:"judo",sport:"Judo",icon:"🥋",venue:"IDEAL Convention Centre",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0855,lng:101.5190,
  restaurants:[
-  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (except Sunday 10:30 AM–3:30 PM, 5–8 PM)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"mixed_rice",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
-  {name:"Restoran New Tin Mui Young",rec:true,halal:false,type:"Restaurant",rating:3.7,price:"RM1–RM20",dist:"~3 km",hours:"9:00 AM – 3:00 PM, 5:30 – 8:00 PM (except Sunday)",contact:"035-519 2848",address:"Shah Alam area",cuisine:"Chinese / Kopitiam",avail:"Dine-in & takeaway",veg:"Limited",img:"kopitiam",maps:"https://maps.app.goo.gl/yt1YG66BLnKvAegFA"},
-  {name:"Yuen Heong Restaurant",rec:true,halal:false,type:"Restaurant",rating:3.9,price:"RM1–RM20",dist:"~2.9 km",hours:"6:30 AM – 2:45 PM, 6 – 8:00 PM (except Sunday)",contact:"035-519 1153",address:"Shah Alam area",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/5ZLFw5kug9SRo2HL8"},
-  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"~11:00 AM – 10:30 PM",contact:"012-570 0261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, Shah Alam",cuisine:"Halal Chinese / Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"dimsum",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
-  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-958 0630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, Shah Alam",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway",veg:"Yes",img:"fried_rice",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
-  {name:"BananaBro • AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-232 4030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, Shah Alam",cuisine:"Indian / Banana Leaf",avail:"Dine-in & takeaway",veg:"Yes (banana leaf veg sets)",img:"curry",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
+  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (except Sunday 10:30 AM–3:30 PM, 5–8 PM)",contact:"Not stated",address:"Shah Alam area",cuisine:"Chinese Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "RestoranNanHong",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
+  {name:"Restoran New Tin Mui Young",rec:true,halal:false,type:"Restaurant",rating:3.7,price:"RM1–RM20",dist:"~3 km",hours:"9:00 AM – 3:00 PM, 5:30 – 8:00 PM (except Sunday)",contact:"035-519 2848",address:"Shah Alam area",cuisine:"Chinese / Kopitiam",avail:"Dine-in & takeaway",veg:"Limited",img: "Restoran_New_TinMuiYoung",maps:"https://maps.app.goo.gl/yt1YG66BLnKvAegFA"},
+  {name:"Yuen Heong Restaurant",rec:true,halal:false,type:"Restaurant",rating:3.9,price:"RM1–RM20",dist:"~2.9 km",hours:"6:30 AM – 2:45 PM, 6 – 8:00 PM (except Sunday)",contact:"035-519 1153",address:"Shah Alam area",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "YuenHeongRestaurant",maps:"https://maps.app.goo.gl/5ZLFw5kug9SRo2HL8"},
+  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"~11:00 AM – 10:30 PM",contact:"012-570 0261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, Shah Alam",cuisine:"Halal Chinese / Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-958 0630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, Shah Alam",cuisine:"Halal Chinese / Malaysian",avail:"Dine-in & takeaway",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+  {name:"BananaBro • AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-232 4030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, Shah Alam",cuisine:"Indian / Banana Leaf",avail:"Dine-in & takeaway",veg:"Yes (banana leaf veg sets)",img: "BananaBro",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
  ],
  caterers:[
-  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 pax (bento) / 50 pax (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Up to 6000 pax · Deposit RM2000 (non-refundable) · Facebook: teaffanicatering"},
-  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"019-989 7273",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event Catering · Website: munjungraya.com.my"},
-  {name:"7th Sense Caterer",rec:true,halal:true,food:"Malay, Western",contact:"012-843 1033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Min 30 pax · Bento: custom price · Delivery RM150 (negotiable for 3+ days) · Deposit 70% · Facebook: sifucaterer"},
- ]},
-
-{id:"bowling",sport:"Tenpin Bowling",icon:"🎳",venue:"Sunway Megalanes",addr:"Sunway Pyramid, Petaling Jaya",area:"sunway",lat:3.0726,lng:101.6063,
- restaurants:[
-  {name:"Madam Kwan's Sunway Pyramid",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM30",dist:"~0 km (in mall)",hours:"~10:00 AM – 10:30 PM",contact:"+603-5622 2397",address:"LG1.47, Sunway Pyramid Mall, Bandar Sunway",cuisine:"Malaysian / Nasi Lemak / Satay",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"malay",maps:"https://maps.app.goo.gl/hfTQfvC2NZuyauxW6"},
-  {name:"BananaBro Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~0 km (in mall)",hours:"~10:00 AM – 10:00 PM",contact:"Varies by outlet",address:"Sunway Pyramid Mall, Bandar Sunway",cuisine:"Indian / Banana Leaf Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes (banana leaf veg set)",img:"curry",maps:"https://maps.app.goo.gl/99vLF8E1yUxdJ9WP8"},
-  {name:"MZ Restoran Nasi Campur & Tomyam",rec:false,halal:true,type:"Restaurant",rating:4.1,price:"RM5–RM15",dist:"300–500 m",hours:"7:30 AM – 1:00 AM (closed Saturday)",contact:"+60 17-336 8301",address:"22-1, Jalan PJS 8/6, Bandar Sunway, Petaling Jaya",cuisine:"Malay / Nasi Campur / Tomyam",avail:"Dine-in, takeaway, delivery (Grab/Foodpanda) · Packed food: Yes",veg:"Limited",img:"tomyam",maps:"https://maps.app.goo.gl/Z2XYzNTJnDpyxGtB8"},
-  {name:"Restoran Maliki Nasi Kukus",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM7–RM15",dist:"500–700 m",hours:"11:00 AM – 11:00 PM (Daily)",contact:"+60 11-3986 2354",address:"8, Jalan PJS 8/18, Bandar Sunway, Petaling Jaya",cuisine:"Malay / Nasi Kukus",avail:"Dine-in, takeaway, delivery · Packed food: Yes",veg:"Very limited",img:"rice_bowl",maps:"https://maps.app.goo.gl/PxpgL9iRyt85WbhS6"},
-  {name:"Khao Man Gai Pee Nong Restaurant",rec:false,halal:true,type:"Restaurant",rating:3.9,price:"RM6–RM12",dist:"1–2 km",hours:"~10:00 AM – 10:00 PM",contact:"+60 12-760 1664",address:"3, Jalan PJS 8/10, Bandar Sunway, Petaling Jaya",cuisine:"Thai / Halal Chicken Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"thai",maps:"https://maps.app.goo.gl/5NV6NhtvsFouHyjK6"},
-  {name:"Penyet Express - Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~0 km (in mall)",hours:"10:30 AM – 9:30 PM (Daily)",contact:"035-612 5624",address:"Sunway Pyramid Mall, Bandar Sunway",cuisine:"Indonesian / Malay",avail:"Dine-in & takeaway",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/Thvji6joUUDgHbM89"},
-  {name:"MANJOE Taiwanese Dumplings",rec:false,halal:false,type:"Restaurant",rating:4.9,price:"RM20–RM40",dist:"~0 km (in mall)",hours:"10:00 AM – 10:00 PM (Daily)",contact:"035-611 3173",address:"Sunway Pyramid Mall, Bandar Sunway",cuisine:"Taiwanese / Dumplings",avail:"Dine-in, takeaway",veg:"Limited",img:"dimsum",maps:"https://maps.app.goo.gl/YH1zqrVGUfveGJF56"},
- ],
- caterers:[
-  {name:"H&H Catering",halal:true,food:"Chinese (Halal Certified)",contact:"036-141 8911",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Local mini catering · Min order varies"},
-  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000"},
+  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",img: "Teaffani_Catering",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 pax (bento) / 50 pax (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Up to 6000 pax · Deposit RM2000 (non-refundable) · Facebook: teaffanicatering"},
+  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"019-989 7273",img: "Sajian_d-Hidang_Catering",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event Catering · Website: munjungraya.com.my"},
+  {name:"7th Sense Caterer",rec:true,halal:true,food:"Malay, Western",contact:"012-843 1033",img:"7th_Sense_Caterer", maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Min 30 pax · Bento: custom price · Delivery RM150 (negotiable for 3+ days) · Deposit 70% · Facebook: sifucaterer"},
  ]},
 
  {id:"wushu",sport:"Wushu",icon:"🥋",venue:"IDEAL Convention Centre Shah Alam",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0733,lng:101.5185,
  restaurants:[
-  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (Sun: 10:30 AM – 3:30 PM, 5:00 PM – 8:00 PM)",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Chinese / Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
-  {name:"Restoran New Tin Mui Young 新美香茶餐室",rec:true,halal:false,type:"Restaurant",rating:3.7,price:"RM1–RM20",dist:"~3 km",hours:"9:00 AM – 3:00 PM, 5:30 PM – 8:00 PM (closed Sunday)",contact:"0355192848",address:"Shah Alam, Selangor",cuisine:"Chinese / Kopitiam",avail:"Dine-in & takeaway",veg:"Limited",img:"dimsum",maps:"https://maps.app.goo.gl/yt1YG66BLnKvAegFA"},
-  {name:"Yuen Heong Restaurant",rec:true,halal:false,type:"Restaurant",rating:3.9,price:"RM1–RM20",dist:"~2.9 km",hours:"6:30 AM – 2:45 PM, 6:00 PM – 8:00 PM (closed Sunday)",contact:"0355191153",address:"Shah Alam, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/5ZLFw5kug9SRo2HL8"},
-  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
-  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, 40200 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
-  {name:"Restaurant Pin Wei Seafood",rec:false,halal:false,type:"Restaurant",rating:4.0,price:"RM20–RM40",dist:"~6.5 km",hours:"11:00 AM – 2:30 PM, 5:00 PM – 10:00 PM",contact:"012-2847299",address:"Shah Alam, Selangor",cuisine:"Chinese / Seafood",avail:"Dine-in & takeaway",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/2HRQfatoY9TWCgzq5"},
-  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"+6017-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Seksyen 13, Shah Alam",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"western",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
-  {name:"Restoran Bei Ping",rec:false,halal:false,type:"Restaurant",rating:4.1,price:"RM20–RM40",dist:"~2.2 km",hours:"11:30 AM – 3:00 PM, 6:00 PM – 10:00 PM",contact:"0355199291",address:"Shah Alam, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/aSQp78y2AD4S9sxo6"},
+  {name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (Sun: 10:30 AM – 3:30 PM, 5:00 PM – 8:00 PM)",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Chinese / Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "RestoranNanHong",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
+  {name:"Restoran New Tin Mui Young 新美香茶餐室",rec:true,halal:false,type:"Restaurant",rating:3.7,price:"RM1–RM20",dist:"~3 km",hours:"9:00 AM – 3:00 PM, 5:30 PM – 8:00 PM (closed Sunday)",contact:"0355192848",address:"Shah Alam, Selangor",cuisine:"Chinese / Kopitiam",avail:"Dine-in & takeaway",veg:"Limited",img: "Restoran_New_TinMuiYoung",maps:"https://maps.app.goo.gl/yt1YG66BLnKvAegFA"},
+  {name:"Yuen Heong Restaurant",rec:true,halal:false,type:"Restaurant",rating:3.9,price:"RM1–RM20",dist:"~2.9 km",hours:"6:30 AM – 2:45 PM, 6:00 PM – 8:00 PM (closed Sunday)",contact:"0355191153",address:"Shah Alam, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "YuenHeongRestaurant",maps:"https://maps.app.goo.gl/5ZLFw5kug9SRo2HL8"},
+  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, 40200 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+  {name:"Restaurant Pin Wei Seafood",rec:false,halal:false,type:"Restaurant",rating:4.0,price:"RM20–RM40",dist:"~6.5 km",hours:"11:00 AM – 2:30 PM, 5:00 PM – 10:00 PM",contact:"012-2847299",address:"Shah Alam, Selangor",cuisine:"Chinese / Seafood",avail:"Dine-in & takeaway",veg:"Limited", img: "RestaurantPinWeiSeafood",maps:"https://maps.app.goo.gl/2HRQfatoY9TWCgzq5"},
+  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"+6017-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Seksyen 13, Shah Alam",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "Padi_House",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
+  {name:"Restoran Bei Ping",rec:false,halal:false,type:"Restaurant",rating:4.1,price:"RM20–RM40",dist:"~2.2 km",hours:"11:30 AM – 3:00 PM, 6:00 PM – 10:00 PM",contact:"0355199291",address:"Shah Alam, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "RestoranBeiPing",maps:"https://maps.app.goo.gl/aSQp78y2AD4S9sxo6"},
  ],
  caterers:[
-  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000"},
-  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
-  {name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min order 30 pax · Custom menu pricing · Delivery ~RM150 (negotiable) · 70% deposit"},
+  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",img: "Teaffani_Catering",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000"},
+  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",img: "Sajian_d-Hidang_Catering",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
+  {name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",img:"7th_Sense_Caterer", maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min order 30 pax · Custom menu pricing · Delivery ~RM150 (negotiable) · 70% deposit"},
  ]},
 
  {id:"sepak_takraw",sport:"Sepak Takraw", icon:"🟡", venue:"Management & Science University (MSU Hall)",
  addr:"Shah Alam, Selangor", area:"shah alam",lat:3.0646, lng:101.5047,
 
- restaurants:[
-  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
-  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, 40200 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
-  {name:"BananaBro • ÆON Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-2324030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Indian (Banana Leaf)",avail:"Dine-in & takeaway",veg:"Yes",img:"indian",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
-  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"+6017-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"western",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
-  {name:"Djakarta Raya Restoran Ayam Bakar Seksyen 13 Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~1–2 km",hours:"10:30 AM – 10:30 PM",contact:"+6011-6222 6474",address:"Jalan Badminton 13/29, Seksyen 13, 40000 Shah Alam, Selangor",cuisine:"Indonesian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"indonesian",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"}
+ restaurants:[ 
+  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, 40200 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+  {name:"BananaBro • ÆON Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-2324030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Indian (Banana Leaf)",avail:"Dine-in & takeaway",veg:"Yes",img: "BananaBro",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
+  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"+6017-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "Padi_House",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
+  {name:"Djakarta Raya Restoran Ayam Bakar Seksyen 13 Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~1–2 km",hours:"10:30 AM – 10:30 PM",contact:"+6011-6222 6474",address:"Jalan Badminton 13/29, Seksyen 13, 40000 Shah Alam, Selangor",cuisine:"Indonesian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "Djakarta_Raya_Restoran_Ayam_Bakar",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"}
  ],
  caterers:[
-  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000"},
-  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
-  {name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min order 30 pax · Custom menu pricing · Delivery ~RM150 (negotiable) · 70% deposit"}
+  {name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-231 2860",img: "Teaffani_Catering",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000"},
+  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",img: "Sajian_d-Hidang_Catering",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
+  {name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",img:"7th_Sense_Caterer", maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min order 30 pax · Custom menu pricing · Delivery ~RM150 (negotiable) · 70% deposit"}
  ]}, 
 
  {id:"ping_pong", sport:"Ping Pong", icon:"🏓", venue:"Dewan MBDK Bukit Raja", addr:"Klang, Selangor", area:"klang", lat:3.1127, lng:101.4490,
 
  restaurants:[
-  {name:"Restoran BR2 • Mixed Rice • 经济杂饭",rec:true,halal:false,type:"Restaurant",rating:3.8,price:"RM1–RM20",dist:"~800 m",hours:"10:00 AM – 9:15 PM",contact:"Not stated",address:"Bukit Raja, Klang, Selangor",cuisine:"Mixed Rice (Chinese)",avail:"Dine-in & takeaway · Delivery available",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/7tpXhBngufxyH6eZ6"},
-  {name:"S One One Restaurant Bandar Bukit Raja",rec:true,halal:false,type:"Restaurant",rating:3.4,price:"RM1–RM20",dist:"~1 km",hours:"9:00 AM – 9:00 PM",contact:"Not stated",address:"Bukit Raja, Klang, Selangor",cuisine:"Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/idLQwsBQfBj6kssU9"},
-  {name:"Choon Guan Hainan Coffee 1956 偆園海南咖啡1956",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM1–RM20",dist:"~1.4 km",hours:"6:00 AM – 4:00 PM (closed Tuesday)",contact:"03-33582833",address:"Near Setia Alam, Klang, Selangor",cuisine:"Hainanese / Kopitiam",avail:"Dine-in & takeaway",veg:"Limited",img:"kopitiam",maps:"https://maps.app.goo.gl/S4HdSpqZGcRtAAQd7"},
-  {name:"Lucky HH Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.0,price:"RM1–RM20",dist:"~1.3 km",hours:"Not stated",contact:"Not stated",address:"Bukit Raja, Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/smvTatJmSaCJHFHM9"},
-  {name:"Leeon Kitchen",rec:false,halal:false,type:"Restaurant",rating:4.5,price:"RM20–RM40",dist:"~1.2 km",hours:"10:00 AM – 3:00 PM, 5:00 PM – 10:00 PM (closed Thursday)",contact:"011-18500322",address:"Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/s2uMGvDnNwCfqyyHA"},
-  {name:"Good Fortune Restaurant",rec:false,halal:false,type:"Restaurant",rating:3.9,price:"RM20–RM40",dist:"~650 m",hours:"11:00 AM – 2:30 PM, 5:00 PM – 10:00 PM",contact:"012-6378547",address:"Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/EWSVHD191jQa2aiM8"},
-  {name:"Chin Cafe",rec:false,halal:false,type:"Restaurant",rating:4.1,price:"RM20–RM40",dist:"~450 m",hours:"10:00 AM – 9:30 PM",contact:"019-2333868",address:"Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway · Drive-through",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/NWDSF4QgxkhBTkSG7"}
+  {name:"Restoran BR2 • Mixed Rice • 经济杂饭",rec:true,halal:false,type:"Restaurant",rating:3.8,price:"RM1–RM20",dist:"~800 m",hours:"10:00 AM – 9:15 PM",contact:"Not stated",address:"Bukit Raja, Klang, Selangor",cuisine:"Mixed Rice (Chinese)",avail:"Dine-in & takeaway · Delivery available",veg:"Limited",img: "RestoranBR2",maps:"https://maps.app.goo.gl/7tpXhBngufxyH6eZ6"},
+  {name:"S One One Restaurant Bandar Bukit Raja",rec:true,halal:false,type:"Restaurant",rating:3.4,price:"RM1–RM20",dist:"~1 km",hours:"9:00 AM – 9:00 PM",contact:"Not stated",address:"Bukit Raja, Klang, Selangor",cuisine:"Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "S_One_OneRestaurant",maps:"https://maps.app.goo.gl/idLQwsBQfBj6kssU9"},
+  {name:"Choon Guan Hainan Coffee 1956 偆園海南咖啡1956",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM1–RM20",dist:"~1.4 km",hours:"6:00 AM – 4:00 PM (closed Tuesday)",contact:"03-33582833",address:"Near Setia Alam, Klang, Selangor",cuisine:"Hainanese / Kopitiam",avail:"Dine-in & takeaway",veg:"Limited",img: "Choon_GuanHainanCoffee",maps:"https://maps.app.goo.gl/S4HdSpqZGcRtAAQd7"},
+  {name:"Lucky HH Restaurant",rec:false,halal:false,type:"Restaurant",rating:4.0,price:"RM1–RM20",dist:"~1.3 km",hours:"Not stated",contact:"Not stated",address:"Bukit Raja, Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "LuckyHHRestaurant",maps:"https://maps.app.goo.gl/smvTatJmSaCJHFHM9"},
+  {name:"Leeon Kitchen",rec:false,halal:false,type:"Restaurant",rating:4.5,price:"RM20–RM40",dist:"~1.2 km",hours:"10:00 AM – 3:00 PM, 5:00 PM – 10:00 PM (closed Thursday)",contact:"011-18500322",address:"Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "LeeonKitchen",maps:"https://maps.app.goo.gl/s2uMGvDnNwCfqyyHA"},
+  {name:"Good Fortune Restaurant",rec:false,halal:false,type:"Restaurant",rating:3.9,price:"RM20–RM40",dist:"~650 m",hours:"11:00 AM – 2:30 PM, 5:00 PM – 10:00 PM",contact:"012-6378547",address:"Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "GoodFortuneRestaurant",maps:"https://maps.app.goo.gl/EWSVHD191jQa2aiM8"},
+  {name:"Chin Cafe",rec:false,halal:false,type:"Restaurant",rating:4.1,price:"RM20–RM40",dist:"~450 m",hours:"10:00 AM – 9:30 PM",contact:"019-2333868",address:"Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway · Drive-through",veg:"Limited",img: "ChinCafe",maps:"https://maps.app.goo.gl/NWDSF4QgxkhBTkSG7"}
  ],
  caterers:[
-  {name:"Mama Cooks Kitchen",halal:true,food:"Malaysian / Korean / Japanese / Western",contact:"60196698762",maps:"https://maps.app.goo.gl/YyNpzi5dwZX9CzhF8",note:"Rating 4.9 · Meal boxes · Custom menu · Delivery via Lalamove/Grab · 50% deposit · Refundable before ingredient purchase"},
-  {name:"Seri Indah Catering",halal:true,food:"Malay / Indian",contact:"018-3217815",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Event/local catering · Vegetarian: No"}
+  {name:"Mama Cooks Kitchen",halal:true,food:"Malaysian / Korean / Japanese / Western",contact:"60196698762",img: "MAMA_COOKS", maps:"https://maps.app.goo.gl/YyNpzi5dwZX9CzhF8",note:"Rating 4.9 · Meal boxes · Custom menu · Delivery via Lalamove/Grab · 50% deposit · Refundable before ingredient purchase"},
+  {name:"Seri Indah Catering",halal:true,food:"Malay / Indian",contact:"018-3217815",img: "Seri_Indah_Catering",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Event/local catering · Vegetarian: No"}
  ]}, 
 
  {id:"silambam", sport:"Silambam", icon:"🪵", venue:"Stadium Tertutup MBSJ", addr:"Serdang, Selangor", area:"serdang",
  lat:3.0270, lng:101.7050,
 
  restaurants:[
-  {name:"Jujube Vegetarian House - Seri Kembangan",rec:true,halal:false,type:"Restaurant",rating:4.9,price:"RM8–RM15",dist:"~5–7 km",hours:"10:30 AM – 3:50 PM, 5:00 PM – 9:20 PM",contact:"+60 3-8959 2226",address:"22, Jalan Equine 9D, Taman Equine, 43300 Seri Kembangan, Selangor",cuisine:"Vegetarian Cafe",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"vegetarian",maps:"https://maps.app.goo.gl/YHS5Px5679YX4gid8"},
-  {name:"Narmy's Kitchen @ Seri Kembangan",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~2–4 km",hours:"Afternoon – night (varies)",contact:"017-3031599",address:"B-UG-3A, ZENOPY RESIDENCE, Jln LP 7/4, Lestari Perdana, 43300 Seri Kembangan, Selangor",cuisine:"Indian / Western Fusion",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img:"indian",maps:"https://maps.app.goo.gl/2vVbT4hhcxK3QW8s5"},
-  {name:"Lagi Santai Cafe",rec:false,halal:true,type:"Restaurant",rating:4.9,price:"RM8–RM18",dist:"~2–4 km",hours:"Daytime – night (varies)",contact:"011-65568002",address:"Jln Atmosphere 6, 43400 Seri Kembangan, Selangor",cuisine:"Cafe / Western",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Moderate",img:"cafe",maps:"https://maps.app.goo.gl/kRzYjboRZFhms4hr7"},
-  {name:"Restoran Fairos Maju",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"~1.6 km",hours:"24 hours",contact:"0389580786",address:"Seri Kembangan, Selangor",cuisine:"Mamak",avail:"Dine-in & takeaway",veg:"Limited",img:"mamak",maps:"https://maps.app.goo.gl/vKywm4VYsadFu9rS8"},
-  {name:"Nasi Kandar Sha Bistro Signature",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~2.6 km",hours:"24 hours",contact:"0108832274",address:"Seri Kembangan, Selangor",cuisine:"Mamak / Nasi Kandar",avail:"Dine-in & takeaway",veg:"Limited",img:"mamak",maps:"https://maps.app.goo.gl/kZ7w8iT9wuaUXqNX9"},
-  {name:"PKS Maju Restaurant",rec:false,halal:true,type:"Restaurant",rating:4.1,price:"RM1–RM20",dist:"~1.8 km",hours:"24 hours",contact:"0389539972",address:"Seri Kembangan, Selangor",cuisine:"Mamak",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img:"mamak",maps:"https://maps.app.goo.gl/cNeoZmGtAsy6ua3T9"}
+  {name:"Jujube Vegetarian House - Seri Kembangan",rec:true,halal:false,type:"Restaurant",rating:4.9,price:"RM8–RM15",dist:"~5–7 km",hours:"10:30 AM – 3:50 PM, 5:00 PM – 9:20 PM",contact:"+60 3-8959 2226",address:"22, Jalan Equine 9D, Taman Equine, 43300 Seri Kembangan, Selangor",cuisine:"Vegetarian Cafe",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes", img: "JujubeVegetarianHouse",maps:"https://maps.app.goo.gl/YHS5Px5679YX4gid8"},
+  {name:"Narmy's Kitchen @ Seri Kembangan",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~2–4 km",hours:"Afternoon – night (varies)",contact:"017-3031599",address:"B-UG-3A, ZENOPY RESIDENCE, Jln LP 7/4, Lestari Perdana, 43300 Seri Kembangan, Selangor",cuisine:"Indian / Western Fusion",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img: "NarmyKitchen",maps:"https://maps.app.goo.gl/2vVbT4hhcxK3QW8s5"},
+  {name:"Lagi Santai Cafe",rec:false,halal:true,type:"Restaurant",rating:4.9,price:"RM8–RM18",dist:"~2–4 km",hours:"Daytime – night (varies)",contact:"011-65568002",address:"Jln Atmosphere 6, 43400 Seri Kembangan, Selangor",cuisine:"Cafe / Western",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Moderate",img: "LagiSantaiCafe",maps:"https://maps.app.goo.gl/kRzYjboRZFhms4hr7"},
+  {name:"Restoran Fairos Maju",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"~1.6 km",hours:"24 hours",contact:"0389580786",address:"Seri Kembangan, Selangor",cuisine:"Mamak",avail:"Dine-in & takeaway",veg:"Limited",img: "RestoranFairosMaju",maps:"https://maps.app.goo.gl/vKywm4VYsadFu9rS8"},
+  {name:"Nasi Kandar Sha Bistro Signature",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~2.6 km",hours:"24 hours",contact:"0108832274",address:"Seri Kembangan, Selangor",cuisine:"Mamak / Nasi Kandar",avail:"Dine-in & takeaway",veg:"Limited",img: "NASIKANDAR_SHABISTRO",maps:"https://maps.app.goo.gl/kZ7w8iT9wuaUXqNX9"},
+  {name:"PKS Maju Restaurant",rec:false,halal:true,type:"Restaurant",rating:4.1,price:"RM1–RM20",dist:"~1.8 km",hours:"24 hours",contact:"0389539972",address:"Seri Kembangan, Selangor",cuisine:"Mamak",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img: "PKSMajuRestaurant",maps:"https://maps.app.goo.gl/cNeoZmGtAsy6ua3T9"}
  ],
 
  caterers:[
-  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-3180070",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event catering · Vegetarian: Limited (verify) · Cluster: Sepang / Dengkil"}
+  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-3180070",img: "MZ_Catering",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event catering · Vegetarian: Limited (verify) · Cluster: Sepang / Dengkil"}
  ]
 },
 
@@ -533,74 +566,74 @@ const VENUES=[
  lat:2.9225, lng:101.7810,
 
  restaurants:[
-  {name:"Hot Meal Bah",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~700 m",hours:"9:00 AM – 8:00 PM",contact:"019-3888702",address:"UKM Bangi, Selangor",cuisine:"Local",avail:"Dine-in & takeaway · No-contact delivery",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/GfPdBsNY71qUJbnG9"},
-  {name:"Mixed Rice (Wong & Teh)",rec:true,halal:false,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~1.8 km",hours:"10:00 AM – 3:00 PM (closed Sat & Sun)",contact:"Not stated",address:"Bangi, Selangor",cuisine:"Mixed Rice (Chinese)",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/4zJ6CqDLvPfrLhWZ7"},
-  {name:"Warung Kita@Bangi",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM5–RM12",dist:"~2–3 km",hours:"8:00 AM – 8:00 PM",contact:"+6011-1190 4486",address:"Jalan Industri Sungai Tangkas 1, Kampung Sungai Tangkas, Bangi",cuisine:"Malay",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/ecSFjmQCMyYydLsVA"},
-  {name:"Restoran Mak Kimbong - Sotong, Ikan Bakar & Masakan Kampung @ Bangi",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM8–RM15",dist:"~4–5 km",hours:"7:00 AM – 5:00 PM",contact:"Not stated",address:"13, Jalan 4/1A, Seksyen 4 Tambahan Bandar Baru Bangi, Selangor",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"malay",maps:"https://maps.app.goo.gl/otPqs5CCQ2uNkFXN6"},
-  {name:"Restoran D’ Limau Nipis (Bangi)",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"~6–7 km",hours:"7:00 AM – 4:30 PM",contact:"+60 12-373 2160",address:"No. 201 & 205, Jalan 8/1, Seksyen 8, 43650 Bandar Baru Bangi, Selangor",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
-  {name:"Mohd Chan Restaurant @ Bandar Baru Bangi",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"~5–6 km",hours:"11:30 AM – 11:00 PM",contact:"+60 16-658 2369",address:"Jalan Medan Pusat 2C, Seksyen 9, Bangi, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/Y98bF2cJikYNL1oF7"}
+  {name:"Hot Meal Bah",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~700 m",hours:"9:00 AM – 8:00 PM",contact:"019-3888702",address:"UKM Bangi, Selangor",cuisine:"Local",avail:"Dine-in & takeaway · No-contact delivery",veg:"Limited",img: "HotMealBah",maps:"https://maps.app.goo.gl/GfPdBsNY71qUJbnG9"},
+  {name:"Mixed Rice (Wong & Teh)",rec:true,halal:false,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~1.8 km",hours:"10:00 AM – 3:00 PM (closed Sat & Sun)",contact:"Not stated",address:"Bangi, Selangor",cuisine:"Mixed Rice (Chinese)",avail:"Dine-in & takeaway",veg:"Limited",img: "MixedRiceWong&Teh",maps:"https://maps.app.goo.gl/4zJ6CqDLvPfrLhWZ7"},
+  {name:"Warung Kita@Bangi",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM5–RM12",dist:"~2–3 km",hours:"8:00 AM – 8:00 PM",contact:"+6011-1190 4486",address:"Jalan Industri Sungai Tangkas 1, Kampung Sungai Tangkas, Bangi",cuisine:"Malay",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "WarungKita",maps:"https://maps.app.goo.gl/ecSFjmQCMyYydLsVA"},
+  {name:"Restoran Mak Kimbong - Sotong, Ikan Bakar & Masakan Kampung @ Bangi",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM8–RM15",dist:"~4–5 km",hours:"7:00 AM – 5:00 PM",contact:"Not stated",address:"13, Jalan 4/1A, Seksyen 4 Tambahan Bandar Baru Bangi, Selangor",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "RestoranMakKimbong",maps:"https://maps.app.goo.gl/otPqs5CCQ2uNkFXN6"},
+  {name:"Restoran D’ Limau Nipis (Bangi)",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"~6–7 km",hours:"7:00 AM – 4:30 PM",contact:"+60 12-373 2160",address:"No. 201 & 205, Jalan 8/1, Seksyen 8, 43650 Bandar Baru Bangi, Selangor",cuisine:"Malay / Ikan Bakar",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "DLimau",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
+  {name:"Mohd Chan Restaurant @ Bandar Baru Bangi",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"~5–6 km",hours:"11:30 AM – 11:00 PM",contact:"+60 16-658 2369",address:"Jalan Medan Pusat 2C, Seksyen 9, Bangi, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/Y98bF2cJikYNL1oF7"}
  ],
 
  caterers:[
-  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-3180070",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event catering · Vegetarian: Limited (verify) · Cluster: Sepang / Dengkil"},
-  {name:"Arbe Catering",halal:true,food:"Malay",contact:"019-2801654",maps:"https://maps.app.goo.gl/BBjZc6X9PQukEmhf7",note:"Rating 4.0 · Min 100 pax · From RM17/pax · Delivery available · Deposit required (varies by pax) · Refundable with RM150 fee · Buffet or packed options"},
-  {name:"Restoran Farhanah Catering Taman Universiti Kajang",halal:true,food:"Malay",contact:"016-4023001",maps:"https://maps.app.goo.gl/chkQFFDXjwBf2Ng99",note:"Min 30 pax (weekday) / 50 pax (weekend) · From RM500–RM700 · Delivery RM5/km · 50% deposit · No cancellation (can postpone) · Bento available"}
+  {name:"MZ Catering",halal:true,food:"Malay",contact:"014-3180070",img: "MZ_Catering",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event catering · Vegetarian: Limited (verify) · Cluster: Sepang / Dengkil"},
+  {name:"Arbe Catering",halal:true,food:"Malay",contact:"019-2801654", img: "Arbe_Catering", maps:"https://maps.app.goo.gl/BBjZc6X9PQukEmhf7",note:"Rating 4.0 · Min 100 pax · From RM17/pax · Delivery available · Deposit required (varies by pax) · Refundable with RM150 fee · Buffet or packed options"},
+  {name:"Restoran Farhanah Catering Taman Universiti Kajang",halal:true,food:"Malay",contact:"016-4023001",img: "Restoran_Farhanah_Catering_Taman_Univers",maps:"https://maps.app.goo.gl/chkQFFDXjwBf2Ng99",note:"Min 30 pax (weekday) / 50 pax (weekend) · From RM500–RM700 · Delivery RM5/km · 50% deposit · No cancellation (can postpone) · Bento available"}
  ]},
 
  {id:"muay_thai",sport:"Muay Thai", icon:"🥊", venue:"KSL Esplanade Mall", addr:"Klang, Selangor", area:"klang",
  lat:3.0306, lng:101.4453,
 
  restaurants:[
-  {name:"Subway @ KSL Esplanade Mall",rec:true,halal:true,type:"Restaurant",rating:null,price:"RM10–RM20",dist:"~0 km",hours:"10:00 AM – 9:30 PM",contact:"03-5166 0150",address:"KSL Esplanade Mall, Klang",cuisine:"Fast Food / Sandwich",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Yes",img:"fastfood",maps:"https://maps.app.goo.gl/LK8FgjZvSp3AzadBA"},
-  {name:"Restaurant Dhiyaz Curry House",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~15–20 km",hours:"10:30 AM – 9:00 PM",contact:"Not stated",address:"Persiaran Rimba, Bandar Rimbayu, Kuala Langat, Selangor",cuisine:"Indian Muslim / Banana Leaf",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"indian",maps:"https://maps.app.goo.gl/XTp2JSSzANcHtbij6"},
-  {name:"Bozku Kitchen",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"~1 km",hours:"4:00 PM – 11:30 PM",contact:"013-5121207",address:"Klang, Selangor",cuisine:"Malay",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img:"malay",maps:"https://maps.app.goo.gl/AzNUH55Njy1uHixs5"},
-  {name:"Sambal Lalapan Gravit 8 | Chinese Muslim Kopitiam",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM1–RM20",dist:"~4.3 km",hours:"8:30 AM – 7:00 PM",contact:"03-33195992",address:"Klang, Selangor",cuisine:"Indonesian / Chinese Muslim",avail:"Dine-in & takeaway",veg:"Limited",img:"indonesian",maps:"https://maps.app.goo.gl/bk1kJZc4qYJeEeWZA"},
-  {name:"Bakso Warisan No 1 Sijangkang",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM11–RM20",dist:"~3.2 km",hours:"12:00 PM – 10:00 PM",contact:"013-6658969",address:"Sijangkang, Klang, Selangor",cuisine:"Indonesian",avail:"Dine-in & takeaway",veg:"Limited",img:"indonesian",maps:"https://maps.app.goo.gl/vzWTQF8VnnLMPkgKA"},
-  {name:"Ruyi Perfect Restaurant",rec:false,halal:false,type:"Restaurant",rating:3.9,price:"RM10–RM20",dist:"~4 km",hours:"6:00 AM – 12:00 AM",contact:"Not stated",address:"Jalan Jasmin 1, Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/T3XLRZr7o6nvixgHA"},
-  {name:"Hock Seafood Restaurant | 亚福海鲜饭店",rec:false,halal:false,type:"Restaurant",rating:4.2,price:"RM20–RM40",dist:"~4 km",hours:"2:00 PM – 12:00 AM",contact:"+60 18-236 6316",address:"Bandar Botanik, Klang, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/UtQAwtwibS9oJvTWA"},
-  {name:"I Suka Restaurant Sdn. Bhd.",rec:false,halal:false,type:"Restaurant",rating:4.1,price:"RM20–RM40",dist:"~15–18 km",hours:"11:00 AM – 11:00 PM",contact:"+60 19-328 8696",address:"Telok Panglima Garang, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/fwekKmwaRc2bn5RD9"}
+  {name:"Subway @ KSL Esplanade Mall",rec:true,halal:true,type:"Restaurant",rating:null,price:"RM10–RM20",dist:"~0 km",hours:"10:00 AM – 9:30 PM",contact:"03-5166 0150",address:"KSL Esplanade Mall, Klang",cuisine:"Fast Food / Sandwich",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Yes",img: "Subway",maps:"https://maps.app.goo.gl/LK8FgjZvSp3AzadBA"},
+  {name:"Restaurant Dhiyaz Curry House",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~15–20 km",hours:"10:30 AM – 9:00 PM",contact:"Not stated",address:"Persiaran Rimba, Bandar Rimbayu, Kuala Langat, Selangor",cuisine:"Indian Muslim / Banana Leaf",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "RestaurantDhiyazCurry",maps:"https://maps.app.goo.gl/XTp2JSSzANcHtbij6"},
+  {name:"Bozku Kitchen",rec:false,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"~1 km",hours:"4:00 PM – 11:30 PM",contact:"013-5121207",address:"Klang, Selangor",cuisine:"Malay",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img: "Bozkukitchen",maps:"https://maps.app.goo.gl/AzNUH55Njy1uHixs5"},
+  {name:"Sambal Lalapan Gravit 8 | Chinese Muslim Kopitiam",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM1–RM20",dist:"~4.3 km",hours:"8:30 AM – 7:00 PM",contact:"03-33195992",address:"Klang, Selangor",cuisine:"Indonesian / Chinese Muslim",avail:"Dine-in & takeaway",veg:"Limited",img: "SAMBAL_LALAPAN",maps:"https://maps.app.goo.gl/bk1kJZc4qYJeEeWZA"},
+  {name:"Bakso Warisan No 1 Sijangkang",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM11–RM20",dist:"~3.2 km",hours:"12:00 PM – 10:00 PM",contact:"013-6658969",address:"Sijangkang, Klang, Selangor",cuisine:"Indonesian",avail:"Dine-in & takeaway",veg:"Limited",img: "Bakso_Warisan",maps:"https://maps.app.goo.gl/vzWTQF8VnnLMPkgKA"},
+  {name:"Ruyi Perfect Restaurant",rec:false,halal:false,type:"Restaurant",rating:3.9,price:"RM10–RM20",dist:"~4 km",hours:"6:00 AM – 12:00 AM",contact:"Not stated",address:"Jalan Jasmin 1, Klang, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "Ruyi_Perfect_Restaurant",maps:"https://maps.app.goo.gl/T3XLRZr7o6nvixgHA"},
+  {name:"Hock Seafood Restaurant | 亚福海鲜饭店",rec:false,halal:false,type:"Restaurant",rating:4.2,price:"RM20–RM40",dist:"~4 km",hours:"2:00 PM – 12:00 AM",contact:"+60 18-236 6316",address:"Bandar Botanik, Klang, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "HockSeafoodRestaurant",maps:"https://maps.app.goo.gl/UtQAwtwibS9oJvTWA"},
+  {name:"I Suka Restaurant Sdn. Bhd.",rec:false,halal:false,type:"Restaurant",rating:4.1,price:"RM20–RM40",dist:"~15–18 km",hours:"11:00 AM – 11:00 PM",contact:"+60 19-328 8696",address:"Telok Panglima Garang, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "I_Suka_Restaurant",maps:"https://maps.app.goo.gl/fwekKmwaRc2bn5RD9"}
  ],
 
  caterers:[
-  {name:"KPR Food Caterers",halal:true,food:"Indian Muslim",contact:"012-6671758",maps:"https://maps.app.goo.gl/QtuBGhGpfZAVQJme6",note:"Rating 4.5 · Commercial catering · Vegetarian: Yes · Klang cluster"},
-  {name:"Orange Catering",halal:true,food:"Western / Fusion",contact:"+603-5166 7013",maps:"https://maps.google.com/?q=Orange+Catering+Malaysia",note:"Rating 4.2 · Halal certified · Customizable meals · Delivery (Klang ~RM20) · 70% deposit · Cannot cancel (can postpone)"},
-  {name:"Sree Eswara Food Caterers",halal:true,food:"Indian",contact:"016-7085076",maps:"https://maps.app.goo.gl/XFYMcdaa6TrSgjoq9",note:"Rating 4.8 · Commercial catering · Vegetarian: Yes · Klang cluster"}
+  {name:"KPR Food Caterers",halal:true,food:"Indian Muslim",contact:"012-6671758",img: "KPR_Food_Caterers", maps:"https://maps.app.goo.gl/QtuBGhGpfZAVQJme6",note:"Rating 4.5 · Commercial catering · Vegetarian: Yes · Klang cluster"},
+  {name:"Orange Catering",halal:true,food:"Western / Fusion",contact:"+603-5166 7013",img: "Orange_Catering",maps:"https://maps.google.com/?q=Orange+Catering+Malaysia",note:"Rating 4.2 · Halal certified · Customizable meals · Delivery (Klang ~RM20) · 70% deposit · Cannot cancel (can postpone)"},
+  {name:"Sree Eswara Food Caterers",halal:true,food:"Indian",contact:"016-7085076",img: "", FOOD_BG:"https://maps.app.goo.gl/XFYMcdaa6TrSgjoq9",note:"Rating 4.8 · Commercial catering · Vegetarian: Yes · Klang cluster"}
  ]},
 
  {id:"badminton",sport:"Badminton", icon:"🏸", venue:"Setia City Convention Centre (Hall 2)", addr:"Shah Alam, Selangor", area:"shah alam",
  lat:3.1087, lng:101.4623,
 
  restaurants:[
-  {name:"Homst Setia Alam",rec:true,halal:true,type:"Restaurant",rating:null,price:"RM15–RM35",dist:"~12–15 km",hours:"11:00 AM – 10:00 PM",contact:"012-5700615",address:"1, Jln Setia Dagang AJ U13/AJ, Setia Alam, 40170 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway · Catering · Packed food: Yes",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/9hg4tgRBmMRZds386"},
-  {name:"Uncle Sam Kopi • Setia Taipan",rec:false,halal:false,type:"Restaurant",rating:4.7,price:"RM1–RM20",dist:"~1.9 km",hours:"8:30 AM – 8:30 PM (Weekend until 10:00 PM)",contact:"010-2174355",address:"Setia Taipan, Shah Alam, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img:"kopitiam",maps:"https://maps.app.goo.gl/CSwRg8uMuNAAn911A"},
-  {name:"金厨房 Golden Cuisine",rec:false,halal:false,type:"Restaurant",rating:4.5,price:"RM20–RM40",dist:"~3.7 km",hours:"11:15 AM – 3:00 PM, 5:15 PM – 10:00 PM",contact:"011-16062338",address:"Setia Alam, Shah Alam, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img:"seafood",maps:"https://maps.app.goo.gl/zPq1npturzSWZfJE7"},
-  {name:"Cathay Hailam Kopitiam • Setia Taipan 2",rec:false,halal:false,type:"Restaurant",rating:4.2,price:"RM1–RM20",dist:"~2.1 km",hours:"7:30 AM – 8:30 PM",contact:"03-33590986",address:"Setia Taipan, Shah Alam, Selangor",cuisine:"Chinese Kopitiam",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img:"kopitiam",maps:"https://maps.app.goo.gl/uFxQj1ef5ePQrtkB6"},
-  {name:"Mee Hiris China Muslim @ Setia City Mall",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"~5 min drive",hours:"10:00 AM – 10:00 PM",contact:"+60 12-216 5618",address:"Persiaran Setia Alam, Setia Alam, 40170 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/XtDuSwTGentWYT648"},
-  {name:"Restoran Chi Xiang He La 吃湘喝辣 川湘菜",rec:false,halal:false,type:"Restaurant",rating:5.0,price:"RM20–RM40",dist:"~2.1 km",hours:"11:00 AM – 11:00 PM (Thu until 11:30 PM)",contact:"010-8086208",address:"Setia Alam, Shah Alam, Selangor",cuisine:"Chinese (Sichuan/Hunan)",avail:"Dine-in & takeaway · No-contact delivery",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/nCk4vwskeXMLX4AU9"}
+  {name:"Homst Setia Alam",rec:true,halal:true,type:"Restaurant",rating:null,price:"RM15–RM35",dist:"~12–15 km",hours:"11:00 AM – 10:00 PM",contact:"012-5700615",address:"1, Jln Setia Dagang AJ U13/AJ, Setia Alam, 40170 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway · Catering · Packed food: Yes",veg:"Yes",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/9hg4tgRBmMRZds386"},
+  {name:"Uncle Sam Kopi • Setia Taipan",rec:false,halal:false,type:"Restaurant",rating:4.7,price:"RM1–RM20",dist:"~1.9 km",hours:"8:30 AM – 8:30 PM (Weekend until 10:00 PM)",contact:"010-2174355",address:"Setia Taipan, Shah Alam, Selangor",cuisine:"Chinese",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img: "Uncle_Sam_Kopi", maps:"https://maps.app.goo.gl/CSwRg8uMuNAAn911A"},
+  {name:"金厨房 Golden Cuisine",rec:false,halal:false,type:"Restaurant",rating:4.5,price:"RM20–RM40",dist:"~3.7 km",hours:"11:15 AM – 3:00 PM, 5:15 PM – 10:00 PM",contact:"011-16062338",address:"Setia Alam, Shah Alam, Selangor",cuisine:"Chinese Seafood",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img: "GoldenCuisine",maps:"https://maps.app.goo.gl/zPq1npturzSWZfJE7"},
+  {name:"Cathay Hailam Kopitiam • Setia Taipan 2",rec:false,halal:false,type:"Restaurant",rating:4.2,price:"RM1–RM20",dist:"~2.1 km",hours:"7:30 AM – 8:30 PM",contact:"03-33590986",address:"Setia Taipan, Shah Alam, Selangor",cuisine:"Chinese Kopitiam",avail:"Dine-in & takeaway · Delivery",veg:"Limited",img: "CathayHailamKopitiam",maps:"https://maps.app.goo.gl/uFxQj1ef5ePQrtkB6"},
+  {name:"Mee Hiris China Muslim @ Setia City Mall",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM20–RM40",dist:"~5 min drive",hours:"10:00 AM – 10:00 PM",contact:"+60 12-216 5618",address:"Persiaran Setia Alam, Setia Alam, 40170 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "MeeHiris",maps:"https://maps.app.goo.gl/XtDuSwTGentWYT648"},
+  {name:"Restoran Chi Xiang He La 吃湘喝辣 川湘菜",rec:false,halal:false,type:"Restaurant",rating:5.0,price:"RM20–RM40",dist:"~2.1 km",hours:"11:00 AM – 11:00 PM (Thu until 11:30 PM)",contact:"010-8086208",address:"Setia Alam, Shah Alam, Selangor",cuisine:"Chinese (Sichuan/Hunan)",avail:"Dine-in & takeaway · No-contact delivery",veg:"Limited",img: "RestoranchiXiangHeLa",maps:"https://maps.app.goo.gl/nCk4vwskeXMLX4AU9"}
  ],
 
  caterers:[
-  {name:"Mama Cooks Kitchen",halal:true,food:"Malaysian / Korean / Japanese / Western",contact:"60196698762",maps:"https://maps.app.goo.gl/YyNpzi5dwZX9CzhF8",note:"Rating 4.9 · Meal boxes · Custom menu · Delivery via Lalamove/Grab · 50% deposit · Refundable before ingredient purchase"},
-  {name:"Seri Indah Catering",halal:true,food:"Malay / Indian",contact:"018-3217815",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Min 10–20 pax · From ~RM15/pax · Delivery ~RM50 (negotiable) · Deposit ~2 weeks before event · Customizable menu"}
+  {name:"Mama Cooks Kitchen",halal:true,food:"Malaysian / Korean / Japanese / Western",contact:"60196698762",img: "MAMA_COOKS", maps:"https://maps.app.goo.gl/YyNpzi5dwZX9CzhF8",note:"Rating 4.9 · Meal boxes · Custom menu · Delivery via Lalamove/Grab · 50% deposit · Refundable before ingredient purchase"},
+  {name:"Seri Indah Catering",halal:true,food:"Malay / Indian",contact:"018-3217815",img: "Seri_Indah_Catering",maps:"https://maps.app.goo.gl/rRkzfbohXHVde3oH6",note:"Rating 5.0 · Min 10–20 pax · From ~RM15/pax · Delivery ~RM50 (negotiable) · Deposit ~2 weeks before event · Customizable menu"}
  ]},
 
  {id:"renang_berirama", sport:"Renang Berirama", icon:"🏊‍♀️", venue:"Pusat Akuatik Darul Ehsan", addr:"Shah Alam, Selangor", area:"shah alam",
  lat:3.0728, lng:101.5183,
 
  restaurants:[
-  {name:"You Fan Chi",rec:false,halal:false,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"~6.6 km",hours:"Not stated",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/hrR46CefHkaVeCtN9"},
-  {name:"Restaurant Ho Chai Delight",rec:true,halal:false,type:"Restaurant",rating:3.5,price:"RM1–RM20",dist:"~5 km",hours:"11:00 AM – 4:00 PM (closed Sunday)",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/p25eodnuUFSySjNC6"},
-  {name:"Restoran Nan Hong",rec:false,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (Sun: 10:30 AM – 3:30 PM, 5:00 PM – 8:00 PM)",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
-  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
-  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, 40200 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
-  {name:"BananaBro • ÆON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-2324030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Indian (Banana Leaf)",avail:"Dine-in & takeaway",veg:"Yes",img:"indian",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
-  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"+6017-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"western",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
-  {name:"Djakarta Raya Restoran Ayam Bakar Seksyen 13 Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~1–2 km",hours:"10:30 AM – 10:30 PM",contact:"+6011-6222 6474",address:"Jalan Badminton 13/29, Seksyen 13, 40000 Shah Alam, Selangor",cuisine:"Indonesian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"indonesian",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"}
+  {name:"You Fan Chi",rec:false,halal:false,type:"Restaurant",rating:4.8,price:"RM1–RM20",dist:"~6.6 km",hours:"Not stated",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "YouFanChi",maps:"https://maps.app.goo.gl/hrR46CefHkaVeCtN9"},
+  {name:"Restaurant Ho Chai Delight",rec:true,halal:false,type:"Restaurant",rating:3.5,price:"RM1–RM20",dist:"~5 km",hours:"11:00 AM – 4:00 PM (closed Sunday)",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "RestaurantHoChaiDelight",maps:"https://maps.app.goo.gl/p25eodnuUFSySjNC6"},
+  {name:"Restoran Nan Hong",rec:false,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM (Sun: 10:30 AM – 3:30 PM, 5:00 PM – 8:00 PM)",contact:"Not stated",address:"Shah Alam, Selangor",cuisine:"Mixed Rice",avail:"Dine-in & takeaway",veg:"Limited",img: "RestoranNanHong",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
+  {name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"5&7, Jalan Boling Padang H 13/H, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+  {name:"Mohd Chan Restaurant @ Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"B, 33 & 35, Jalan Utas B, Seksyen 15, 40200 Shah Alam, Selangor",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+  {name:"BananaBro • ÆON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-2324030",address:"LOT S 12, AEON MALL, Jln Akuatik 13/64, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Indian (Banana Leaf)",avail:"Dine-in & takeaway",veg:"Yes",img: "BananaBro",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
+  {name:"Padi House, Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"+6017-676 8508",address:"Lot A6–A8, Giant Hypermarket Shah Alam Stadium, Seksyen 13, 40100 Shah Alam, Selangor",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "Padi_House",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
+  {name:"Djakarta Raya Restoran Ayam Bakar Seksyen 13 Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~1–2 km",hours:"10:30 AM – 10:30 PM",contact:"+6011-6222 6474",address:"Jalan Badminton 13/29, Seksyen 13, 40000 Shah Alam, Selangor",cuisine:"Indonesian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "Djakarta_Raya_Restoran_Ayam_Bakar",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"}
  ],
 
  caterers:[
-  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
-  {name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Min order 30 pax · Custom menu · Delivery ~RM150 (negotiable) · 70% deposit"},
+  {name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",img: "Sajian_d-Hidang_Catering",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
+  {name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",img:"7th_Sense_Caterer", maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Min order 30 pax · Custom menu · Delivery ~RM150 (negotiable) · 70% deposit"},
   {name:"Event & Catering Shah Alam",halal:true,food:"Malay / Western",contact:"60132903906",maps:"https://maps.app.goo.gl/ufNvQwWyyCAKFoFd6",note:"Event catering · Vegetarian: No (verify)"}
  ]},
 
@@ -609,9 +642,9 @@ const VENUES=[
  lng:101.2490,
 
  restaurants:[
-  {name:"Restoran Nasi Korek-Korek", rec:false, halal:true, type:"Restaurant", rating:null, price:"RM6–RM12", dist:"~1–2 km", hours:"10:00 AM – 6:00 PM", contact:"010-8332961", address:"Lorong Teratai 2/12, Bandar Baru, Kuala Selangor", cuisine:"Malay", avail:"Dine-in & takeaway · Packed food: Yes", veg:"Limited", img:"local", maps:"https://maps.app.goo.gl/GBV6t7VkKsXhtjke9"},
-  {name:"Restoran Muara HNP", rec:false, halal:true, type:"Restaurant", rating:null, price:"RM15–RM35", dist:"~2–3 km", hours:"4:00 PM – 11:00 PM", contact:"0332891866", address:"1, Jalan 2, Taman Telaga Tujuh, Kuala Selangor", cuisine:"Seafood / Tomyam", avail:"Dine-in · Packed food: Yes", veg:"Limited", img:"seafood", maps:"https://maps.app.goo.gl/LYeU7ETeXFH4zjLk7"},
-  {name:"Restoran Hong Lee Food Court",rec:false,halal:false,type:"Food Court",rating:null, price:"RM6–RM15", dist:"~2–3 km", hours:"7:00 AM – 10:00 PM", contact:"Not stated",address:"Taman Telaga Tujuh, Kuala Selangor", cuisine:"Mixed Hawker", avail:"Dine-in · Packed food: Yes", veg:"Available", img:"hawker", maps:"https://maps.app.goo.gl/bAj8EjpyPGPCSs1U7"},
+  {name:"Restoran Nasi Korek-Korek", rec:false, halal:true, type:"Restaurant", rating:null, price:"RM6–RM12", dist:"~1–2 km", hours:"10:00 AM – 6:00 PM", contact:"010-8332961", address:"Lorong Teratai 2/12, Bandar Baru, Kuala Selangor", cuisine:"Malay", avail:"Dine-in & takeaway · Packed food: Yes", veg:"Limited", img: "Korek", maps:"https://maps.app.goo.gl/GBV6t7VkKsXhtjke9"},
+  {name:"Restoran Muara HNP", rec:false, halal:true, type:"Restaurant", rating:null, price:"RM15–RM35", dist:"~2–3 km", hours:"4:00 PM – 11:00 PM", contact:"0332891866", address:"1, Jalan 2, Taman Telaga Tujuh, Kuala Selangor", cuisine:"Seafood / Tomyam", avail:"Dine-in · Packed food: Yes", veg:"Limited", img: "Muara_HNP", maps:"https://maps.app.goo.gl/LYeU7ETeXFH4zjLk7"},
+  {name:"Restoran Hong Lee Food Court",rec:false,halal:false,type:"Food Court",rating:null, price:"RM6–RM15", dist:"~2–3 km", hours:"7:00 AM – 10:00 PM", contact:"Not stated",address:"Taman Telaga Tujuh, Kuala Selangor", cuisine:"Mixed Hawker", avail:"Dine-in · Packed food: Yes", veg:"Available", img: "Restoran_HongLee", maps:"https://maps.app.goo.gl/bAj8EjpyPGPCSs1U7"},
 
   {
    name:"Restoran Selera Cik Yati",
@@ -627,7 +660,7 @@ const VENUES=[
    cuisine:"Malay / Nasi Campur",
    avail:"Dine-in & takeaway · Packed food: Yes",
    veg:"Limited",
-   img:"local",
+   img: "RestoranSeleraCikYati",
    maps:"https://maps.app.goo.gl/eanx5kSXMUAHCJKeA"
   },
 
@@ -645,7 +678,7 @@ const VENUES=[
    cuisine:"Indonesian / Malay",
    avail:"Dine-in · Packed food: Yes",
    veg:"Limited",
-   img:"local",
+   img: "RumahMakanRestuIbu",
    maps:"https://maps.app.goo.gl/CGqSk2p87CeqMmHJ6"
   },
 
@@ -663,7 +696,7 @@ const VENUES=[
    cuisine:"Local / Breakfast / Nasi Campur",
    avail:"Dine-in & takeaway · Packed food: Yes",
    veg:"Limited",
-   img:"local",
+   img: "KedaiMakanBotak",
    maps:"https://maps.app.goo.gl/FPEeyNK2oqcivVUP8"
   },
 
@@ -681,7 +714,7 @@ const VENUES=[
    cuisine:"Mee Goreng / Nasi Goreng / Tomyam",
    avail:"Dine-in · Packed food: Yes",
    veg:"Limited",
-   img:"local",
+   img: "SeleraHaliAsyraf",
    maps:"https://maps.app.goo.gl/CpA1J5i7S8tviENe8"
   }
  ],
@@ -692,121 +725,121 @@ const VENUES=[
    halal:true,
    food:"Malay",
    contact:"011-56561962",
-   maps:"https://maps.app.goo.gl/hzugshcJ5j8VH6QF6",
+   img: "Ecah_Nik_Catering", maps:"https://maps.app.goo.gl/hzugshcJ5j8VH6QF6",
    note:"Rating 4.8 · Recommended · Min 100 pax · RM12–15/pax · 50% deposit · Free delivery · Custom menu available"
   }
  ]}, 
 
  {id:"bowling",sport:"Tenpin Bowling",icon:"🎳",venue:"Sunway Megalanes",addr:"Sunway Pyramid, Bandar Sunway",area:"sunway",lat:3.0736,lng:101.6070,
 restaurants:[
-{name:"Rock Cafe Bandar Sunway",rec:false,halal:true,type:"Food Court",rating:4.0,price:"RM12–RM25",dist:"~1–2 km",hours:"Afternoon – night",contact:"Not stated",address:"Bandar Sunway",cuisine:"Western",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"western",maps:"https://maps.app.goo.gl/fBvku4LkZKyeRdK77"},
-{name:"Madam Kwan's Sunway Pyramid",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM30",dist:"~0–0.2 km",hours:"10:00 AM – 10:30 PM",contact:"03-5622 2397",address:"LG1.47, Sunway Pyramid Mall",cuisine:"Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"local",maps:"https://maps.app.goo.gl/hfTQfvC2NZuyauxW6"},
-{name:"BananaBro Sunway Pyramid",rec:true,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~0–0.2 km",hours:"10:00 AM – 10:00 PM",contact:"Not stated",address:"Sunway Pyramid Mall",cuisine:"Indian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"indian",maps:"https://maps.app.goo.gl/99vLF8E1yUxdJ9WP8"},
-{name:"Khao Man Gai Pee Nong Restaurant",rec:true,halal:true,type:"Restaurant",rating:null,price:"RM6–RM12",dist:"~1–2 km",hours:"10:00 AM – 10:00 PM",contact:"012-7601664",address:"3, Jalan PJS 8/10, Bandar Sunway",cuisine:"Thai / Chicken Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"thai",maps:"https://maps.app.goo.gl/5NV6NhtvsFouHyjK6"},
-{name:"NHF Organects Sunway Mentari",rec:true,halal:true,type:"Restaurant",rating:null,price:"RM15–RM25",dist:"~1–2 km",hours:"11:00 AM – 9:00 PM",contact:"018-4733721",address:"12-1-01, Jalan PJS 8/10, Bandar Sunway",cuisine:"Healthy / Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"healthy",maps:"https://maps.app.goo.gl/NVpg6nXWwRLqz4XV7"},
-{name:"MZ Restoran Nasi Campur & Tomyam",rec:true,halal:true,type:"Restaurant",rating:4.1,price:"RM5–RM15",dist:"~300–500 m",hours:"7:30 AM – 1:00 AM (Closed Sat)",contact:"017-3368301",address:"22-1, Jalan PJS 8/6, Bandar Sunway",cuisine:"Malay / Tomyam",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/Z2XYzNTJnDpyxGtB8"},
-{name:"Restoran Maliki Nasi Kukus",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM7–RM15",dist:"~500–700 m",hours:"11:00 AM – 11:00 PM",contact:"011-39862354",address:"8, Jalan PJS 8/18, Bandar Sunway",cuisine:"Malay",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/PxpgL9iRyt85WbhS6"},
-{name:"Kopitiam Yang Yang (陽阳美食中心)",rec:false,halal:false,type:"Food Court",rating:3.9,price:"RM5–RM15",dist:"~500–600 m",hours:"7:30 AM – 1:00 AM",contact:"03-8090 9999",address:"6, Jalan PJS 8/17, Bandar Sunway",cuisine:"Mixed Hawker",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Available",img:"hawker",maps:"https://maps.app.goo.gl/H1onRbSc26vPzE1RA"},
-{name:"MANJOE Taiwanese Dumplings Sunway Pyramid",rec:false,halal:false,type:"Restaurant",rating:4.9,price:"RM20–RM40",dist:"~0–0.2 km",hours:"10:00 AM – 10:00 PM",contact:"03-56113173",address:"Sunway Pyramid Mall",cuisine:"Taiwanese",avail:"Dine-in & takeaway",veg:"Limited",img:"dimsum",maps:"https://maps.app.goo.gl/YH1zqrVGUfveGJF56"},
-{name:"Subway Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:2.2,price:"RM20–RM40",dist:"~0–0.2 km",hours:"10:00 AM – 10:00 PM",contact:"012-6534524",address:"Sunway Pyramid Mall",cuisine:"Sandwiches",avail:"Dine-in",veg:"Yes",img:"western",maps:"https://maps.app.goo.gl/z67DYH4yL1A9jvYz9"},
-{name:"Tea Garden Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM20–RM40",dist:"~0–0.2 km",hours:"9:30 AM – 10:00 PM",contact:"010-6614237",address:"Sunway Pyramid Mall",cuisine:"Asian Fusion",avail:"Dine-in & takeaway",veg:"Limited",img:"asian",maps:"https://maps.app.goo.gl/Jgpr6mohqV3cSwiB7"},
-{name:"Penyet Express Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~0–0.2 km",hours:"10:30 AM – 9:30 PM",contact:"03-56125624",address:"Sunway Pyramid Mall",cuisine:"Indonesian",avail:"Dine-in & takeaway",veg:"Limited",img:"indonesian",maps:"https://maps.app.goo.gl/Thvji6joUUDgHbM89"}
+{name:"Rock Cafe Bandar Sunway",rec:false,halal:true,type:"Food Court",rating:4.0,price:"RM12–RM25",dist:"~1–2 km",hours:"Afternoon – night",contact:"Not stated",address:"Bandar Sunway",cuisine:"Western",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "RockCafeBandarSunway",maps:"https://maps.app.goo.gl/fBvku4LkZKyeRdK77"},
+{name:"Madam Kwan's Sunway Pyramid",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM30",dist:"~0–0.2 km",hours:"10:00 AM – 10:30 PM",contact:"03-5622 2397",address:"LG1.47, Sunway Pyramid Mall",cuisine:"Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "MadamKwan",maps:"https://maps.app.goo.gl/hfTQfvC2NZuyauxW6"},
+{name:"BananaBro Sunway Pyramid",rec:true,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~0–0.2 km",hours:"10:00 AM – 10:00 PM",contact:"Not stated",address:"Sunway Pyramid Mall",cuisine:"Indian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "BananaBro_AEON_ShahAlam",maps:"https://maps.app.goo.gl/99vLF8E1yUxdJ9WP8"},
+{name:"Khao Man Gai Pee Nong Restaurant",rec:true,halal:true,type:"Restaurant",rating:null,price:"RM6–RM12",dist:"~1–2 km",hours:"10:00 AM – 10:00 PM",contact:"012-7601664",address:"3, Jalan PJS 8/10, Bandar Sunway",cuisine:"Thai / Chicken Rice",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "KhaoManGaiPeeNongRestaurant",maps:"https://maps.app.goo.gl/5NV6NhtvsFouHyjK6"},
+{name:"NHF Organects Sunway Mentari",rec:true,halal:true,type:"Restaurant",rating:null,price:"RM15–RM25",dist:"~1–2 km",hours:"11:00 AM – 9:00 PM",contact:"018-4733721",address:"12-1-01, Jalan PJS 8/10, Bandar Sunway",cuisine:"Healthy / Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "NHF_Organects",maps:"https://maps.app.goo.gl/NVpg6nXWwRLqz4XV7"},
+{name:"MZ Restoran Nasi Campur & Tomyam",rec:true,halal:true,type:"Restaurant",rating:4.1,price:"RM5–RM15",dist:"~300–500 m",hours:"7:30 AM – 1:00 AM (Closed Sat)",contact:"017-3368301",address:"22-1, Jalan PJS 8/6, Bandar Sunway",cuisine:"Malay / Tomyam",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Limited",img: "MZRestoran",maps:"https://maps.app.goo.gl/Z2XYzNTJnDpyxGtB8"},
+{name:"Restoran Maliki Nasi Kukus",rec:false,halal:true,type:"Restaurant",rating:4.2,price:"RM7–RM15",dist:"~500–700 m",hours:"11:00 AM – 11:00 PM",contact:"011-39862354",address:"8, Jalan PJS 8/18, Bandar Sunway",cuisine:"Malay",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Limited",img: "RestoranMalikiNasiKukus",maps:"https://maps.app.goo.gl/PxpgL9iRyt85WbhS6"},
+{name:"Kopitiam Yang Yang (陽阳美食中心)",rec:false,halal:false,type:"Food Court",rating:3.9,price:"RM5–RM15",dist:"~500–600 m",hours:"7:30 AM – 1:00 AM",contact:"03-8090 9999",address:"6, Jalan PJS 8/17, Bandar Sunway",cuisine:"Mixed Hawker",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Available", img: "KopitiamYangYang",maps:"https://maps.app.goo.gl/H1onRbSc26vPzE1RA"},
+{name:"MANJOE Taiwanese Dumplings Sunway Pyramid",rec:false,halal:false,type:"Restaurant",rating:4.9,price:"RM20–RM40",dist:"~0–0.2 km",hours:"10:00 AM – 10:00 PM",contact:"03-56113173",address:"Sunway Pyramid Mall",cuisine:"Taiwanese",avail:"Dine-in & takeaway",veg:"Limited",img: "MANJOE",maps:"https://maps.app.goo.gl/YH1zqrVGUfveGJF56"},
+{name:"Subway Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:2.2,price:"RM20–RM40",dist:"~0–0.2 km",hours:"10:00 AM – 10:00 PM",contact:"012-6534524",address:"Sunway Pyramid Mall",cuisine:"Sandwiches",avail:"Dine-in",veg:"Yes",img: "Subway",maps:"https://maps.app.goo.gl/z67DYH4yL1A9jvYz9"},
+{name:"Tea Garden Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM20–RM40",dist:"~0–0.2 km",hours:"9:30 AM – 10:00 PM",contact:"010-6614237",address:"Sunway Pyramid Mall",cuisine:"Asian Fusion",avail:"Dine-in & takeaway",veg:"Limited",img: "TeaGarden",maps:"https://maps.app.goo.gl/Jgpr6mohqV3cSwiB7"},
+{name:"Penyet Express Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~0–0.2 km",hours:"10:30 AM – 9:30 PM",contact:"03-56125624",address:"Sunway Pyramid Mall",cuisine:"Indonesian",avail:"Dine-in & takeaway",veg:"Limited",img: "PenyetExpress",maps:"https://maps.app.goo.gl/Thvji6joUUDgHbM89"}
 ],
 caterers:[
-{name:"H&H Catering",halal:true,food:"Chinese",contact:"03-61418911",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Mini catering · Halal certified · Vegetarian: Limited (on request)"},
-{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000 · Customizable"}
+{name:"H&H Catering",halal:true,food:"Chinese",contact:"03-61418911",img: "H&H_Catering", maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Mini catering · Halal certified · Vegetarian: Limited (on request)"},
+{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",img: "Teaffani_Catering",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10 (bento) / 50 (buffet) · Bento RM15–23/pax · Buffet from RM25/pax · Deposit RM2000 · Customizable"}
 ]}, 
 
 {id:"tennis",sport:"Tenis",icon:"🎾",venue:"Kompleks Tenis MBPJ Kelana Jaya",addr:"Petaling Jaya, Selangor",area:"sunway",lat:3.1040,lng:101.6050,
 restaurants:[
-{name:"Rock Cafe Bandar Sunway",rec:true,halal:true,type:"Food Court",rating:4.0,price:"RM12–RM25",dist:"~1–2 km",hours:"Afternoon – night",contact:"Not stated",address:"Bandar Sunway",cuisine:"Western",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"western",maps:"https://maps.app.goo.gl/fBvku4LkZKyeRdK77"},
-{name:"Madam Kwan's Sunway Pyramid",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM30",dist:"~0–0.2 km",hours:"10:00 AM – 10:30 PM",contact:"03-56222397",address:"Sunway Pyramid",cuisine:"Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"local",maps:"https://maps.app.goo.gl/hfTQfvC2NZuyauxW6"},
-{name:"BananaBro Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~0–0.2 km",hours:"10:00 AM – 10:00 PM",contact:"Not stated",address:"Sunway Pyramid",cuisine:"Indian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"indian",maps:"https://maps.app.goo.gl/99vLF8E1yUxdJ9WP8"},
-{name:"Khao Man Gai Pee Nong Restaurant",rec:true,halal:true,type:"Restaurant",rating:4.9,price:"RM6–RM12",dist:"~1–2 km",hours:"10:00 AM – 10:00 PM",contact:"012-7601664",address:"Bandar Sunway",cuisine:"Thai",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"thai",maps:"https://maps.app.goo.gl/5NV6NhtvsFouHyjK6"},
-{name:"NHF Organects Sunway Mentari",rec:true,halal:true,type:"Restaurant",rating:4.9,price:"RM15–RM25",dist:"~1–2 km",hours:"11:00 AM – 9:00 PM",contact:"018-4733721",address:"Bandar Sunway",cuisine:"Healthy",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"healthy",maps:"https://maps.app.goo.gl/NVpg6nXWwRLqz4XV7"},
-{name:"MZ Restoran Nasi Campur & Tomyam",rec:true,halal:true,type:"Restaurant",rating:4.1,price:"RM5–RM15",dist:"~300–500 m",hours:"7:30 AM – 1:00 AM (Closed Sat)",contact:"017-3368301",address:"Bandar Sunway",cuisine:"Malay",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/Z2XYzNTJnDpyxGtB8"},
-{name:"Restoran Maliki Nasi Kukus",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM7–RM15",dist:"~500–700 m",hours:"11:00 AM – 11:00 PM",contact:"011-39862354",address:"Bandar Sunway",cuisine:"Malay",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/PxpgL9iRyt85WbhS6"},
-{name:"Kopitiam Yang Yang",rec:true,halal:false,type:"Food Court",rating:3.9,price:"RM5–RM15",dist:"~500–600 m",hours:"7:30 AM – 1:00 AM",contact:"03-80909999",address:"Bandar Sunway",cuisine:"Mixed Hawker",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Available",img:"hawker",maps:"https://maps.app.goo.gl/H1onRbSc26vPzE1RA"}
+{name:"Rock Cafe Bandar Sunway",rec:true,halal:true,type:"Food Court",rating:4.0,price:"RM12–RM25",dist:"~1–2 km",hours:"Afternoon – night",contact:"Not stated",address:"Bandar Sunway",cuisine:"Western",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "RockCafeBandarSunway",maps:"https://maps.app.goo.gl/fBvku4LkZKyeRdK77"},
+{name:"Madam Kwan's Sunway Pyramid",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM15–RM30",dist:"~0–0.2 km",hours:"10:00 AM – 10:30 PM",contact:"03-56222397",address:"Sunway Pyramid",cuisine:"Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "MadamKwan",maps:"https://maps.app.goo.gl/hfTQfvC2NZuyauxW6"},
+{name:"BananaBro Sunway Pyramid",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~0–0.2 km",hours:"10:00 AM – 10:00 PM",contact:"Not stated",address:"Sunway Pyramid",cuisine:"Indian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "BananaBro",maps:"https://maps.app.goo.gl/99vLF8E1yUxdJ9WP8"},
+{name:"Khao Man Gai Pee Nong Restaurant",rec:true,halal:true,type:"Restaurant",rating:4.9,price:"RM6–RM12",dist:"~1–2 km",hours:"10:00 AM – 10:00 PM",contact:"012-7601664",address:"Bandar Sunway",cuisine:"Thai",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "KhaoManGaiPeeNongRestaurant",maps:"https://maps.app.goo.gl/5NV6NhtvsFouHyjK6"},
+{name:"NHF Organects Sunway Mentari",rec:true,halal:true,type:"Restaurant",rating:4.9,price:"RM15–RM25",dist:"~1–2 km",hours:"11:00 AM – 9:00 PM",contact:"018-4733721",address:"Bandar Sunway",cuisine:"Healthy",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "NHF_Organects",maps:"https://maps.app.goo.gl/NVpg6nXWwRLqz4XV7"},
+{name:"MZ Restoran Nasi Campur & Tomyam",rec:true,halal:true,type:"Restaurant",rating:4.1,price:"RM5–RM15",dist:"~300–500 m",hours:"7:30 AM – 1:00 AM (Closed Sat)",contact:"017-3368301",address:"Bandar Sunway",cuisine:"Malay",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Limited",img: "MZRestoran",maps:"https://maps.app.goo.gl/Z2XYzNTJnDpyxGtB8"},
+{name:"Restoran Maliki Nasi Kukus",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM7–RM15",dist:"~500–700 m",hours:"11:00 AM – 11:00 PM",contact:"011-39862354",address:"Bandar Sunway",cuisine:"Malay",avail:"Dine-in & takeaway · Delivery · Packed food: Yes",veg:"Limited",img: "RestoranMalikiNasiKukus",maps:"https://maps.app.goo.gl/PxpgL9iRyt85WbhS6"},
+{name:"Kopitiam Yang Yang",rec:true,halal:false,type:"Food Court",rating:3.9,price:"RM5–RM15",dist:"~500–600 m",hours:"7:30 AM – 1:00 AM",contact:"03-80909999",address:"Bandar Sunway",cuisine:"Mixed Hawker",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Available",img: "KopitiamYangYang",maps:"https://maps.app.goo.gl/H1onRbSc26vPzE1RA"}
 ],
 caterers:[
-{name:"GoClean Healthy Meal Delivery",halal:true,food:"Healthy Meal Prep",contact:"016-7543621",maps:"https://maps.app.goo.gl/tpkrPQ2kKsqzw7ML8",note:"Rating 4.8 · Min 1 pax weekday / 10 weekend · No deposit · Bento available · Custom bulk orders"},
-{name:"H&H Catering",halal:true,food:"Chinese",contact:"012-2392139",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Min 20 sets · RM14–19 · Delivery ~RM50 · Full payment"},
-{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10/50 pax · RM15–23 bento · Buffet from RM25"},
-{name:"iDO Catering",halal:true,food:"Western Asian Fusion",contact:"03-86053560",maps:"https://maps.app.goo.gl/7EebDvQzTNBxVGfDA",note:"Rating 4.9 · Commercial catering · Vegetarian: Limited"}
+{name:"GoClean Healthy Meal Delivery",halal:true,food:"Healthy Meal Prep",contact:"016-7543621",img: "GoCleanHealthy_MealDelivery", maps:"https://maps.app.goo.gl/tpkrPQ2kKsqzw7ML8",note:"Rating 4.8 · Min 1 pax weekday / 10 weekend · No deposit · Bento available · Custom bulk orders"},
+{name:"H&H Catering",halal:true,food:"Chinese",contact:"012-2392139", img: "H&H_Catering", maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Rating 4.5 · Min 20 sets · RM14–19 · Delivery ~RM50 · Full payment"},
+{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",img: "Teaffani_Catering",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10/50 pax · RM15–23 bento · Buffet from RM25"},
+{name:"iDO Catering",halal:true,food:"Western Asian Fusion",contact:"03-86053560",img: "iDO_Catering",maps:"https://maps.app.goo.gl/7EebDvQzTNBxVGfDA",note:"Rating 4.9 · Commercial catering · Vegetarian: Limited"}
 ]}, 
 
 {id:"beach_volleyball",sport:"Bola Tampar Pantai",icon:"🏐",venue:"Gelanggang Bola Tampar Pantai MBSA Seksyen 19",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0730,lng:101.5180,
 restaurants:[
-{name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"Seksyen 13, Shah Alam",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
-{name:"Mohd Chan Restaurant Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"Seksyen 15, Shah Alam",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
-{name:"BananaBro AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-2324030",address:"AEON Mall Shah Alam",cuisine:"Indian",avail:"Dine-in & takeaway",veg:"Yes",img:"indian",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
-{name:"Padi House Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"017-6768508",address:"Giant Shah Alam Stadium",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img:"western",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
-{name:"Djakarta Raya Restoran Ayam Bakar",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~1–2 km",hours:"10:30 AM – 10:30 PM",contact:"011-62226474",address:"Seksyen 13, Shah Alam",cuisine:"Indonesian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"indonesian",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"}
+{name:"Homst Shah Alam (Chinese Muslim Restaurant)",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"Seksyen 13, Shah Alam",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+{name:"Mohd Chan Restaurant Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"Seksyen 15, Shah Alam",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+{name:"BananaBro AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-2324030",address:"AEON Mall Shah Alam",cuisine:"Indian",avail:"Dine-in & takeaway",veg:"Yes",img: "BananaBro",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
+{name:"Padi House Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"017-6768508",address:"Giant Shah Alam Stadium",cuisine:"Western / Local Fusion",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Yes",img: "Padi_House",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
+{name:"Djakarta Raya Restoran Ayam Bakar",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~1–2 km",hours:"10:30 AM – 10:30 PM",contact:"011-62226474",address:"Seksyen 13, Shah Alam",cuisine:"Indonesian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "Djakarta_Raya_Restoran_Ayam_Bakar",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"}
 ],
 caterers:[
-{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10/50 pax · RM15–23 bento · Buffet from RM25 · Deposit RM2000"},
-{name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
-{name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min 30 pax · Delivery ~RM150 · 70% deposit"}
+{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",img: "Teaffani_Catering",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10/50 pax · RM15–23 bento · Buffet from RM25 · Deposit RM2000"},
+{name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",img: "Sajian_d-Hidang_Catering",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Event catering · Vegetarian: No (verify)"},
+{name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",img:"7th_Sense_Caterer", maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min 30 pax · Delivery ~RM150 · 70% deposit"}
 ]}, 
 
 {id:"fencing",sport:"Lawan Pedang",icon:"🤺",venue:"Dewan Pusat Sukan UiTM Shah Alam",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0735,lng:101.4990,
 restaurants:[
-{name:"Mohd Chan Restaurant Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"Seksyen 15, Shah Alam",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
-{name:"Arabesq Restaurant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.9,price:"RM20–RM40",dist:"~5–8 min drive",hours:"11:00 AM – 11:30 PM",contact:"011-11102020",address:"Seksyen 7, Shah Alam",cuisine:"Middle Eastern",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"middleeastern",maps:"https://maps.app.goo.gl/ZNaASKnMtyoTRmgF9"},
-{name:"Pak Li Kopitiam Shah Alam 7",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM10–RM25",dist:"~5–8 min drive",hours:"9:00 AM – 11:00 PM",contact:"03-55113608",address:"Seksyen 7, Shah Alam",cuisine:"Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/xEivuRRGf4kXnTGF7"}
+{name:"Mohd Chan Restaurant Shah Alam Seksyen 15",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"Seksyen 15, Shah Alam",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"MohdChan",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+{name:"Arabesq Restaurant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.9,price:"RM20–RM40",dist:"~5–8 min drive",hours:"11:00 AM – 11:30 PM",contact:"011-11102020",address:"Seksyen 7, Shah Alam",cuisine:"Middle Eastern",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",  img: "Arabesq_Restaurant",maps:"https://maps.app.goo.gl/ZNaASKnMtyoTRmgF9"},
+{name:"Pak Li Kopitiam Shah Alam 7",rec:true,halal:true,type:"Restaurant",rating:4.4,price:"RM10–RM25",dist:"~5–8 min drive",hours:"9:00 AM – 11:00 PM",contact:"03-55113608",address:"Seksyen 7, Shah Alam",cuisine:"Malaysian",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "Pak_Li_Kopitiam",maps:"https://maps.app.goo.gl/xEivuRRGf4kXnTGF7"}
 ],
 caterers:[
-{name:"RunningMen Catering",halal:true,food:"Malay / Western",contact:"018-9664913",maps:"https://maps.app.goo.gl/eq7FT5bMRnEUVkwr8",note:"Rating 4.8 · Bulk catering · Bento & buffet · Custom pricing"},
-{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10/50 pax · RM15–23 bento · Buffet from RM25"},
-{name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Min 100 pax · 50% deposit"},
-{name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min 30 pax · Delivery ~RM150 · 70% deposit"}
+{name:"RunningMen Catering",halal:true,food:"Malay / Western",contact:"018-9664913",img: "RunningMen_Catering",maps:"https://maps.app.goo.gl/eq7FT5bMRnEUVkwr8",note:"Rating 4.8 · Bulk catering · Bento & buffet · Custom pricing"},
+{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",img: "Teaffani_Catering",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Rating 4.8 · Min 10/50 pax · RM15–23 bento · Buffet from RM25"},
+{name:"Sajian d-Hidang Catering",halal:true,food:"Malay",contact:"60199897273",img: "Sajian_d-Hidang_Catering",maps:"https://maps.app.goo.gl/jA62BNeeosBfwvhDA",note:"Rating 4.6 · Min 100 pax · 50% deposit"},
+{name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033", img:"7th_Sense_Caterer", maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min 30 pax · Delivery ~RM150 · 70% deposit"}
 ]}, 
 
 {id:"shooting",sport:"Menembak",icon:"🎯",venue:"Lapang Sasar Negara Subang",addr:"Subang, Selangor",area:"subang",lat:3.1400,lng:101.5560,
 restaurants:[
-{name:"NHF Organects NU Empire Subang",rec:true,halal:true,type:"Restaurant",rating:4.9,price:"RM20–RM40",dist:"~2–3 km",hours:"11:00 AM – 9:00 PM",contact:"011-23485525",address:"NU Empire Subang",cuisine:"Healthy",avail:"Dine-in & takeaway",veg:"Yes",img:"healthy",maps:"https://maps.app.goo.gl/N2dXutNChRCW1Q8f8"},
-{name:"Le Food Subang SS18",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM20–RM40",dist:"~3 km",hours:"10:00 AM – 9:30 PM",contact:"012-2267391",address:"SS18 Subang",cuisine:"Healthy Cafe",avail:"Dine-in & delivery",veg:"Yes",img:"healthy",maps:"https://maps.app.goo.gl/YELgRuVeqQiVzr3B9"},
-{name:"Organic Vegetarian Fresh Mart & Restaurant",rec:false,halal:true,type:"Restaurant",rating:4.3,price:"RM10–RM20",dist:"~3 km",hours:"10:00 AM – 9:30 PM (Closed Thu)",contact:"012-9763923",address:"SS18 Subang",cuisine:"Vegetarian",avail:"Dine-in & takeaway & delivery",veg:"Yes",img:"vegetarian",maps:"https://maps.app.goo.gl/d46Mz2cvyXbKHoxq9"},
-{name:"Dapor Berasap",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~4.9 km",hours:"11:00 AM – 6:00 PM",contact:"013-2470996",address:"Subang",cuisine:"Malay",avail:"Dine-in & delivery",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/1BW7iZC1XmHvPAsTA"},
-{name:"Kedai Nasi Papa",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~6.8 km",hours:"10:00 AM – 4:00 PM",contact:"018-2527989",address:"Subang",cuisine:"Malay",avail:"Dine-in & takeaway & delivery",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/LwEamQm1zUtgwfzG6"}
+{name:"NHF Organects NU Empire Subang",rec:true,halal:true,type:"Restaurant",rating:4.9,price:"RM20–RM40",dist:"~2–3 km",hours:"11:00 AM – 9:00 PM",contact:"011-23485525",address:"NU Empire Subang",cuisine:"Healthy",avail:"Dine-in & takeaway",veg:"Yes",img: "NHF_Organects",maps:"https://maps.app.goo.gl/N2dXutNChRCW1Q8f8"},
+{name:"Le Food Subang SS18",rec:false,halal:true,type:"Restaurant",rating:4.0,price:"RM20–RM40",dist:"~3 km",hours:"10:00 AM – 9:30 PM",contact:"012-2267391",address:"SS18 Subang",cuisine:"Healthy Cafe",avail:"Dine-in & delivery",veg:"Yes",img: "LeFood",maps:"https://maps.app.goo.gl/YELgRuVeqQiVzr3B9"},
+{name:"Organic Vegetarian Fresh Mart & Restaurant",rec:false,halal:true,type:"Restaurant",rating:4.3,price:"RM10–RM20",dist:"~3 km",hours:"10:00 AM – 9:30 PM (Closed Thu)",contact:"012-9763923",address:"SS18 Subang",cuisine:"Vegetarian",avail:"Dine-in & takeaway & delivery",veg:"Yes",img: "Organic_Vegetarian",maps:"https://maps.app.goo.gl/d46Mz2cvyXbKHoxq9"},
+{name:"Dapor Berasap",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~4.9 km",hours:"11:00 AM – 6:00 PM",contact:"013-2470996",address:"Subang",cuisine:"Malay",avail:"Dine-in & delivery",veg:"Limited",img: "Dapor_Berasap",maps:"https://maps.app.goo.gl/1BW7iZC1XmHvPAsTA"},
+{name:"Kedai Nasi Papa",rec:false,halal:true,type:"Restaurant",rating:4.4,price:"RM1–RM20",dist:"~6.8 km",hours:"10:00 AM – 4:00 PM",contact:"018-2527989",address:"Subang",cuisine:"Malay",avail:"Dine-in & takeaway & delivery",veg:"Limited", img: "Kedai_Nasi_Papa",maps:"https://maps.app.goo.gl/LwEamQm1zUtgwfzG6"}
 ],
 caterers:[
-{name:"RunningMen Catering",halal:true,food:"Malay / Western",contact:"018-9664913",maps:"https://maps.google.com/?q=RunningMen+Catering",note:"Min 20 pax · Bento from RM18.9 · Buffet from RM32"},
-{name:"H&H Catering",halal:true,food:"Chinese",contact:"012-2392139",maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Recommended · Min 20 sets · RM14–19 · Delivery ~RM50"},
-{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Min 10/50 pax · RM15–23 bento"},
-{name:"Venturas Catering",halal:true,food:"Indian / Western / Malay",contact:"019-7167992",maps:"https://maps.app.goo.gl/P99Z5PoKS8X9wQYN8",note:"Min 30 pax · Delivery RM30–50 · 70% deposit"},
-{name:"GoClean Healthy Meal Delivery",halal:true,food:"Healthy Meal Prep",contact:"016-7543621",maps:"https://maps.app.goo.gl/tpkrPQ2kKsqzw7ML8",note:"Recommended · Flexible pax · No deposit · Bento available"}
+{name:"RunningMen Catering",halal:true,food:"Malay / Western",contact:"018-9664913",img: "RunningMen_Catering",maps:"https://maps.google.com/?q=RunningMen+Catering",note:"Min 20 pax · Bento from RM18.9 · Buffet from RM32"},
+{name:"H&H Catering",halal:true,food:"Chinese",contact:"012-2392139",img: "H&H_Catering", maps:"https://maps.app.goo.gl/3Rhp3n2GPoiSYDWy8",note:"Recommended · Min 20 sets · RM14–19 · Delivery ~RM50"},
+{name:"Teaffani Catering",halal:true,food:"Western / Fusion",contact:"010-2312860",img: "Teaffani_Catering",maps:"https://maps.google.com/?q=Teaffani+Catering",note:"Min 10/50 pax · RM15–23 bento"},
+{name:"Venturas Catering",halal:true,food:"Indian / Western / Malay",contact:"019-7167992",img: "Venturas_Catering",maps:"https://maps.app.goo.gl/P99Z5PoKS8X9wQYN8",note:"Min 30 pax · Delivery RM30–50 · 70% deposit"},
+{name:"GoClean Healthy Meal Delivery",halal:true,food:"Healthy Meal Prep",contact:"016-7543621",img: "GoCleanHealthy_MealDelivery", maps:"https://maps.app.goo.gl/tpkrPQ2kKsqzw7ML8",note:"Recommended · Flexible pax · No deposit · Bento available"}
 ]}, 
 
 {id:"silat",sport:"Pencak Silat",icon:"🥋",venue:"Dewan Seri Sarjana UNITEN",addr:"Kajang, Selangor",area:"kajang",lat:2.9760,lng:101.7290,
 restaurants:[
-{name:"Restoran D’ Limau Nipis Bangi",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"~6–7 km",hours:"7:00 AM – 4:30 PM",contact:"012-3732160",address:"Bandar Baru Bangi",cuisine:"Malay",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img:"local",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
-{name:"Mohd Chan Restaurant Bangi",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"~5–6 km",hours:"11:30 AM – 11:00 PM",contact:"016-6582369",address:"Bangi",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/Y98bF2cJikYNL1oF7"},
-{name:"Nasi Kandar Kelasik Signature",rec:false,halal:true,type:"Restaurant",rating:4.6,price:"RM1–RM20",dist:"~1.9 km",hours:"24 hours",contact:"019-2302338",address:"Kajang",cuisine:"Mamak",avail:"Dine-in & takeaway",veg:"Limited",img:"mamak",maps:"https://maps.app.goo.gl/o5qENUirFLG7D11h8"},
-{name:"One Bistro Nasi Kandar Garden",rec:false,halal:true,type:"Restaurant",rating:3.5,price:"RM1–RM20",dist:"~1.7 km",hours:"24 hours",contact:"03-86874909",address:"IOI Conezion",cuisine:"Mamak",avail:"Dine-in & takeaway",veg:"Limited",img:"mamak",maps:"https://maps.app.goo.gl/LwogmE6TxEi8xDju7"},
-{name:"Restoran Nasi Kandar Penang Sentral",rec:false,halal:true,type:"Restaurant",rating:3.5,price:"RM1–RM20",dist:"~2.1 km",hours:"24 hours (Closed Wed)",contact:"03-89260786",address:"De Centrum",cuisine:"Mamak",avail:"Dine-in & takeaway",veg:"Limited",img:"mamak",maps:"https://maps.app.goo.gl/zNF6Gn9tY1HcGmGR6"}
+{name:"Restoran D’ Limau Nipis Bangi",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM8–RM25",dist:"~6–7 km",hours:"7:00 AM – 4:30 PM",contact:"012-3732160",address:"Bandar Baru Bangi",cuisine:"Malay",avail:"Dine-in & takeaway · Packed food: Yes",veg:"Limited",img: "DLimau",maps:"https://maps.app.goo.gl/ZDNCEfuB9c7Ti2L18"},
+{name:"Mohd Chan Restaurant Bangi",rec:true,halal:true,type:"Restaurant",rating:4.8,price:"RM12–RM25",dist:"~5–6 km",hours:"11:30 AM – 11:00 PM",contact:"016-6582369",address:"Bangi",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/Y98bF2cJikYNL1oF7"},
+{name:"Nasi Kandar Kelasik Signature",rec:false,halal:true,type:"Restaurant",rating:4.6,price:"RM1–RM20",dist:"~1.9 km",hours:"24 hours",contact:"019-2302338",address:"Kajang",cuisine:"Mamak",avail:"Dine-in & takeaway",veg:"Limited",img: "NasiKandarKelasikSignature",maps:"https://maps.app.goo.gl/o5qENUirFLG7D11h8"},
+{name:"One Bistro Nasi Kandar Garden",rec:false,halal:true,type:"Restaurant",rating:3.5,price:"RM1–RM20",dist:"~1.7 km",hours:"24 hours",contact:"03-86874909",address:"IOI Conezion",cuisine:"Mamak",avail:"Dine-in & takeaway",veg:"Limited",img: "OneBistroNasiKandar",maps:"https://maps.app.goo.gl/LwogmE6TxEi8xDju7"},
+
 ],
 caterers:[
-{name:"MZ Catering",halal:true,food:"Malay",contact:"014-3180070",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event catering"},
-{name:"MH Catering",halal:true,food:"Malay",contact:"019-2293316",maps:"https://maps.app.goo.gl/BDoNDpUEZxSsABbSA",note:"Rating 4.3 · Event catering"},
-{name:"Lepika Caterers",halal:true,food:"Indian",contact:"03-87409797",maps:"https://maps.app.goo.gl/NFcVrVgF7FP8vCsi8",note:"Rating 4.7"},
-{name:"Arbe Catering",halal:true,food:"Malay",contact:"019-2801654",maps:"https://maps.app.goo.gl/BBjZc6X9PQukEmhf7",note:"Min 100 pax · From RM17/pax"},
-{name:"Restoran Farhanah Catering",halal:true,food:"Malay",contact:"016-4023001",maps:"https://maps.app.goo.gl/chkQFFDXjwBf2Ng99",note:"Min 30–50 pax · Delivery RM5/km · 50% deposit"}
+{name:"MZ Catering",halal:true,food:"Malay",contact:"014-3180070",img: "MZ_Catering",maps:"https://maps.app.goo.gl/6adyFjUnVzep5wao6",note:"Rating 4.4 · Event catering"},
+{name:"MH Catering",halal:true,food:"Malay",contact:"019-2293316",img: "MH_Catering", maps:"https://maps.app.goo.gl/BDoNDpUEZxSsABbSA",note:"Rating 4.3 · Event catering"},
+{name:"Lepika Caterers",halal:true,food:"Indian",contact:"03-87409797",img: "Lepika_Caterers", maps:"https://maps.app.goo.gl/NFcVrVgF7FP8vCsi8",note:"Rating 4.7"},
+{name:"Arbe Catering",halal:true,food:"Malay",contact:"019-2801654", img: "Arbe_Catering", maps:"https://maps.app.goo.gl/BBjZc6X9PQukEmhf7",note:"Min 100 pax · From RM17/pax"},
+{name:"Restoran Farhanah Catering",halal:true,food:"Malay",contact:"016-4023001",img: "Restoran_Farhanah_Catering_Taman_Univers",maps:"https://maps.app.goo.gl/chkQFFDXjwBf2Ng99",note:"Min 30–50 pax · Delivery RM5/km · 50% deposit"}
 ]}, 
 
 {id:"karate",sport:"Karate",icon:"🥋",venue:"IDEAL Convention Centre Shah Alam",addr:"Shah Alam, Selangor",area:"shah alam",lat:3.0733,lng:101.5185,
 restaurants:[
-{name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM",contact:"Not stated",address:"Shah Alam",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
-{name:"Restoran New Tin Mui Young",rec:true,halal:false,type:"Restaurant",rating:3.7,price:"RM1–RM20",dist:"~3 km",hours:"9:00 AM – 3:00 PM, 5:30 PM – 8:00 PM",contact:"03-55192848",address:"Shah Alam",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"dimsum",maps:"https://maps.app.goo.gl/yt1YG66BLnKvAegFA"},
-{name:"Yuen Heong Restaurant",rec:true,halal:false,type:"Restaurant",rating:3.9,price:"RM1–RM20",dist:"~2.9 km",hours:"6:30 AM – 2:45 PM, 6:00 PM – 8:00 PM",contact:"03-55191153",address:"Shah Alam",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"chinese",maps:"https://maps.app.goo.gl/5ZLFw5kug9SRo2HL8"},
-{name:"Homst Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"Seksyen 13",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
-{name:"Mohd Chan Restaurant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"Seksyen 15",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img:"chinese",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
-{name:"BananaBro AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-2324030",address:"AEON Shah Alam",cuisine:"Indian",avail:"Dine-in & takeaway",veg:"Yes",img:"indian",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
-{name:"Padi House Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"017-6768508",address:"Giant Shah Alam",cuisine:"Western / Local",avail:"Dine-in & takeaway",veg:"Yes",img:"western",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
-{name:"Djakarta Raya Restoran Ayam Bakar",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~1–2 km",hours:"10:30 AM – 10:30 PM",contact:"011-62226474",address:"Seksyen 13",cuisine:"Indonesian",avail:"Dine-in & takeaway",veg:"Limited",img:"indonesian",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"}
+{name:"Restoran Nan Hong",rec:true,halal:false,type:"Restaurant",rating:3.1,price:"RM1–RM20",dist:"~5 km",hours:"8:00 AM – 8:00 PM",contact:"Not stated",address:"Shah Alam",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "RestoranNanHong",maps:"https://maps.app.goo.gl/pXW4HPs9HG7vHz8B8"},
+{name:"Restoran New Tin Mui Young",rec:true,halal:false,type:"Restaurant",rating:3.7,price:"RM1–RM20",dist:"~3 km",hours:"9:00 AM – 3:00 PM, 5:30 PM – 8:00 PM",contact:"03-55192848",address:"Shah Alam",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img:"Restoran_New_TinMuiYoung",maps:"https://maps.app.goo.gl/yt1YG66BLnKvAegFA"},
+{name:"Yuen Heong Restaurant",rec:true,halal:false,type:"Restaurant",rating:3.9,price:"RM1–RM20",dist:"~2.9 km",hours:"6:30 AM – 2:45 PM, 6:00 PM – 8:00 PM",contact:"03-55191153",address:"Shah Alam",cuisine:"Chinese",avail:"Dine-in & takeaway",veg:"Limited",img: "YuenHeongRestaurant",maps:"https://maps.app.goo.gl/5ZLFw5kug9SRo2HL8"},
+{name:"Homst Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.2,price:"RM12–RM20",dist:"~1 km",hours:"11:00 AM – 10:30 PM",contact:"012-5700261",address:"Seksyen 13",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "Homst_Setia_Alam",maps:"https://maps.app.goo.gl/Jwp8bgkCTKzTycpQ7"},
+{name:"Mohd Chan Restaurant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.7,price:"RM12–RM25",dist:"~2–3 km",hours:"11:30 AM – 11:00 PM",contact:"016-9580630",address:"Seksyen 15",cuisine:"Chinese Muslim",avail:"Dine-in & takeaway",veg:"Yes",img: "MohdChan",maps:"https://maps.app.goo.gl/oBPXDT4N9vULAyK17"},
+{name:"BananaBro AEON Shah Alam",rec:false,halal:true,type:"Restaurant",rating:4.5,price:"RM10–RM18",dist:"~1 km",hours:"10:00 AM – 10:00 PM",contact:"012-2324030",address:"AEON Shah Alam",cuisine:"Indian",avail:"Dine-in & takeaway",veg:"Yes",img: "BananaBro_AEON_ShahAlam",maps:"https://maps.app.goo.gl/q6XxmztRKpg3BD3Q8"},
+{name:"Padi House Giant Shah Alam",rec:true,halal:true,type:"Restaurant",rating:4.6,price:"RM15–RM30",dist:"~0.5–1 km",hours:"10:00 AM – 10:00 PM",contact:"017-6768508",address:"Giant Shah Alam",cuisine:"Western / Local",avail:"Dine-in & takeaway",veg:"Yes",img: "Padi_House",maps:"https://maps.app.goo.gl/4MMzd6fdnofzmnCQ7"},
+{name:"Djakarta Raya Restoran Ayam Bakar",rec:false,halal:true,type:"Restaurant",rating:4.7,price:"RM10–RM20",dist:"~1–2 km",hours:"10:30 AM – 10:30 PM",contact:"011-62226474",address:"Seksyen 13",cuisine:"Indonesian",avail:"Dine-in & takeaway",veg:"Limited",img: "Djakarta_Raya_Restoran_Ayam_Bakar",maps:"https://maps.app.goo.gl/fzVi589dx5mQZrcN8"}
 ],
 caterers:[
-{name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033",maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min 30 pax · Delivery ~RM150"}
+{name:"7th Sense Caterer",halal:true,food:"Malay / Western",contact:"60128431033", img:"7th_Sense_Caterer", maps:"https://maps.app.goo.gl/EGPNp2HUAGUev8Pj9",note:"Recommended · Min 30 pax · Delivery ~RM150"}
 ]}, 
 
 
@@ -942,7 +975,8 @@ function renderRestList(rests){
       <div class="rc-img-wrap">
         ${imgHtml}
         <span class="rc-htag ${r.halal?'h':'nh'}">${r.halal?'Halal':'Non-Halal'}</span>
-        <span class="rc-rtag">${r.type}</span>
+        <span class="rc-rtag">$
+          {r.type}</span>
         ${r.rec?'<span class="rc-rec">✅ Recommended!</span>':''}
       </div>
       <div class="rc-body">
